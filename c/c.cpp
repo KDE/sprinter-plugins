@@ -17,7 +17,10 @@ void RunnerCMatcher::match()
         QList<QueryMatch> matches;
         //FIXME: if the runner is deleted?
         QueryMatch match(m_runner);
+        match.setTitle("Plasma");
         match.setText("Sucks");
+        match.setPrecision(QueryMatch::ExactMatch);
+        match.setType(QueryMatch::InformationalType);
         matches << match;
         addMatches(matches);
     }
