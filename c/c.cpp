@@ -27,7 +27,6 @@ void RunnerC::match(RunnerSessionData *sessionData, RunnerContext &context)
     if (context.query() == "plasma") {
         qDebug() << "Session data: " << (session ? session->data : "----") << "; query: " << context.query();
         QVector<QueryMatch> matches;
-        //FIXME: if the runner is deleted?
         QueryMatch match(this);
         match.setTitle("Plasma");
         match.setText("Sucks");
