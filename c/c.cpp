@@ -3,6 +3,11 @@
 
 #include <QDebug>
 
+RunnerCSessionData::RunnerCSessionData(AbstractRunner *runner)
+    : RunnerSessionData(runner)
+{
+}
+
 RunnerC::RunnerC(QObject *parent)
     : AbstractRunner(parent)
 {
@@ -10,7 +15,7 @@ RunnerC::RunnerC(QObject *parent)
 
 RunnerSessionData *RunnerC::createSessionData()
 {
-    RunnerCSessionData *session = new RunnerCSessionData;
+    RunnerCSessionData *session = new RunnerCSessionData(this);
     session->data = "Testing";
     return session;
 }
@@ -21,7 +26,7 @@ void RunnerC::match(RunnerSessionData *sessionData, RunnerContext &context)
     qDebug() << "Matching ... " << context.query();
     if (context.query() == "plasma") {
         qDebug() << "Session data: " << (session ? session->data : "----") << "; query: " << context.query();
-        QList<QueryMatch> matches;
+        QVector<QueryMatch> matches;
         //FIXME: if the runner is deleted?
         QueryMatch match(this);
         match.setTitle("Plasma");
@@ -29,7 +34,7 @@ void RunnerC::match(RunnerSessionData *sessionData, RunnerContext &context)
         match.setPrecision(QueryMatch::ExactMatch);
         match.setType(QueryMatch::InformationalType);
         matches << match;
-        context.addMatches(matches);
+        sessionData->addMatches(matches);
     }
 }
 

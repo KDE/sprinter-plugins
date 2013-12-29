@@ -7,6 +7,7 @@
 class RunnerCSessionData : public RunnerSessionData
 {
 public:
+    RunnerCSessionData(AbstractRunner *runner);
     QString data;
 };
 
