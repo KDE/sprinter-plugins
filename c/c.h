@@ -18,13 +18,13 @@ public:
     RunnerC(QObject *parent = 0);
 
     RunnerSessionData *createSessionData();
-    RunnableMatch *createMatcher(RunnerSessionData *sessionData, RunnerContext &context);
+    RunnableMatch *createMatcher(RunnerSessionData *sessionData);
 };
 
 class RunnerCMatcher : public RunnableMatch
 {
 public:
-    RunnerCMatcher(RunnerC *runner, RunnerSessionData *sessionData, const RunnerContext &context);
+    RunnerCMatcher(RunnerC *runner, RunnerSessionData *sessionData);
     void match();
 
 private:

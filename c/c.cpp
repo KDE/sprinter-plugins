@@ -3,8 +3,8 @@
 
 #include <QDebug>
 
-RunnerCMatcher::RunnerCMatcher(RunnerC *runner, RunnerSessionData *sessionData, const RunnerContext &context)
-    : RunnableMatch(sessionData, context)
+RunnerCMatcher::RunnerCMatcher(RunnerC *runner, RunnerSessionData *sessionData)
+    : RunnableMatch(sessionData)
 {
 }
 
@@ -12,8 +12,8 @@ void RunnerCMatcher::match()
 {
     RunnerCSessionData *session = static_cast<RunnerCSessionData *>(sessionData());
 
-    if (query() == "plasma") {
-        qDebug() << "Session data: " << (session ? session->data : "----") << "; query: " << query();
+    if (context().query() == "plasma") {
+        qDebug() << "Session data: " << (session ? session->data : "----") << "; query: " << context().query();
         QList<QueryMatch> matches;
         //FIXME: if the runner is deleted?
         QueryMatch match(m_runner);
@@ -22,7 +22,7 @@ void RunnerCMatcher::match()
         match.setPrecision(QueryMatch::ExactMatch);
         match.setType(QueryMatch::InformationalType);
         matches << match;
-        addMatches(matches);
+        context().addMatches(matches);
     }
 }
 
@@ -39,9 +39,9 @@ RunnerSessionData *RunnerC::createSessionData()
     return session;
 }
 
-RunnableMatch *RunnerC::createMatcher(RunnerSessionData *sessionData, RunnerContext &context)
+RunnableMatch *RunnerC::createMatcher(RunnerSessionData *sessionData)
 {
-    RunnerCMatcher *matcher = new RunnerCMatcher(this, sessionData, context);
+    RunnerCMatcher *matcher = new RunnerCMatcher(this, sessionData);
     return matcher;
 }
 

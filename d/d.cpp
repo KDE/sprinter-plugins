@@ -14,7 +14,7 @@ RunnerSessionData *RunnerD::createSessionData()
     return 0;
 }
 
-RunnableMatch *RunnerD::createMatcher(RunnerSessionData *sessionData, RunnerContext &context)
+RunnableMatch *RunnerD::createMatcher(RunnerSessionData *sessionData)
 {
     return 0;
 }

@@ -8,7 +8,7 @@ RunnerB::RunnerB(QObject *parent)
 {
 }
 
-RunnableMatch *RunnerB::createMatcher(RunnerSessionData *sessionData, RunnerContext &context)
+RunnableMatch *RunnerB::createMatcher(RunnerSessionData *sessionData)
 {
     return 0;
 }

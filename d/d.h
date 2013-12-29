@@ -11,7 +11,7 @@ public:
     RunnerD(QObject *parent = 0);
 
     RunnerSessionData *createSessionData();
-    RunnableMatch *createMatcher(RunnerSessionData *sessionData, RunnerContext &context);
+    RunnableMatch *createMatcher(RunnerSessionData *sessionData);
 };
 
 #endif
