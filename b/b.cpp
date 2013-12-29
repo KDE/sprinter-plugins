@@ -8,11 +8,6 @@ RunnerB::RunnerB(QObject *parent)
 {
 }
 
-RunnableMatch *RunnerB::createMatcher(RunnerSessionData *sessionData)
-{
-    return 0;
-}
-
 #include "b.moc"
 
 

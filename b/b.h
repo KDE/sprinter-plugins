@@ -11,7 +11,6 @@ class RunnerB : public AbstractRunner
 
 public:
     RunnerB(QObject *parent = 0);
-    RunnableMatch *createMatcher(RunnerSessionData *sessionData);
 };
 
 #endif

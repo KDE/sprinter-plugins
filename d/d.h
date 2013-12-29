@@ -9,9 +9,6 @@ class RunnerD : public AbstractRunner
 
 public:
     RunnerD(QObject *parent = 0);
-
-    RunnerSessionData *createSessionData();
-    RunnableMatch *createMatcher(RunnerSessionData *sessionData);
 };
 
 #endif

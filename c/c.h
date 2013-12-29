@@ -18,17 +18,7 @@ public:
     RunnerC(QObject *parent = 0);
 
     RunnerSessionData *createSessionData();
-    RunnableMatch *createMatcher(RunnerSessionData *sessionData);
-};
-
-class RunnerCMatcher : public RunnableMatch
-{
-public:
-    RunnerCMatcher(RunnerC *runner, RunnerSessionData *sessionData);
-    void match();
-
-private:
-    RunnerC *m_runner;
+    void match(RunnerSessionData *sessionData, RunnerContext &context);
 };
 
 #endif
