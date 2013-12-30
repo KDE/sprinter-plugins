@@ -23,13 +23,11 @@ RunnerSessionData *RunnerC::createSessionData()
 void RunnerC::match(RunnerSessionData *sessionData, RunnerContext &context)
 {
     RunnerCSessionData *session = dynamic_cast<RunnerCSessionData *>(sessionData);
-    qDebug() << "Matching ... " << context.query();
     if (context.query() == "plasma") {
-        qDebug() << "Session data: " << (session ? session->data : "----") << "; query: " << context.query();
         QVector<QueryMatch> matches;
         QueryMatch match(this);
         match.setTitle("Plasma");
-        match.setText("Sucks");
+        match.setText("Rocks");
         match.setPrecision(QueryMatch::ExactMatch);
         match.setType(QueryMatch::InformationalType);
         matches << match;
