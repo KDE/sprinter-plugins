@@ -37,6 +37,4 @@ void RunnerC::match(RunnerSessionData *sessionData, RunnerContext &context)
     }
 }
 
-#include "c.moc"
-
-
+#include "moc_c.cpp"

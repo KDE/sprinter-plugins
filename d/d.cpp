@@ -9,6 +9,4 @@ RunnerD::RunnerD(QObject *parent)
 
 }
 
-#include "d.moc"
-
-
+#include "moc_d.cpp"

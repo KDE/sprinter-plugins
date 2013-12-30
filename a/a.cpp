@@ -10,6 +10,4 @@ RunnerA::RunnerA(QObject *parent)
     //sleep(2);
 }
 
-#include "a.moc"
-
-
+#include "moc_a.cpp"

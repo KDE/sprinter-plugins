@@ -1,7 +1,6 @@
 #ifndef RUNNER_A
 #define RUNNER_A
 
-
 #include "abstractrunner.h"
 
 class RunnerA : public AbstractRunner

@@ -8,6 +8,4 @@ RunnerB::RunnerB(QObject *parent)
 {
 }
 
-#include "b.moc"
-
-
+#include "moc_b.cpp"
