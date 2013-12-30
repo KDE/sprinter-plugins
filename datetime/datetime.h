@@ -20,6 +20,13 @@ public:
     DateTimeRunner(QObject *parent = 0);
     RunnerSessionData *createSessionData();
     void match(RunnerSessionData *sessionData, RunnerContext &context);
+
+private:
+    QDateTime datetime(const QString &term, bool date, QString &tzName);
+    void addMatch(const QString &title, const QString &clipboard, RunnerSessionData *sessionData);
+    void populateTzList();
+
+    QHash<QString, QByteArray> m_tzList;
 };
 
 #endif
