@@ -1,5 +1,5 @@
 
-#include "a.h"
+#include "datetime.h"
 
 #include <QDebug>
 #include <QLocale>
@@ -68,4 +68,4 @@ void DateTimeRunner::match(RunnerSessionData *sessionData, RunnerContext &contex
     sessionData->addMatches(matches);
 }
 
-#include "moc_a.cpp"
+#include "moc_datetime.cpp"
