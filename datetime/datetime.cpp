@@ -39,7 +39,7 @@ RunnerSessionData *DateTimeRunner::createSessionData()
     return new DateTimeRunnerSessionData(this);
 }
 
-void DateTimeRunner::addMatch(const QString &title, const QString &clipboardText, RunnerSessionData *sessionData)
+void DateTimeRunner::addMatch(const QString &title, const QString &clipboardText, RunnerSessionData *sessionData, const RunnerContext &context)
 {
     QueryMatch match(this);
     match.setTitle(title);
@@ -50,7 +50,7 @@ void DateTimeRunner::addMatch(const QString &title, const QString &clipboardText
 
     QVector<QueryMatch> matches;
     matches << match;
-    sessionData->addMatches(matches);
+    sessionData->setMatches(matches, context);
 }
 
 void DateTimeRunner::populateTzList()
@@ -60,7 +60,8 @@ void DateTimeRunner::populateTzList()
 //     qDebug() << "POPULATING!";
     foreach (const QByteArray &tzId, QTimeZone::availableTimeZoneIds()) {
         qDebug() << tzId;
-        m_tzList.insert(tzId, tzId);
+        QString searchableTz(tzId);
+        m_tzList.insert(searchableTz.replace('_', ' '), tzId);
         QTimeZone tz(tzId);
 
         abbrev = tz.abbreviation(dt);
@@ -112,7 +113,7 @@ QDateTime DateTimeRunner::datetime(const QString &term, bool date, QString &tzNa
     return dt;
 }
 
-void DateTimeRunner::match(RunnerSessionData *sessionData, RunnerContext &context)
+void DateTimeRunner::match(RunnerSessionData *sessionData, const RunnerContext &context)
 {
     DateTimeRunnerSessionData *sd = dynamic_cast<DateTimeRunnerSessionData *>(sessionData);
     if (!sd) {
@@ -124,23 +125,23 @@ void DateTimeRunner::match(RunnerSessionData *sessionData, RunnerContext &contex
 //     qDebug() << "checking" << term;
     if (term.compare(dateWord, Qt::CaseInsensitive) == 0) {
         const QString date = QDateTime::currentDateTime().toString(Qt::SystemLocaleShortDate);
-        addMatch(date, date, sd);
+        addMatch(date, date, sd, context);
     } else if (term.startsWith(dateWord + QLatin1Char( ' ' ), Qt::CaseInsensitive)) {
         QString tzName;
         QDateTime dt = datetime(term, true, tzName);
         if (dt.isValid()) {
             const QString date = dt.date().toString(Qt::SystemLocaleShortDate);
-            addMatch(QString("%2 (%1)").arg(tzName, date), date, sd);
+            addMatch(QString("%2 (%1)").arg(tzName, date), date, sd, context);
         }
     } else if (term.compare(timeWord, Qt::CaseInsensitive) == 0) {
         const QString time = QTime::currentTime().toString(Qt::SystemLocaleShortDate);
-        addMatch(time, time, sd);
+        addMatch(time, time, sd, context);
     } else if (term.startsWith(timeWord + QLatin1Char( ' ' ), Qt::CaseInsensitive)) {
         QString tzName;
         QDateTime dt = datetime(term, false, tzName);
         if (dt.isValid()) {
             const QString time = dt.time().toString(Qt::SystemLocaleShortDate);
-            addMatch(QString("%2 (%1)").arg(tzName, time), time, sd);
+            addMatch(QString("%2 (%1)").arg(tzName, time), time, sd, context);
         }
     }
 }

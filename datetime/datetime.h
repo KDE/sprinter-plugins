@@ -36,11 +36,11 @@ class DateTimeRunner : public AbstractRunner
 public:
     DateTimeRunner(QObject *parent = 0);
     RunnerSessionData *createSessionData();
-    void match(RunnerSessionData *sessionData, RunnerContext &context);
+    void match(RunnerSessionData *sessionData, const RunnerContext &context);
 
 private:
     QDateTime datetime(const QString &term, bool date, QString &tzName);
-    void addMatch(const QString &title, const QString &clipboard, RunnerSessionData *sessionData);
+    void addMatch(const QString &title, const QString &clipboard, RunnerSessionData *sessionData, const RunnerContext &context);
     void populateTzList();
 
     QHash<QString, QByteArray> m_tzList;
