@@ -36,7 +36,7 @@ RunnerSessionData *RunnerC::createSessionData()
     return session;
 }
 
-void RunnerC::match(RunnerSessionData *sessionData, RunnerContext &context)
+void RunnerC::match(RunnerSessionData *sessionData, const RunnerContext &context)
 {
     RunnerCSessionData *session = dynamic_cast<RunnerCSessionData *>(sessionData);
     if (context.query() == "plasma") {
@@ -47,7 +47,7 @@ void RunnerC::match(RunnerSessionData *sessionData, RunnerContext &context)
         match.setPrecision(QueryMatch::ExactMatch);
         match.setType(QueryMatch::InformationalType);
         matches << match;
-        sessionData->addMatches(matches);
+        sessionData->setMatches(matches, context);
     }
 }
 
