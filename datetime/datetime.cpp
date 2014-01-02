@@ -23,20 +23,9 @@
 static const QString dateWord = QObject::tr("date");
 static const QString timeWord = QObject::tr("time");
 
-DateTimeRunnerSessionData::DateTimeRunnerSessionData(AbstractRunner *runner)
-    : RunnerSessionData(runner)
-{
-}
-
 DateTimeRunner::DateTimeRunner(QObject *parent)
     : AbstractRunner(parent)
 {
-}
-
-RunnerSessionData *DateTimeRunner::createSessionData()
-{
-    //populateTzList();
-    return new DateTimeRunnerSessionData(this);
 }
 
 void DateTimeRunner::addMatch(const QString &title, const QString &clipboardText, RunnerSessionData *sessionData, const RunnerContext &context)
@@ -115,33 +104,28 @@ QDateTime DateTimeRunner::datetime(const QString &term, bool date, QString &tzNa
 
 void DateTimeRunner::match(RunnerSessionData *sessionData, const RunnerContext &context)
 {
-    DateTimeRunnerSessionData *sd = dynamic_cast<DateTimeRunnerSessionData *>(sessionData);
-    if (!sd) {
-        return;
-    }
-
     const QString term = context.query();
 
 //     qDebug() << "checking" << term;
     if (term.compare(dateWord, Qt::CaseInsensitive) == 0) {
         const QString date = QDateTime::currentDateTime().toString(Qt::SystemLocaleShortDate);
-        addMatch(date, date, sd, context);
+        addMatch(date, date, sessionData, context);
     } else if (term.startsWith(dateWord + QLatin1Char( ' ' ), Qt::CaseInsensitive)) {
         QString tzName;
         QDateTime dt = datetime(term, true, tzName);
         if (dt.isValid()) {
             const QString date = dt.date().toString(Qt::SystemLocaleShortDate);
-            addMatch(QString("%2 (%1)").arg(tzName, date), date, sd, context);
+            addMatch(QString("%2 (%1)").arg(tzName, date), date, sessionData, context);
         }
     } else if (term.compare(timeWord, Qt::CaseInsensitive) == 0) {
         const QString time = QTime::currentTime().toString(Qt::SystemLocaleShortDate);
-        addMatch(time, time, sd, context);
+        addMatch(time, time, sessionData, context);
     } else if (term.startsWith(timeWord + QLatin1Char( ' ' ), Qt::CaseInsensitive)) {
         QString tzName;
         QDateTime dt = datetime(term, false, tzName);
         if (dt.isValid()) {
             const QString time = dt.time().toString(Qt::SystemLocaleShortDate);
-            addMatch(QString("%2 (%1)").arg(tzName, time), time, sd, context);
+            addMatch(QString("%2 (%1)").arg(tzName, time), time, sessionData, context);
         }
     }
 }

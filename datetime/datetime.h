@@ -15,19 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef RUNNER_A
-#define RUNNER_A
+#ifndef RUNNER_DATETIME
+#define RUNNER_DATETIME
 
 #include "abstractrunner.h"
 
 #include <QTimeZone>
-
-class DateTimeRunnerSessionData : public RunnerSessionData
-{
-public:
-    DateTimeRunnerSessionData(AbstractRunner *runner);
-    QTimeZone m_tz;
-};
 
 class DateTimeRunner : public AbstractRunner
 {
@@ -35,7 +28,6 @@ class DateTimeRunner : public AbstractRunner
 
 public:
     DateTimeRunner(QObject *parent = 0);
-    RunnerSessionData *createSessionData();
     void match(RunnerSessionData *sessionData, const RunnerContext &context);
 
 private:
