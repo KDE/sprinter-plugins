@@ -28,18 +28,15 @@ DateTimeRunner::DateTimeRunner(QObject *parent)
 {
 }
 
-void DateTimeRunner::addMatch(const QString &title, const QString &clipboardText, RunnerSessionData *sessionData, const RunnerContext &context)
+QueryMatch DateTimeRunner::createMatch(const QString &title, const QString &clipboardText, RunnerSessionData *sessionData, const RunnerContext &context)
 {
     QueryMatch match(this);
     match.setTitle(title);
-//     match.setData(clipboardText);
+    match.setData(clipboardText);
     match.setPrecision(QueryMatch::ExactMatch);
     match.setType(QueryMatch::InformationalType);
 //     match.setIcon(KIcon(QLatin1String( "clock" )));
-
-    QVector<QueryMatch> matches;
-    matches << match;
-    sessionData->setMatches(matches, context);
+    return match;
 }
 
 void DateTimeRunner::populateTzList()
@@ -105,29 +102,32 @@ QDateTime DateTimeRunner::datetime(const QString &term, bool date, QString &tzNa
 void DateTimeRunner::match(RunnerSessionData *sessionData, const RunnerContext &context)
 {
     const QString term = context.query();
+    QVector<QueryMatch> matches;
 
 //     qDebug() << "checking" << term;
     if (term.compare(dateWord, Qt::CaseInsensitive) == 0) {
         const QString date = QDateTime::currentDateTime().toString(Qt::SystemLocaleShortDate);
-        addMatch(date, date, sessionData, context);
+        matches << createMatch(date, date, sessionData, context);
     } else if (term.startsWith(dateWord + QLatin1Char( ' ' ), Qt::CaseInsensitive)) {
         QString tzName;
         QDateTime dt = datetime(term, true, tzName);
         if (dt.isValid()) {
             const QString date = dt.date().toString(Qt::SystemLocaleShortDate);
-            addMatch(QString("%2 (%1)").arg(tzName, date), date, sessionData, context);
+            matches << createMatch(QString("%2 (%1)").arg(tzName, date), date, sessionData, context);
         }
     } else if (term.compare(timeWord, Qt::CaseInsensitive) == 0) {
         const QString time = QTime::currentTime().toString(Qt::SystemLocaleShortDate);
-        addMatch(time, time, sessionData, context);
+        matches << createMatch(time, time, sessionData, context);
     } else if (term.startsWith(timeWord + QLatin1Char( ' ' ), Qt::CaseInsensitive)) {
         QString tzName;
         QDateTime dt = datetime(term, false, tzName);
         if (dt.isValid()) {
             const QString time = dt.time().toString(Qt::SystemLocaleShortDate);
-            addMatch(QString("%2 (%1)").arg(tzName, time), time, sessionData, context);
+            matches << createMatch(QString("%2 (%1)").arg(tzName, time), time, sessionData, context);
         }
     }
+
+    sessionData->setMatches(matches, context);
 }
 
 #include "moc_datetime.cpp"

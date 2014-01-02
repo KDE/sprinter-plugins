@@ -39,16 +39,17 @@ RunnerSessionData *RunnerC::createSessionData()
 void RunnerC::match(RunnerSessionData *sessionData, const RunnerContext &context)
 {
     RunnerCSessionData *session = dynamic_cast<RunnerCSessionData *>(sessionData);
+    QVector<QueryMatch> matches;
     if (context.query() == "plasma") {
-        QVector<QueryMatch> matches;
         QueryMatch match(this);
         match.setTitle("Plasma");
         match.setText("Rocks");
         match.setPrecision(QueryMatch::ExactMatch);
         match.setType(QueryMatch::InformationalType);
         matches << match;
-        sessionData->setMatches(matches, context);
     }
+
+    sessionData->setMatches(matches, context);
 }
 
 #include "moc_c.cpp"

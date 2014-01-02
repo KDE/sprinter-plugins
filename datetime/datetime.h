@@ -32,7 +32,7 @@ public:
 
 private:
     QDateTime datetime(const QString &term, bool date, QString &tzName);
-    void addMatch(const QString &title, const QString &clipboard, RunnerSessionData *sessionData, const RunnerContext &context);
+    QueryMatch createMatch(const QString &title, const QString &clipboard, RunnerSessionData *sessionData, const RunnerContext &context);
     void populateTzList();
 
     QHash<QString, QByteArray> m_tzList;
