@@ -22,13 +22,14 @@
 #include <QNetworkAccessManager>
 #include <QNetworkRequest>
 #include <QNetworkReply>
+#include <QTime>
 
+#include <qjson/serializer.h>
 static const QString shortTrigger = QObject::tr("yt ");
 static const QString longTrigger = QObject::tr("video ");
-// three vars are page size, offset and query (1, 2, 3 resp)
-static const QString url = "http://gdata.youtube.com/feeds/api/videos?max-results=%1&start-index=%2&alt=json&q=%3";
+// three vars are page size, offset and query (1, 2, 3, 4 resp)
+static const QString url = "http://gdata.youtube.com/feeds/api/videos?max-results=%1&start-index=%2&alt=json&q=%4";
 
-#include <QThread>
 YoutubeSessionData::YoutubeSessionData(AbstractRunner *runner)
     : RunnerSessionData(runner),
       m_network(new QNetworkAccessManager(this)),
@@ -65,17 +66,68 @@ void YoutubeSessionData::queryFinished()
 {
     QNetworkReply *reply = qobject_cast<QNetworkReply *>(sender());
 
-    if (!m_reply || reply != m_reply) {
+    if (!m_reply) {
         qDebug() << "query finished .. but no reply" << sender();
         return;
     }
 
-    if (m_context.isValid()) {
-        qDebug() << "We have our reply!";
-        //setMatches(matches, context);
+    if (reply != m_reply) {
+       reply->deleteLater();
+       qDebug() << "Late response";
     }
 
-    m_reply->deleteLater();
+    if (m_context.isValid()) {
+        bool ok = false;
+        QByteArray data = reply->readAll();
+        const QVariantMap parsedJson = m_parser.parse(data, &ok).toMap();
+        qDebug() << "We have our reply!" << reply->url() << ok;
+        if (ok) {
+            QVector<QueryMatch> matches;
+//             QJson::Serializer serializer;
+//             serializer.setIndentMode(QJson::IndentFull);
+            QVariantList entries = parsedJson.value("feed").toMap().value("entry").toList();
+            QListIterator<QVariant> it(entries);
+            QTime t;
+            while (it.hasNext()) {
+                const QVariantMap entry = it.next().toMap();
+                const QVariantMap media = entry.value("media$group").toMap();
+                const QString title = media.value("media$title").toMap().value("$t").toString();
+                int seconds = media.value("yt$duration").toMap().value("seconds").toInt();
+                const QString author = entry.value("author").toList().first().toMap().value("name").toMap().value("$t").toString();
+                const QString desc = entry.value("content").toMap().value("$t").toString();
+//                 qDebug() << "================================";
+//                 qDebug() << title << seconds << time << desc;
+//                 qDebug() << serializer.serialize(entry);
+
+                QString time;
+                if (seconds < 60) {
+                    time = "00:" + QString(seconds > 9 ? "" : "0") + QString::number(seconds);
+                } else if (seconds < 60*60) {
+                    int minutes = seconds / 60;
+                    seconds = seconds % 60;
+                    time = QString::number(minutes) + ":" +
+                           (seconds > 9 ? "" : "0") + QString::number(seconds);
+                } else {
+                    int minutes = seconds / 60;
+                    int hours = minutes / 60;
+                    minutes = minutes % 60;
+                    seconds = seconds % 60;
+                    time = QString::number(hours) + ":" +
+                           (minutes > 9 ? "" : "0") + QString::number(minutes) + ":" +
+                           (seconds > 9 ? "" : "0") + QString::number(seconds);
+                }
+
+                QueryMatch match(runner());
+                match.setTitle(tr("%1 (%2, %3)").arg(title, author, time));
+                match.setText(desc);
+                matches << match;
+            }
+//             qDebug() <<" **********" << matches.count();
+            setMatches(matches, m_context);
+        }
+    }
+
+    reply->deleteLater();
     m_reply = 0;
 }
 
@@ -99,16 +151,19 @@ void YoutubeRunner::match(RunnerSessionData *sessionData, const RunnerContext &c
     } else if (term.startsWith(longTrigger, Qt::CaseInsensitive)) {
         query = term.right(term.length() - longTrigger.length());
     } else {
+        sessionData->setMatches(QVector<QueryMatch>(), context);
         return;
     }
 
     if (query.size() < 3) {
+        sessionData->setMatches(QVector<QueryMatch>(), context);
         return;
     }
 
     qDebug() <<" should be matching... " << query;
     YoutubeSessionData *sd = dynamic_cast<YoutubeSessionData *>(sessionData);
     if (!sd) {
+        sessionData->setMatches(QVector<QueryMatch>(), context);
         return;
     }
 
