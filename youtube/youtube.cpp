@@ -26,7 +26,7 @@
 static const QString shortTrigger = QObject::tr("yt ");
 static const QString longTrigger = QObject::tr("video ");
 // three vars are page size, offset and query (1, 2, 3 resp)
-static const QString url = "http://gdata.youtube.com/feeds/api/videos?max-results=%1&starts-index=%2&alt=json&q=%3";
+static const QString url = "http://gdata.youtube.com/feeds/api/videos?max-results=%1&start-index=%2&alt=json&q=%3";
 
 #include <QThread>
 YoutubeSessionData::YoutubeSessionData(AbstractRunner *runner)
@@ -52,7 +52,7 @@ void YoutubeSessionData::startQuery(const QString &query, const RunnerContext &c
     }
 
     QNetworkRequest request(url.arg(QString::number(resultsPageSize()),
-                                    QString::number(resultsOffset()),
+                                    QString::number(resultsOffset() + 1),
                                     query));
     QNetworkAccessManager *network = new QNetworkAccessManager(this);
     QNetworkReply *reply = network->get(request);
