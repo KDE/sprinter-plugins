@@ -83,7 +83,6 @@ void YoutubeSessionData::queryFinished()
 YoutubeRunner::YoutubeRunner(QObject *parent)
     : AbstractRunner(parent)
 {
-    setAsync(true);
 }
 
 RunnerSessionData *YoutubeRunner::createSessionData()
