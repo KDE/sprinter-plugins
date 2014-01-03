@@ -23,8 +23,6 @@
 
 #include <QHash>
 
-#include <qjson/parser.h>
-
 class QNetworkAccessManager;
 class QNetworkReply;
 
@@ -43,7 +41,6 @@ private:
     QNetworkAccessManager *m_network;
     QNetworkReply *m_reply;
     RunnerContext m_context;
-    QJson::Parser m_parser;
 };
 
 class YoutubeRunner : public AbstractRunner

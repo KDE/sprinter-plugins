@@ -19,12 +19,15 @@
 #include "youtube.h"
 
 #include <QDebug>
+#include <QJsonArray>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonValue>
 #include <QNetworkAccessManager>
 #include <QNetworkRequest>
 #include <QNetworkReply>
 #include <QTime>
 
-#include <qjson/serializer.h>
 static const QString shortTrigger = QObject::tr("yt ");
 static const QString longTrigger = QObject::tr("video ");
 // three vars are page size, offset and query (1, 2, 3, 4 resp)
@@ -79,25 +82,30 @@ void YoutubeSessionData::queryFinished()
     if (m_context.isValid()) {
         bool ok = false;
         QByteArray data = reply->readAll();
-        const QVariantMap parsedJson = m_parser.parse(data, &ok).toMap();
+        QJsonParseError *error = 0;
+        QJsonDocument doc = QJsonDocument::fromJson(data, error);
         qDebug() << "We have our reply!" << reply->url() << ok;
-        if (ok) {
+        if (!error) {
+            QJsonObject obj = doc.object();
+
             QVector<QueryMatch> matches;
-//             QJson::Serializer serializer;
-//             serializer.setIndentMode(QJson::IndentFull);
-            QVariantList entries = parsedJson.value("feed").toMap().value("entry").toList();
-            QListIterator<QVariant> it(entries);
+            const QJsonArray entries = obj["feed"].toObject()["entry"].toArray();
             QTime t;
-            while (it.hasNext()) {
-                const QVariantMap entry = it.next().toMap();
-                const QVariantMap media = entry.value("media$group").toMap();
-                const QString title = media.value("media$title").toMap().value("$t").toString();
-                int seconds = media.value("yt$duration").toMap().value("seconds").toInt();
-                const QString author = entry.value("author").toList().first().toMap().value("name").toMap().value("$t").toString();
-                const QString desc = entry.value("content").toMap().value("$t").toString();
+            for (QJsonArray::const_iterator it = entries.begin();
+                 it != entries.end();
+                 ++it) {
+                const QJsonObject entry = (*it).toObject();
+                if (entry.isEmpty()) {
+                    continue;
+                }
+
+                const QJsonObject media = entry["media$group"].toObject();
+                const QString title = media["media$title"].toObject()["$t"].toString();
+                int seconds = media["yt$duration"].toObject()["seconds"].toString().toInt();
+                const QString author = entry["author"].toArray().first().toObject()["name"].toObject()["$t"].toString();
+                const QString desc = entry["content"].toObject()["$t"].toString();
 //                 qDebug() << "================================";
 //                 qDebug() << title << seconds << time << desc;
-//                 qDebug() << serializer.serialize(entry);
 
                 QString time;
                 if (seconds < 60) {
