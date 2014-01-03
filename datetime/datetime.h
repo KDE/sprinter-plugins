@@ -31,8 +31,8 @@ public:
     void match(RunnerSessionData *sessionData, const RunnerContext &context);
 
 private:
-    QDateTime datetime(const QString &term, bool date, QString &tzName);
-    QueryMatch createMatch(const QString &title, const QString &clipboard, RunnerSessionData *sessionData, const RunnerContext &context);
+    QDateTime datetime(const QString &term, bool date, QString &tzName, QString &matchData);
+    QueryMatch createMatch(const QString &title, const QString &userData, const QString &data);
     void populateTzList();
 
     QHash<QString, QByteArray> m_tzList;

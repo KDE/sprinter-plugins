@@ -28,12 +28,12 @@ DateTimeRunner::DateTimeRunner(QObject *parent)
 {
 }
 
-QueryMatch DateTimeRunner::createMatch(const QString &title, const QString &clipboardText, RunnerSessionData *sessionData, const RunnerContext &context)
+QueryMatch DateTimeRunner::createMatch(const QString &title, const QString &userData, const QString &data)
 {
     QueryMatch match(this);
     match.setTitle(title);
-    match.setUserData(clipboardText);
-    match.setData(context.query());
+    match.setUserData(userData);
+    match.setData(data);
     match.setPrecision(QueryMatch::ExactMatch);
     match.setType(QueryMatch::InformationalType);
 //     match.setIcon(KIcon(QLatin1String( "clock" )));
@@ -59,7 +59,7 @@ void DateTimeRunner::populateTzList()
     }
 }
 
-QDateTime DateTimeRunner::datetime(const QString &term, bool date, QString &tzName)
+QDateTime DateTimeRunner::datetime(const QString &term, bool date, QString &tzName, QString &matchData)
 {
     const QString tz = term.right(term.length() - (date ? dateWord.length() : timeWord.length()) - 1);
 
@@ -68,6 +68,7 @@ QDateTime DateTimeRunner::datetime(const QString &term, bool date, QString &tzNa
     }
 
     if (tz.compare(QLatin1String("UTC"), Qt::CaseInsensitive) == 0) {
+        matchData = (date ? dateWord : timeWord) + ":UTC";
         tzName = QLatin1String("UTC");
         QDateTime UTC(QDateTime::currentDateTime());
         UTC.setTimeSpec(Qt::UTC);
@@ -83,6 +84,7 @@ QDateTime DateTimeRunner::datetime(const QString &term, bool date, QString &tzNa
     while (it.hasNext()) {
         it.next();
         if (it.key().compare(tz, Qt::CaseInsensitive) == 0) {
+            matchData = (date ? dateWord : timeWord) + ":" + it.key();
             tzName = it.value();
             QTimeZone tz(it.value());
             dt = QDateTime::currentDateTime();
@@ -90,6 +92,7 @@ QDateTime DateTimeRunner::datetime(const QString &term, bool date, QString &tzNa
             break;
         } else if (!dt.isValid() &&
                    it.key().contains(tz, Qt::CaseInsensitive)) {
+            matchData = (date ? dateWord : timeWord) + ":" + it.key();
             tzName = it.value();
             QTimeZone tz(it.value());
             dt = QDateTime::currentDateTime();
@@ -108,23 +111,29 @@ void DateTimeRunner::match(RunnerSessionData *sessionData, const RunnerContext &
 //     qDebug() << "checking" << term;
     if (term.compare(dateWord, Qt::CaseInsensitive) == 0) {
         const QString date = QDateTime::currentDateTime().toString(Qt::SystemLocaleShortDate);
-        matches << createMatch(date, date, sessionData, context);
+        matches << createMatch(date, date, dateWord);
     } else if (term.startsWith(dateWord + QLatin1Char( ' ' ), Qt::CaseInsensitive)) {
         QString tzName;
-        QDateTime dt = datetime(term, true, tzName);
+        QString matchData;
+        QDateTime dt = datetime(term, true, tzName, matchData);
         if (dt.isValid()) {
             const QString date = dt.date().toString(Qt::SystemLocaleShortDate);
-            matches << createMatch(QString("%2 (%1)").arg(tzName, date), date, sessionData, context);
+            matches << createMatch(QString("%2 (%1)").arg(tzName, date), date, matchData);
         }
     } else if (term.compare(timeWord, Qt::CaseInsensitive) == 0) {
         const QString time = QTime::currentTime().toString(Qt::SystemLocaleShortDate);
-        matches << createMatch(time, time, sessionData, context);
+        QueryMatch match = createMatch(time, time, timeWord);
+        match.setUpdateInterval(1);
+        matches << match;
     } else if (term.startsWith(timeWord + QLatin1Char( ' ' ), Qt::CaseInsensitive)) {
         QString tzName;
-        QDateTime dt = datetime(term, false, tzName);
+        QString matchData;
+        QDateTime dt = datetime(term, false, tzName, matchData);
         if (dt.isValid()) {
             const QString time = dt.time().toString(Qt::SystemLocaleShortDate);
-            matches << createMatch(QString("%2 (%1)").arg(tzName, time), time, sessionData, context);
+            QueryMatch match = createMatch(QString("%2 (%1)").arg(tzName, time), time, matchData);
+            match.setUpdateInterval(1);
+            matches << match;
         }
     }
 
