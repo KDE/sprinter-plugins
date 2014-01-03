@@ -19,9 +19,52 @@
 
 #include <QDebug>
 #include <QLocale>
+#include <QTimer>
 
 static const QString dateWord = QObject::tr("date");
 static const QString timeWord = QObject::tr("time");
+
+DateTimeSessionData::DateTimeSessionData(AbstractRunner *runner)
+    : RunnerSessionData(runner),
+      m_updateTimer(new QTimer(this))
+{
+    m_updateTimer->setInterval(1000);
+    connect(runner, SIGNAL(startUpdating()), m_updateTimer, SLOT(start()));
+    connect(runner, SIGNAL(stopUpdating()), m_updateTimer, SLOT(stop()));
+    connect(m_updateTimer, SIGNAL(timeout()), this, SLOT(performUpdate()));
+}
+
+bool DateTimeSessionData::shouldStartMatch(const RunnerContext &context) const
+{
+    bool should = RunnerSessionData::shouldStartMatch(context);
+    if (!should) {
+        m_updateTimer->stop();
+    }
+    return should;
+}
+
+void DateTimeSessionData::performUpdate()
+{
+    DateTimeRunner *dtr = qobject_cast<DateTimeRunner *>(runner());
+    if (!dtr) {
+        return;
+    }
+
+    QVector<QueryMatch> updates;
+    QueryMatch update;
+    foreach (const QueryMatch &match, matches(SynchronizedMatches)) {
+        update = dtr->performMatch(match.data().toString());
+        if (update.isValid()) {
+            updates << update;
+        }
+    }
+
+    if (updates.isEmpty()) {
+        m_updateTimer->stop();
+    } else {
+        updateMatches(updates);
+    }
+}
 
 DateTimeRunner::DateTimeRunner(QObject *parent)
     : AbstractRunner(parent)
@@ -36,8 +79,14 @@ QueryMatch DateTimeRunner::createMatch(const QString &title, const QString &user
     match.setData(data);
     match.setPrecision(QueryMatch::ExactMatch);
     match.setType(QueryMatch::InformationalType);
+    qDebug() << "Errr... " << match.title();
 //     match.setIcon(KIcon(QLatin1String( "clock" )));
     return match;
+}
+
+RunnerSessionData *DateTimeRunner::createSessionData()
+{
+    return new DateTimeSessionData(this);
 }
 
 void DateTimeRunner::populateTzList()
@@ -68,7 +117,7 @@ QDateTime DateTimeRunner::datetime(const QString &term, bool date, QString &tzNa
     }
 
     if (tz.compare(QLatin1String("UTC"), Qt::CaseInsensitive) == 0) {
-        matchData = (date ? dateWord : timeWord) + ":UTC";
+        matchData = (date ? dateWord : timeWord) + " UTC";
         tzName = QLatin1String("UTC");
         QDateTime UTC(QDateTime::currentDateTime());
         UTC.setTimeSpec(Qt::UTC);
@@ -84,7 +133,7 @@ QDateTime DateTimeRunner::datetime(const QString &term, bool date, QString &tzNa
     while (it.hasNext()) {
         it.next();
         if (it.key().compare(tz, Qt::CaseInsensitive) == 0) {
-            matchData = (date ? dateWord : timeWord) + ":" + it.key();
+            matchData = (date ? dateWord : timeWord) + ' ' + it.key();
             tzName = it.value();
             QTimeZone tz(it.value());
             dt = QDateTime::currentDateTime();
@@ -92,7 +141,7 @@ QDateTime DateTimeRunner::datetime(const QString &term, bool date, QString &tzNa
             break;
         } else if (!dt.isValid() &&
                    it.key().contains(tz, Qt::CaseInsensitive)) {
-            matchData = (date ? dateWord : timeWord) + ":" + it.key();
+            matchData = (date ? dateWord : timeWord) + ' ' + it.key();
             tzName = it.value();
             QTimeZone tz(it.value());
             dt = QDateTime::currentDateTime();
@@ -105,39 +154,53 @@ QDateTime DateTimeRunner::datetime(const QString &term, bool date, QString &tzNa
 
 void DateTimeRunner::match(RunnerSessionData *sessionData, const RunnerContext &context)
 {
-    const QString term = context.query();
+    QueryMatch match = performMatch(context.query());
+qDebug() << "got" << match.text() << match.isValid();
     QVector<QueryMatch> matches;
+    if (match.isValid()) {
+        matches << match;
+    }
 
-//     qDebug() << "checking" << term;
+    sessionData->setMatches(matches, context);
+    if (matches.isEmpty()) {
+        emit stopUpdating();
+    } else {
+        emit startUpdating();
+    }
+}
+
+QueryMatch DateTimeRunner::performMatch(const QString &term)
+{
+    //qDebug() << "checking" << term;
     if (term.compare(dateWord, Qt::CaseInsensitive) == 0) {
         const QString date = QDateTime::currentDateTime().toString(Qt::SystemLocaleShortDate);
-        matches << createMatch(date, date, dateWord);
+        return createMatch(date, date, dateWord);
     } else if (term.startsWith(dateWord + QLatin1Char( ' ' ), Qt::CaseInsensitive)) {
         QString tzName;
         QString matchData;
         QDateTime dt = datetime(term, true, tzName, matchData);
         if (dt.isValid()) {
             const QString date = dt.date().toString(Qt::SystemLocaleShortDate);
-            matches << createMatch(QString("%2 (%1)").arg(tzName, date), date, matchData);
+            return createMatch(QString("%2 (%1)").arg(tzName, date), date, matchData);
         }
     } else if (term.compare(timeWord, Qt::CaseInsensitive) == 0) {
-        const QString time = QTime::currentTime().toString(Qt::SystemLocaleShortDate);
+        const QString time = QTime::currentTime().toString(Qt::SystemLocaleLongDate);
         QueryMatch match = createMatch(time, time, timeWord);
         match.setUpdateInterval(1);
-        matches << match;
+        return match;
     } else if (term.startsWith(timeWord + QLatin1Char( ' ' ), Qt::CaseInsensitive)) {
         QString tzName;
         QString matchData;
         QDateTime dt = datetime(term, false, tzName, matchData);
         if (dt.isValid()) {
-            const QString time = dt.time().toString(Qt::SystemLocaleShortDate);
+            const QString time = dt.time().toString(Qt::SystemLocaleLongDate);
             QueryMatch match = createMatch(QString("%2 (%1)").arg(tzName, time), time, matchData);
             match.setUpdateInterval(1);
-            matches << match;
+            return match;
         }
     }
 
-    sessionData->setMatches(matches, context);
+    return QueryMatch();
 }
 
 #include "moc_datetime.cpp"

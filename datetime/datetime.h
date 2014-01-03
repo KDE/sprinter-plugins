@@ -22,13 +22,36 @@
 
 #include <QTimeZone>
 
+class QTimer;
+
+class DateTimeSessionData : public RunnerSessionData
+{
+    Q_OBJECT
+
+public:
+    DateTimeSessionData(AbstractRunner *runner);
+    bool shouldStartMatch(const RunnerContext &context) const;
+
+private Q_SLOTS:
+    void performUpdate();
+
+private:
+    QTimer *m_updateTimer;
+};
+
 class DateTimeRunner : public AbstractRunner
 {
     Q_OBJECT
 
 public:
     DateTimeRunner(QObject *parent = 0);
+    RunnerSessionData *createSessionData();
     void match(RunnerSessionData *sessionData, const RunnerContext &context);
+    QueryMatch performMatch(const QString &term);
+
+Q_SIGNALS:
+    void startUpdating();
+    void stopUpdating();
 
 private:
     QDateTime datetime(const QString &term, bool date, QString &tzName, QString &matchData);
