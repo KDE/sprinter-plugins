@@ -186,7 +186,6 @@ QueryMatch DateTimeRunner::performMatch(const QString &term)
     } else if (term.compare(timeWord, Qt::CaseInsensitive) == 0) {
         const QString time = QTime::currentTime().toString(Qt::SystemLocaleLongDate);
         QueryMatch match = createMatch(time, time, timeWord);
-        match.setUpdateInterval(1);
         return match;
     } else if (term.startsWith(timeWord + QLatin1Char( ' ' ), Qt::CaseInsensitive)) {
         QString tzName;
@@ -195,7 +194,6 @@ QueryMatch DateTimeRunner::performMatch(const QString &term)
         if (dt.isValid()) {
             const QString time = dt.time().toString(Qt::SystemLocaleLongDate);
             QueryMatch match = createMatch(QString("%2 (%1)").arg(tzName, time), time, matchData);
-            match.setUpdateInterval(1);
             return match;
         }
     }
