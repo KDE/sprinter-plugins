@@ -36,7 +36,7 @@ RunnerSessionData *RunnerC::createSessionData()
     return session;
 }
 
-void RunnerC::match(RunnerSessionData *sessionData, const RunnerContext &context)
+void RunnerC::match(RunnerSessionData *sessionData, const QueryContext &context)
 {
     RunnerCSessionData *session = dynamic_cast<RunnerCSessionData *>(sessionData);
     QVector<QueryMatch> matches;

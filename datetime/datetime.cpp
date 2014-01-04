@@ -34,7 +34,7 @@ DateTimeSessionData::DateTimeSessionData(AbstractRunner *runner)
     connect(m_updateTimer, SIGNAL(timeout()), this, SLOT(performUpdate()));
 }
 
-bool DateTimeSessionData::shouldStartMatch(const RunnerContext &context) const
+bool DateTimeSessionData::shouldStartMatch(const QueryContext &context) const
 {
     bool should = RunnerSessionData::shouldStartMatch(context);
     if (!should) {
@@ -152,7 +152,7 @@ QDateTime DateTimeRunner::datetime(const QString &term, bool date, QString &tzNa
     return dt;
 }
 
-void DateTimeRunner::match(RunnerSessionData *sessionData, const RunnerContext &context)
+void DateTimeRunner::match(RunnerSessionData *sessionData, const QueryContext &context)
 {
     QueryMatch match = performMatch(context.query());
 qDebug() << "got" << match.text() << match.isValid();

@@ -19,7 +19,6 @@
 #define RUNNER_YOUTUBE
 
 #include "abstractrunner.h"
-#include "runnercontext.h"
 
 #include <QHash>
 
@@ -34,13 +33,13 @@ public:
     YoutubeSessionData(AbstractRunner *runner);
 
 public Q_SLOTS:
-    void startQuery(const QString &query, const RunnerContext &context);
+    void startQuery(const QString &query, const QueryContext &context);
     void queryFinished();
 
 private:
     QNetworkAccessManager *m_network;
     QNetworkReply *m_reply;
-    RunnerContext m_context;
+    QueryContext m_context;
 };
 
 class YoutubeRunner : public AbstractRunner
@@ -50,10 +49,10 @@ class YoutubeRunner : public AbstractRunner
 public:
     YoutubeRunner(QObject *parent = 0);
     RunnerSessionData *createSessionData();
-    void match(RunnerSessionData *sessionData, const RunnerContext &context);
+    void match(RunnerSessionData *sessionData, const QueryContext &context);
 
 Q_SIGNALS:
-    void startQuery(const QString &query, const RunnerContext &context);
+    void startQuery(const QString &query, const QueryContext &context);
 };
 
 #endif

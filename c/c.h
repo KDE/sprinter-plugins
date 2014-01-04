@@ -36,7 +36,7 @@ public:
     RunnerC(QObject *parent = 0);
 
     RunnerSessionData *createSessionData();
-    void match(RunnerSessionData *sessionData, const RunnerContext &context);
+    void match(RunnerSessionData *sessionData, const QueryContext &context);
 };
 
 #endif

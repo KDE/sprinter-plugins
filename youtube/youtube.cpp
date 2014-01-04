@@ -28,6 +28,8 @@
 #include <QNetworkReply>
 #include <QTime>
 
+#include <querycontext.h>
+
 static const QString shortTrigger = QObject::tr("yt ");
 static const QString longTrigger = QObject::tr("video ");
 // three vars are page size, offset and query (1, 2, 3, 4 resp)
@@ -38,11 +40,11 @@ YoutubeSessionData::YoutubeSessionData(AbstractRunner *runner)
       m_network(new QNetworkAccessManager(this)),
       m_reply(0)
 {
-    connect(runner, SIGNAL(startQuery(QString,RunnerContext)),
-            this, SLOT(startQuery(QString, RunnerContext)));
+    connect(runner, SIGNAL(startQuery(QString,QueryContext)),
+            this, SLOT(startQuery(QString, QueryContext)));
 }
 
-void YoutubeSessionData::startQuery(const QString &query, const RunnerContext &context)
+void YoutubeSessionData::startQuery(const QString &query, const QueryContext &context)
 {
     if (m_reply) {
         m_reply->deleteLater();
@@ -150,7 +152,7 @@ RunnerSessionData *YoutubeRunner::createSessionData()
     return new YoutubeSessionData(this);
 }
 
-void YoutubeRunner::match(RunnerSessionData *sessionData, const RunnerContext &context)
+void YoutubeRunner::match(RunnerSessionData *sessionData, const QueryContext &context)
 {
     const QString term = context.query();
     QString query;

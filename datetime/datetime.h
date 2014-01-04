@@ -30,7 +30,7 @@ class DateTimeSessionData : public RunnerSessionData
 
 public:
     DateTimeSessionData(AbstractRunner *runner);
-    bool shouldStartMatch(const RunnerContext &context) const;
+    bool shouldStartMatch(const QueryContext &context) const;
 
 private Q_SLOTS:
     void performUpdate();
@@ -46,7 +46,7 @@ class DateTimeRunner : public AbstractRunner
 public:
     DateTimeRunner(QObject *parent = 0);
     RunnerSessionData *createSessionData();
-    void match(RunnerSessionData *sessionData, const RunnerContext &context);
+    void match(RunnerSessionData *sessionData, const QueryContext &context);
     QueryMatch performMatch(const QString &term);
 
 Q_SIGNALS:
