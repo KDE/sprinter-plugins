@@ -45,7 +45,8 @@ void RunnerC::match(RunnerSessionData *sessionData, const QueryContext &context)
         match.setTitle("Plasma");
         match.setText("Rocks");
         match.setPrecision(QueryMatch::ExactMatch);
-        match.setType(QueryMatch::InformationalType);
+        match.setType(QueryMatch::DesktopType);
+        match.setSource(QueryMatch::FromDesktopShell);
         matches << match;
     }
 

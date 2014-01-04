@@ -78,7 +78,8 @@ QueryMatch DateTimeRunner::createMatch(const QString &title, const QString &user
     match.setUserData(userData);
     match.setData(data);
     match.setPrecision(QueryMatch::ExactMatch);
-    match.setType(QueryMatch::InformationalType);
+    match.setType(QueryMatch::DateTimeType);
+    match.setSource(QueryMatch::FromLocalService);
     qDebug() << "Errr... " << match.title();
 //     match.setIcon(KIcon(QLatin1String( "clock" )));
     return match;

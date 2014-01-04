@@ -130,6 +130,8 @@ void YoutubeSessionData::queryFinished()
                 QueryMatch match(runner());
                 match.setTitle(tr("%1 (%2, %3)").arg(title, author, time));
                 match.setText(desc);
+                match.setType(QueryMatch::VideoType);
+                match.setSource(QueryMatch::FromNetworkService);
                 matches << match;
             }
 //             qDebug() <<" **********" << matches.count();
