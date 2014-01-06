@@ -17,6 +17,8 @@
 
 #include "c.h"
 
+#include <unistd.h>
+
 #include <QDebug>
 
 RunnerCSessionData::RunnerCSessionData(AbstractRunner *runner)
@@ -51,6 +53,13 @@ void RunnerC::match(RunnerSessionData *sessionData, const QueryContext &context)
     }
 
     sessionData->setMatches(matches, context);
+}
+
+bool RunnerC::exec(const QueryMatch &match)
+{
+    qDebug() << "********* EXEC ****************";
+    sleep(1);
+    return true;
 }
 
 #include "moc_c.cpp"

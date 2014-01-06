@@ -37,6 +37,7 @@ public:
 
     RunnerSessionData *createSessionData();
     void match(RunnerSessionData *sessionData, const QueryContext &context);
+    bool exec(const QueryMatch &match);
 };
 
 #endif
