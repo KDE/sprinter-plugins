@@ -78,9 +78,6 @@ void YoutubeSessionData::startQuery(const QString &query, const QueryContext &co
 
 void YoutubeSessionData::queryFinished()
 {
-    delete m_busyToken;
-    m_busyToken = 0;
-
     QNetworkReply *reply = qobject_cast<QNetworkReply *>(sender());
 
     if (!m_reply) {
@@ -91,7 +88,11 @@ void YoutubeSessionData::queryFinished()
     if (reply != m_reply) {
        reply->deleteLater();
        qDebug() << "Late response";
+       return;
     }
+
+    delete m_busyToken;
+    m_busyToken = 0;
 
     if (m_context.isValid()) {
         bool ok = false;
