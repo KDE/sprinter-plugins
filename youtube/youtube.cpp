@@ -132,6 +132,7 @@ void YoutubeSessionData::queryFinished()
                 match.setText(desc);
                 match.setType(RunnerManager::VideoType);
                 match.setSource(RunnerManager::FromNetworkService);
+                match.setPrecision(RunnerManager::CloseMatch);
                 matches << match;
             }
 //             qDebug() <<" **********" << matches.count();
