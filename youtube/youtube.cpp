@@ -106,6 +106,7 @@ void YoutubeSessionData::queryFinished()
                 int seconds = media["yt$duration"].toObject()["seconds"].toString().toInt();
                 const QString author = entry["author"].toArray().first().toObject()["name"].toObject()["$t"].toString();
                 const QString desc = entry["content"].toObject()["$t"].toString();
+                const QString url = entry["link"].toArray().first().toObject()["href"].toString();
 //                 qDebug() << "================================";
 //                 qDebug() << title << seconds << time << desc;
 
@@ -133,6 +134,8 @@ void YoutubeSessionData::queryFinished()
                 match.setType(RunnerManager::VideoType);
                 match.setSource(RunnerManager::FromNetworkService);
                 match.setPrecision(RunnerManager::CloseMatch);
+                match.setUserData(url);
+                match.setData(url);
                 matches << match;
             }
 //             qDebug() <<" **********" << matches.count();
