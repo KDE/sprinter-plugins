@@ -21,7 +21,6 @@
 #include "abstractrunner.h"
 
 #include <QHash>
-#include <QStack>
 
 class QNetworkAccessManager;
 class QNetworkReply;
@@ -42,7 +41,7 @@ private:
     QNetworkAccessManager *m_network;
     QNetworkReply *m_reply;
     QueryContext m_context;
-    QStack<RunnerSessionData::Busy *> m_busyTokens;
+    RunnerSessionData::Busy *m_busyToken;
 };
 
 class YoutubeRunner : public AbstractRunner

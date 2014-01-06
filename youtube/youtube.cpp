@@ -38,7 +38,8 @@ static const QString url = "http://gdata.youtube.com/feeds/api/videos?max-result
 YoutubeSessionData::YoutubeSessionData(AbstractRunner *runner)
     : RunnerSessionData(runner),
       m_network(new QNetworkAccessManager(this)),
-      m_reply(0)
+      m_reply(0),
+      m_busyToken(0)
 {
     connect(runner, SIGNAL(startQuery(QString,QueryContext)),
             this, SLOT(startQuery(QString, QueryContext)));
@@ -46,7 +47,7 @@ YoutubeSessionData::YoutubeSessionData(AbstractRunner *runner)
 
 YoutubeSessionData::~YoutubeSessionData()
 {
-    qDeleteAll(m_busyTokens);
+    delete m_busyToken;
 }
 
 void YoutubeSessionData::startQuery(const QString &query, const QueryContext &context)
@@ -54,6 +55,8 @@ void YoutubeSessionData::startQuery(const QString &query, const QueryContext &co
     if (m_reply) {
         m_reply->deleteLater();
         m_reply = 0;
+        delete m_busyToken;
+        m_busyToken = 0;
     }
 
     m_context = context;
@@ -62,7 +65,7 @@ void YoutubeSessionData::startQuery(const QString &query, const QueryContext &co
         return;
     }
 
-    m_busyTokens.push(new RunnerSessionData::Busy(this));
+    m_busyToken = new RunnerSessionData::Busy(this);
     QNetworkRequest request(url.arg(QString::number(resultsPageSize()),
                                     QString::number(resultsOffset() + 1),
                                     query));
@@ -75,9 +78,8 @@ void YoutubeSessionData::startQuery(const QString &query, const QueryContext &co
 
 void YoutubeSessionData::queryFinished()
 {
-    if (!m_busyTokens.isEmpty()) {
-        delete m_busyTokens.pop();
-    }
+    delete m_busyToken;
+    m_busyToken = 0;
 
     QNetworkReply *reply = qobject_cast<QNetworkReply *>(sender());
 
