@@ -44,6 +44,11 @@ YoutubeSessionData::YoutubeSessionData(AbstractRunner *runner)
             this, SLOT(startQuery(QString, QueryContext)));
 }
 
+YoutubeSessionData::~YoutubeSessionData()
+{
+    qDeleteAll(m_busyTokens);
+}
+
 void YoutubeSessionData::startQuery(const QString &query, const QueryContext &context)
 {
     if (m_reply) {
@@ -57,6 +62,7 @@ void YoutubeSessionData::startQuery(const QString &query, const QueryContext &co
         return;
     }
 
+    m_busyTokens.push(new RunnerSessionData::Busy(this));
     QNetworkRequest request(url.arg(QString::number(resultsPageSize()),
                                     QString::number(resultsOffset() + 1),
                                     query));
@@ -69,6 +75,10 @@ void YoutubeSessionData::startQuery(const QString &query, const QueryContext &co
 
 void YoutubeSessionData::queryFinished()
 {
+    if (!m_busyTokens.isEmpty()) {
+        delete m_busyTokens.pop();
+    }
+
     QNetworkReply *reply = qobject_cast<QNetworkReply *>(sender());
 
     if (!m_reply) {
