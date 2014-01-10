@@ -20,8 +20,6 @@
 
 #include "abstractrunner.h"
 
-#include <QTimeZone>
-
 class QTimer;
 
 class DateTimeSessionData : public RunnerSessionData
@@ -42,6 +40,7 @@ private:
 class DateTimeRunner : public AbstractRunner
 {
     Q_OBJECT
+    Q_PLUGIN_METADATA(IID "org.kde.sprinter.datetime" FILE "datetime.json")
 
 public:
     DateTimeRunner(QObject *parent = 0);

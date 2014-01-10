@@ -47,6 +47,7 @@ private:
 class YoutubeRunner : public AbstractRunner
 {
     Q_OBJECT
+    Q_PLUGIN_METADATA(IID "org.kde.sprinter.youtube" FILE "youtube.json")
 
 public:
     YoutubeRunner(QObject *parent = 0);

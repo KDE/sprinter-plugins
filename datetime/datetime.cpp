@@ -20,6 +20,7 @@
 #include <QDebug>
 #include <QLocale>
 #include <QTimer>
+#include <QTimeZone>
 
 static const QString dateWord = QObject::tr("date");
 static const QString timeWord = QObject::tr("time");

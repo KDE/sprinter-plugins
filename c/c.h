@@ -31,6 +31,7 @@ public:
 class RunnerC : public AbstractRunner
 {
     Q_OBJECT
+    Q_PLUGIN_METADATA(IID "org.kde.sprinter.c" FILE "c.json")
 
 public:
     RunnerC(QObject *parent = 0);
