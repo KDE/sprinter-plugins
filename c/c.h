@@ -31,7 +31,6 @@ public:
 class RunnerC : public AbstractRunner
 {
     Q_OBJECT
-    Q_PLUGIN_METADATA(IID "org.kde.sprinter.c" FILE "c.json")
 
 public:
     RunnerC(QObject *parent = 0);
@@ -40,6 +39,8 @@ public:
     void match(RunnerSessionData *sessionData, const QueryContext &context);
     bool exec(const QueryMatch &match);
 };
+
+RUNNER_FACTORY(RunnerC, org.kde.sprinter.c, c.json)
 
 #endif
 
