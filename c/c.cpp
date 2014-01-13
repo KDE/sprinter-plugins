@@ -49,7 +49,7 @@ void RunnerC::match(RunnerSessionData *sessionData, const QueryContext &context)
         match.setPrecision(RunnerManager::ExactMatch);
         match.setType(RunnerManager::DesktopType);
         match.setSource(RunnerManager::FromDesktopShell);
-        match.setData("date");
+        match.setData("time");
         match.setIsSearchTerm(true);
         matches << match;
     }
