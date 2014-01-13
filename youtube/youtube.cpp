@@ -55,17 +55,18 @@ void YoutubeSessionData::startQuery(const QString &query, const QueryContext &co
     if (m_reply) {
         m_reply->deleteLater();
         m_reply = 0;
-        delete m_busyToken;
-        m_busyToken = 0;
     }
 
     m_context = context;
     if (!m_context.isValid()) {
         qDebug() << "REJECTING YOUTUBE REPLY: context is already invalid";
+        delete m_busyToken;
+        m_busyToken = 0;
         return;
+    } else if (!m_busyToken) {
+        m_busyToken = new RunnerSessionData::Busy(this);
     }
 
-    m_busyToken = new RunnerSessionData::Busy(this);
     QNetworkRequest request(url.arg(QString::number(resultsPageSize()),
                                     QString::number(resultsOffset() + 1),
                                     query));
