@@ -70,6 +70,8 @@ void DateTimeSessionData::performUpdate()
 DateTimeRunner::DateTimeRunner(QObject *parent)
     : AbstractRunner(parent)
 {
+    setMatchTypesGenerated(QVector<RunnerManager::MatchType>()
+                                << RunnerManager::DateTimeType);
 }
 
 QueryMatch DateTimeRunner::createMatch(const QString &title, const QString &userData, const QString &data)

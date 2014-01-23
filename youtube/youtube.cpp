@@ -165,6 +165,8 @@ void YoutubeSessionData::queryFinished()
 YoutubeRunner::YoutubeRunner(QObject *parent)
     : AbstractRunner(parent)
 {
+    setMatchTypesGenerated(QVector<RunnerManager::MatchType>()
+                                << RunnerManager::VideoType);
 }
 
 RunnerSessionData *YoutubeRunner::createSessionData()
