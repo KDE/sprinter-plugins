@@ -19,6 +19,7 @@
 #include "youtube.h"
 
 #include <QDebug>
+#include <QDesktopServices>
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
@@ -202,6 +203,11 @@ void YoutubeRunner::match(RunnerSessionData *sessionData, const QueryContext &co
     }
 
     emit startQuery(query, context);
+}
+
+bool YoutubeRunner::exec(const QueryMatch &match)
+{
+    return QDesktopServices::openUrl(match.data().toUrl());
 }
 
 #include "moc_youtube.cpp"

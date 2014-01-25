@@ -52,6 +52,7 @@ public:
     YoutubeRunner(QObject *parent = 0);
     RunnerSessionData *createSessionData();
     void match(RunnerSessionData *sessionData, const QueryContext &context);
+    bool exec(const QueryMatch &match);
 
 Q_SIGNALS:
     void startQuery(const QString &query, const QueryContext &context);
