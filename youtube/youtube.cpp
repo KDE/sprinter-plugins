@@ -167,6 +167,8 @@ YoutubeRunner::YoutubeRunner(QObject *parent)
 {
     setMatchTypesGenerated(QVector<RunnerManager::MatchType>()
                                 << RunnerManager::VideoType);
+    setSourcesUsed(QVector<RunnerManager::MatchSource>()
+                        << RunnerManager::FromNetworkService);
 }
 
 RunnerSessionData *YoutubeRunner::createSessionData()

@@ -72,6 +72,8 @@ DateTimeRunner::DateTimeRunner(QObject *parent)
 {
     setMatchTypesGenerated(QVector<RunnerManager::MatchType>()
                                 << RunnerManager::DateTimeType);
+    setSourcesUsed(QVector<RunnerManager::MatchSource>()
+                        << RunnerManager::FromLocalService);
 }
 
 QueryMatch DateTimeRunner::createMatch(const QString &title, const QString &userData, const QString &data)
