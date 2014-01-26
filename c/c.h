@@ -21,13 +21,6 @@
 
 #include "abstractrunner.h"
 
-class RunnerCSessionData : public RunnerSessionData
-{
-public:
-    RunnerCSessionData(AbstractRunner *runner);
-    QString data;
-};
-
 class RunnerC : public AbstractRunner
 {
     Q_OBJECT
@@ -35,7 +28,6 @@ class RunnerC : public AbstractRunner
 public:
     RunnerC(QObject *parent = 0);
 
-    RunnerSessionData *createSessionData();
     void match(RunnerSessionData *sessionData, const QueryContext &context);
     bool exec(const QueryMatch &match);
 };

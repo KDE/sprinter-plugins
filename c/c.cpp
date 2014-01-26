@@ -21,26 +21,13 @@
 
 #include <QDebug>
 
-RunnerCSessionData::RunnerCSessionData(AbstractRunner *runner)
-    : RunnerSessionData(runner)
-{
-}
-
 RunnerC::RunnerC(QObject *parent)
     : AbstractRunner(parent)
 {
 }
 
-RunnerSessionData *RunnerC::createSessionData()
-{
-    RunnerCSessionData *session = new RunnerCSessionData(this);
-    session->data = "Testing";
-    return session;
-}
-
 void RunnerC::match(RunnerSessionData *sessionData, const QueryContext &context)
 {
-    RunnerCSessionData *session = dynamic_cast<RunnerCSessionData *>(sessionData);
     QVector<QueryMatch> matches;
     if (context.query() == "plasma") {
         QueryMatch match(this);
