@@ -40,6 +40,7 @@ private:
 class DateTimeRunner : public AbstractRunner
 {
     Q_OBJECT
+    Q_PLUGIN_METADATA(IID "org.kde.sprinter.datetime" FILE "datetime.json")
 
 public:
     DateTimeRunner(QObject *parent = 0);
@@ -58,8 +59,6 @@ private:
 
     QHash<QString, QByteArray> m_tzList;
 };
-
-RUNNER_FACTORY(DateTimeRunner, org.kde.sprinter.datetime, datetime.json)
 
 #endif
 
