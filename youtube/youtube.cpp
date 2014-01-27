@@ -155,6 +155,7 @@ void YoutubeSessionData::queryFinished()
             }
 //             qDebug() <<" **********" << matches.count();
             setMatches(matches, m_context);
+            setCanFetchMoreMatches(true, m_context);
         }
     }
 
