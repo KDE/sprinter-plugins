@@ -33,9 +33,9 @@ void RunnerC::match(RunnerSessionData *sessionData, const QueryContext &context)
         QueryMatch match(this);
         match.setTitle("Plasma");
         match.setText("Rocks");
-        match.setPrecision(RunnerManager::ExactMatch);
-        match.setType(RunnerManager::DesktopType);
-        match.setSource(RunnerManager::FromDesktopShell);
+        match.setPrecision(QuerySession::ExactMatch);
+        match.setType(QuerySession::DesktopType);
+        match.setSource(QuerySession::FromDesktopShell);
         match.setData("time");
         match.setIsSearchTerm(true);
         matches << match;

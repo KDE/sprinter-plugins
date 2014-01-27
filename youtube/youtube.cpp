@@ -146,9 +146,9 @@ void YoutubeSessionData::queryFinished()
                 QueryMatch match(runner());
                 match.setTitle(tr("%1 (%2, %3)").arg(title, author, time));
                 match.setText(desc);
-                match.setType(RunnerManager::VideoType);
-                match.setSource(RunnerManager::FromNetworkService);
-                match.setPrecision(RunnerManager::CloseMatch);
+                match.setType(QuerySession::VideoType);
+                match.setSource(QuerySession::FromNetworkService);
+                match.setPrecision(QuerySession::CloseMatch);
                 match.setUserData(url);
                 match.setData(url);
                 matches << match;
@@ -166,10 +166,10 @@ void YoutubeSessionData::queryFinished()
 YoutubeRunner::YoutubeRunner(QObject *parent)
     : AbstractRunner(parent)
 {
-    setMatchTypesGenerated(QVector<RunnerManager::MatchType>()
-                                << RunnerManager::VideoType);
-    setSourcesUsed(QVector<RunnerManager::MatchSource>()
-                        << RunnerManager::FromNetworkService);
+    setMatchTypesGenerated(QVector<QuerySession::MatchType>()
+                                << QuerySession::VideoType);
+    setSourcesUsed(QVector<QuerySession::MatchSource>()
+                        << QuerySession::FromNetworkService);
 }
 
 RunnerSessionData *YoutubeRunner::createSessionData()

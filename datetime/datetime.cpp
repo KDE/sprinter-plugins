@@ -70,10 +70,10 @@ void DateTimeSessionData::performUpdate()
 DateTimeRunner::DateTimeRunner(QObject *parent)
     : AbstractRunner(parent)
 {
-    setMatchTypesGenerated(QVector<RunnerManager::MatchType>()
-                                << RunnerManager::DateTimeType);
-    setSourcesUsed(QVector<RunnerManager::MatchSource>()
-                        << RunnerManager::FromLocalService);
+    setMatchTypesGenerated(QVector<QuerySession::MatchType>()
+                                << QuerySession::DateTimeType);
+    setSourcesUsed(QVector<QuerySession::MatchSource>()
+                        << QuerySession::FromLocalService);
 }
 
 QueryMatch DateTimeRunner::createMatch(const QString &title, const QString &userData, const QString &data)
@@ -82,9 +82,9 @@ QueryMatch DateTimeRunner::createMatch(const QString &title, const QString &user
     match.setTitle(title);
     match.setUserData(userData);
     match.setData(data);
-    match.setPrecision(RunnerManager::ExactMatch);
-    match.setType(RunnerManager::DateTimeType);
-    match.setSource(RunnerManager::FromLocalService);
+    match.setPrecision(QuerySession::ExactMatch);
+    match.setType(QuerySession::DateTimeType);
+    match.setSource(QuerySession::FromLocalService);
     qDebug() << "Errr... " << match.title();
 //     match.setIcon(KIcon(QLatin1String( "clock" )));
     return match;
