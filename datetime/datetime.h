@@ -22,13 +22,13 @@
 
 class QTimer;
 
-class DateTimeSessionData : public RunnerSessionData
+class DateTimeSessionData : public Sprinter::RunnerSessionData
 {
     Q_OBJECT
 
 public:
-    DateTimeSessionData(AbstractRunner *runner);
-    bool shouldStartMatch(const QueryContext &context) const;
+    DateTimeSessionData(Sprinter::AbstractRunner *runner);
+    bool shouldStartMatch(const Sprinter::QueryContext &context) const;
 
 private Q_SLOTS:
     void performUpdate();
@@ -37,16 +37,16 @@ private:
     QTimer *m_updateTimer;
 };
 
-class DateTimeRunner : public AbstractRunner
+class DateTimeRunner : public Sprinter::AbstractRunner
 {
     Q_OBJECT
     Q_PLUGIN_METADATA(IID "org.kde.sprinter.datetime" FILE "datetime.json")
 
 public:
     DateTimeRunner(QObject *parent = 0);
-    RunnerSessionData *createSessionData();
-    void match(RunnerSessionData *sessionData, const QueryContext &context);
-    QueryMatch performMatch(const QString &term);
+    Sprinter::RunnerSessionData *createSessionData();
+    void match(Sprinter::RunnerSessionData *sessionData, const Sprinter::QueryContext &context);
+    Sprinter::QueryMatch performMatch(const QString &term);
 
 Q_SIGNALS:
     void startUpdating();
@@ -54,7 +54,7 @@ Q_SIGNALS:
 
 private:
     QDateTime datetime(const QString &term, bool date, QString &tzName, QString &matchData);
-    QueryMatch createMatch(const QString &title, const QString &userData, const QString &data);
+    Sprinter::QueryMatch createMatch(const QString &title, const QString &userData, const QString &data);
     void populateTzList();
 
     QHash<QString, QByteArray> m_tzList;

@@ -36,14 +36,14 @@ static const QString longTrigger = QObject::tr("video ");
 // three vars are page size, offset and query (1, 2, 3, 4 resp)
 static const QString url = "http://gdata.youtube.com/feeds/api/videos?max-results=%1&start-index=%2&alt=json&q=%4";
 
-YoutubeSessionData::YoutubeSessionData(AbstractRunner *runner)
-    : RunnerSessionData(runner),
+YoutubeSessionData::YoutubeSessionData(Sprinter::AbstractRunner *runner)
+    : Sprinter::RunnerSessionData(runner),
       m_network(new QNetworkAccessManager(this)),
       m_reply(0),
       m_busyToken(0)
 {
-    connect(runner, SIGNAL(startQuery(QString,QueryContext)),
-            this, SLOT(startQuery(QString, QueryContext)));
+    connect(runner, SIGNAL(startQuery(QString,Sprinter::QueryContext)),
+            this, SLOT(startQuery(QString, Sprinter::QueryContext)));
 }
 
 YoutubeSessionData::~YoutubeSessionData()
@@ -51,7 +51,7 @@ YoutubeSessionData::~YoutubeSessionData()
     delete m_busyToken;
 }
 
-void YoutubeSessionData::startQuery(const QString &query, const QueryContext &context)
+void YoutubeSessionData::startQuery(const QString &query, const Sprinter::QueryContext &context)
 {
     if (m_reply) {
         m_reply->deleteLater();
@@ -65,7 +65,7 @@ void YoutubeSessionData::startQuery(const QString &query, const QueryContext &co
         m_busyToken = 0;
         return;
     } else if (!m_busyToken) {
-        m_busyToken = new RunnerSessionData::Busy(this);
+        m_busyToken = new Sprinter::RunnerSessionData::Busy(this);
     }
 
     QNetworkRequest request(url.arg(QString::number(resultsPageSize()),
@@ -105,7 +105,7 @@ void YoutubeSessionData::queryFinished()
         if (!error) {
             QJsonObject obj = doc.object();
 
-            QVector<QueryMatch> matches;
+            QVector<Sprinter::QueryMatch> matches;
             const QJsonArray entries = obj["feed"].toObject()["entry"].toArray();
             QTime t;
             for (QJsonArray::const_iterator it = entries.begin();
@@ -143,12 +143,12 @@ void YoutubeSessionData::queryFinished()
                            (seconds > 9 ? "" : "0") + QString::number(seconds);
                 }
 
-                QueryMatch match(runner());
+                Sprinter::QueryMatch match(runner());
                 match.setTitle(tr("%1 (%2, %3)").arg(title, author, time));
                 match.setText(desc);
-                match.setType(QuerySession::VideoType);
-                match.setSource(QuerySession::FromNetworkService);
-                match.setPrecision(QuerySession::CloseMatch);
+                match.setType(Sprinter::QuerySession::VideoType);
+                match.setSource(Sprinter::QuerySession::FromNetworkService);
+                match.setPrecision(Sprinter::QuerySession::CloseMatch);
                 match.setUserData(url);
                 match.setData(url);
                 matches << match;
@@ -167,18 +167,18 @@ void YoutubeSessionData::queryFinished()
 YoutubeRunner::YoutubeRunner(QObject *parent)
     : AbstractRunner(parent)
 {
-    setMatchTypesGenerated(QVector<QuerySession::MatchType>()
-                                << QuerySession::VideoType);
-    setSourcesUsed(QVector<QuerySession::MatchSource>()
-                        << QuerySession::FromNetworkService);
+    setMatchTypesGenerated(QVector<Sprinter::QuerySession::MatchType>()
+                                << Sprinter::QuerySession::VideoType);
+    setSourcesUsed(QVector<Sprinter::QuerySession::MatchSource>()
+                        << Sprinter::QuerySession::FromNetworkService);
 }
 
-RunnerSessionData *YoutubeRunner::createSessionData()
+Sprinter::RunnerSessionData *YoutubeRunner::createSessionData()
 {
     return new YoutubeSessionData(this);
 }
 
-void YoutubeRunner::match(RunnerSessionData *sessionData, const QueryContext &context)
+void YoutubeRunner::match(Sprinter::RunnerSessionData *sessionData, const Sprinter::QueryContext &context)
 {
     const QString term = context.query();
     QString query;
@@ -187,26 +187,26 @@ void YoutubeRunner::match(RunnerSessionData *sessionData, const QueryContext &co
     } else if (term.startsWith(longTrigger, Qt::CaseInsensitive)) {
         query = term.right(term.length() - longTrigger.length());
     } else {
-        sessionData->setMatches(QVector<QueryMatch>(), context);
+        sessionData->setMatches(QVector<Sprinter::QueryMatch>(), context);
         return;
     }
 
     if (query.size() < 3) {
-        sessionData->setMatches(QVector<QueryMatch>(), context);
+        sessionData->setMatches(QVector<Sprinter::QueryMatch>(), context);
         return;
     }
 
     qDebug() <<" should be matching... " << query;
     YoutubeSessionData *sd = dynamic_cast<YoutubeSessionData *>(sessionData);
     if (!sd) {
-        sessionData->setMatches(QVector<QueryMatch>(), context);
+        sessionData->setMatches(QVector<Sprinter::QueryMatch>(), context);
         return;
     }
 
     emit startQuery(query, context);
 }
 
-bool YoutubeRunner::exec(const QueryMatch &match)
+bool YoutubeRunner::exec(const Sprinter::QueryMatch &match)
 {
     return QDesktopServices::openUrl(match.data().toUrl());
 }

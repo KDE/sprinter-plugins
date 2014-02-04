@@ -20,7 +20,7 @@
 
 #include "abstractrunner.h"
 
-class RunnerC : public AbstractRunner
+class RunnerC : public Sprinter::AbstractRunner
 {
     Q_OBJECT
     Q_PLUGIN_METADATA(IID "org.kde.sprinter.c" FILE "c.json")
@@ -28,8 +28,8 @@ class RunnerC : public AbstractRunner
 public:
     RunnerC(QObject *parent = 0);
 
-    void match(RunnerSessionData *sessionData, const QueryContext &context);
-    bool exec(const QueryMatch &match);
+    void match(Sprinter::RunnerSessionData *sessionData, const Sprinter::QueryContext &context);
+    bool exec(const Sprinter::QueryMatch &match);
 };
 
 #endif

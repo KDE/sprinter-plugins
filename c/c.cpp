@@ -22,21 +22,21 @@
 #include <QDebug>
 
 RunnerC::RunnerC(QObject *parent)
-    : AbstractRunner(parent)
+    : Sprinter::AbstractRunner(parent)
 {
     setGeneratesDefaultMatches(true);
 }
 
-void RunnerC::match(RunnerSessionData *sessionData, const QueryContext &context)
+void RunnerC::match(Sprinter::RunnerSessionData *sessionData, const Sprinter::QueryContext &context)
 {
-    QVector<QueryMatch> matches;
+    QVector<Sprinter::QueryMatch> matches;
     if (context.isDefaultMatchesRequest() || context.query() == "plasma") {
-        QueryMatch match(this);
+        Sprinter::QueryMatch match(this);
         match.setTitle("Plasma");
         match.setText("Rocks");
-        match.setPrecision(QuerySession::ExactMatch);
-        match.setType(QuerySession::DesktopType);
-        match.setSource(QuerySession::FromDesktopShell);
+        match.setPrecision(Sprinter::QuerySession::ExactMatch);
+        match.setType(Sprinter::QuerySession::DesktopType);
+        match.setSource(Sprinter::QuerySession::FromDesktopShell);
         match.setData("time");
         match.setIsSearchTerm(true);
         matches << match;
@@ -45,7 +45,7 @@ void RunnerC::match(RunnerSessionData *sessionData, const QueryContext &context)
     sessionData->setMatches(matches, context);
 }
 
-bool RunnerC::exec(const QueryMatch &match)
+bool RunnerC::exec(const Sprinter::QueryMatch &match)
 {
     qDebug() << "********* EXEC ****************";
     sleep(1);

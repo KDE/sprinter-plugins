@@ -25,38 +25,38 @@
 class QNetworkAccessManager;
 class QNetworkReply;
 
-class YoutubeSessionData : public RunnerSessionData
+class YoutubeSessionData : public Sprinter::RunnerSessionData
 {
     Q_OBJECT
 
 public:
-    YoutubeSessionData(AbstractRunner *runner);
+    YoutubeSessionData(Sprinter::AbstractRunner *runner);
     ~YoutubeSessionData();
 
 public Q_SLOTS:
-    void startQuery(const QString &query, const QueryContext &context);
+    void startQuery(const QString &query, const Sprinter::QueryContext &context);
     void queryFinished();
 
 private:
     QNetworkAccessManager *m_network;
     QNetworkReply *m_reply;
-    QueryContext m_context;
+    Sprinter::QueryContext m_context;
     RunnerSessionData::Busy *m_busyToken;
 };
 
-class YoutubeRunner : public AbstractRunner
+class YoutubeRunner : public Sprinter::AbstractRunner
 {
     Q_OBJECT
     Q_PLUGIN_METADATA(IID "org.kde.sprinter.youtube" FILE "youtube.json")
 
 public:
     YoutubeRunner(QObject *parent = 0);
-    RunnerSessionData *createSessionData();
-    void match(RunnerSessionData *sessionData, const QueryContext &context);
-    bool exec(const QueryMatch &match);
+    Sprinter::RunnerSessionData *createSessionData();
+    void match(Sprinter::RunnerSessionData *sessionData, const Sprinter::QueryContext &context);
+    bool exec(const Sprinter::QueryMatch &match);
 
 Q_SIGNALS:
-    void startQuery(const QString &query, const QueryContext &context);
+    void startQuery(const QString &query, const Sprinter::QueryContext &context);
 };
 
 #endif
