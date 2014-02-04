@@ -24,12 +24,13 @@
 RunnerC::RunnerC(QObject *parent)
     : AbstractRunner(parent)
 {
+    setGeneratesDefaultMatches(true);
 }
 
 void RunnerC::match(RunnerSessionData *sessionData, const QueryContext &context)
 {
     QVector<QueryMatch> matches;
-    if (context.query() == "plasma") {
+    if (context.isDefaultMatchesRequest() || context.query() == "plasma") {
         QueryMatch match(this);
         match.setTitle("Plasma");
         match.setText("Rocks");
