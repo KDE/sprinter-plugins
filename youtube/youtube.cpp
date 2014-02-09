@@ -107,7 +107,6 @@ void YoutubeSessionData::queryFinished()
 
             QVector<Sprinter::QueryMatch> matches;
             const QJsonArray entries = obj["feed"].toObject()["entry"].toArray();
-            QTime t;
             for (QJsonArray::const_iterator it = entries.begin();
                  it != entries.end();
                  ++it) {
