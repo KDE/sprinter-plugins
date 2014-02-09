@@ -22,7 +22,8 @@
 #include <QDebug>
 
 RunnerC::RunnerC(QObject *parent)
-    : Sprinter::AbstractRunner(parent)
+    : Sprinter::AbstractRunner(parent),
+      m_icon(QIcon::fromTheme("kate"))
 {
     setGeneratesDefaultMatches(true);
 }
@@ -39,6 +40,7 @@ void RunnerC::match(Sprinter::RunnerSessionData *sessionData, const Sprinter::Qu
         match.setSource(Sprinter::QuerySession::FromDesktopShell);
         match.setData("time");
         match.setIsSearchTerm(true);
+        match.setImage(m_icon.pixmap(context.imageSize()).toImage());
         matches << match;
     }
 

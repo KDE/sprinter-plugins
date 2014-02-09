@@ -20,6 +20,8 @@
 
 #include "abstractrunner.h"
 
+#include <QIcon>
+
 class RunnerC : public Sprinter::AbstractRunner
 {
     Q_OBJECT
@@ -30,6 +32,9 @@ public:
 
     void match(Sprinter::RunnerSessionData *sessionData, const Sprinter::QueryContext &context);
     bool exec(const Sprinter::QueryMatch &match);
+
+private:
+    QIcon m_icon;
 };
 
 #endif
