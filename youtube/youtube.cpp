@@ -56,6 +56,7 @@ void YoutubeSessionData::startQuery(const QString &query, const Sprinter::QueryC
     if (m_reply) {
         m_reply->deleteLater();
         m_reply = 0;
+        m_thumbJobs.clear();
     }
 
     m_context = context;
@@ -97,11 +98,11 @@ void YoutubeSessionData::queryFinished()
     m_busyToken = 0;
 
     if (m_context.isValid()) {
-        bool ok = false;
         QByteArray data = reply->readAll();
         QJsonParseError *error = 0;
         QJsonDocument doc = QJsonDocument::fromJson(data, error);
-        qDebug() << "We have our reply!" << reply->url() << ok;
+        //qDebug() << "We have our reply!" << reply->url();
+        //qDebug() << doc.toJson();
         if (!error) {
             QJsonObject obj = doc.object();
 
@@ -117,12 +118,11 @@ void YoutubeSessionData::queryFinished()
 
                 const QJsonObject media = entry["media$group"].toObject();
                 const QString title = media["media$title"].toObject()["$t"].toString();
+                const QString desc = entry["content"].toObject()["$t"].toString();
                 int seconds = media["yt$duration"].toObject()["seconds"].toString().toInt();
                 const QString author = entry["author"].toArray().first().toObject()["name"].toObject()["$t"].toString();
-                const QString desc = entry["content"].toObject()["$t"].toString();
                 const QString url = entry["link"].toArray().first().toObject()["href"].toString();
-//                 qDebug() << "================================";
-//                 qDebug() << title << seconds << time << desc;
+                const QString thumbnailUrl = media["media$thumbnail"].toArray().first().toObject()["url"].toString();
 
                 QString time;
                 if (seconds < 60) {
@@ -142,6 +142,8 @@ void YoutubeSessionData::queryFinished()
                            (seconds > 9 ? "" : "0") + QString::number(seconds);
                 }
 
+//                 qDebug() << "================================";
+//                 qDebug() << title << seconds << time << desc << thumbnailUrl;
                 Sprinter::QueryMatch match(runner());
                 match.setTitle(tr("%1 (%2, %3)").arg(title, author, time));
                 match.setText(desc);
@@ -151,6 +153,13 @@ void YoutubeSessionData::queryFinished()
                 match.setUserData(url);
                 match.setData(url);
                 matches << match;
+
+                if (!thumbnailUrl.isEmpty()) {
+                    QNetworkRequest thumbRequest(thumbnailUrl);
+                    QNetworkReply *thumbReply = m_network->get(thumbRequest);
+                    connect(thumbReply, SIGNAL(finished()), this, SLOT(thumbRecv()));
+                    m_thumbJobs.insert(thumbReply->url(), match);
+                }
             }
 //             qDebug() <<" **********" << matches.count();
             setMatches(matches, m_context);
@@ -162,6 +171,37 @@ void YoutubeSessionData::queryFinished()
     m_reply = 0;
 }
 
+void YoutubeSessionData::thumbRecv()
+{
+    if (!m_context.isValid()) {
+        return;
+    }
+
+    QNetworkReply *reply = qobject_cast<QNetworkReply *>(sender());
+    if (!reply) {
+        return;
+    }
+
+    qDebug() << "reply from" << reply->url();
+    if (m_thumbJobs.contains(reply->url())) {
+        if (reply->error() == QNetworkReply::NoError) {
+            Sprinter::QueryMatch match = m_thumbJobs[reply->url()];
+            //TODO this is realy not good: large images won't come in all at once
+            // leading to biiiig chunks here.. in theory the thumbnails are all small
+            // however
+            QByteArray data = reply->readAll();
+            QImage image = QImage::fromData(data);
+            qDebug() << "image is ... " << image.size() << data.size();
+            if (image.size().isValid()) {
+                match.setImage(image);
+                updateMatches(QVector<Sprinter::QueryMatch>() << match);
+            }
+        }
+        m_thumbJobs.remove(reply->url());
+    }
+
+    reply->deleteLater();
+}
 
 YoutubeRunner::YoutubeRunner(QObject *parent)
     : AbstractRunner(parent)

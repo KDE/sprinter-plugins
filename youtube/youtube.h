@@ -36,12 +36,14 @@ public:
 public Q_SLOTS:
     void startQuery(const QString &query, const Sprinter::QueryContext &context);
     void queryFinished();
+    void thumbRecv();
 
 private:
     QNetworkAccessManager *m_network;
     QNetworkReply *m_reply;
     Sprinter::QueryContext m_context;
     RunnerSessionData::Busy *m_busyToken;
+    QHash<QUrl, Sprinter::QueryMatch> m_thumbJobs;
 };
 
 class YoutubeRunner : public Sprinter::AbstractRunner
