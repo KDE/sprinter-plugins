@@ -182,7 +182,6 @@ void YoutubeSessionData::thumbRecv()
         return;
     }
 
-    qDebug() << "reply from" << reply->url();
     if (m_thumbJobs.contains(reply->url())) {
         if (reply->error() == QNetworkReply::NoError) {
             Sprinter::QueryMatch match = m_thumbJobs[reply->url()];
@@ -193,6 +192,7 @@ void YoutubeSessionData::thumbRecv()
             QImage image = QImage::fromData(data);
             qDebug() << "image is ... " << image.size() << data.size();
             if (image.size().isValid()) {
+                image = image.scaled(m_context.imageSize(), Qt::KeepAspectRatio);
                 match.setImage(image);
                 updateMatches(QVector<Sprinter::QueryMatch>() << match);
             }
