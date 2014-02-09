@@ -190,7 +190,7 @@ void YoutubeSessionData::thumbRecv()
             // however
             QByteArray data = reply->readAll();
             QImage image = QImage::fromData(data);
-            qDebug() << "image is ... " << image.size() << data.size();
+            //qDebug() << "image is ... " << image.size() << data.size();
             if (image.size().isValid()) {
                 image = image.scaled(m_context.imageSize(), Qt::KeepAspectRatio);
                 match.setImage(image);
