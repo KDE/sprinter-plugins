@@ -18,7 +18,7 @@
 #ifndef RUNNER_C
 #define RUNNER_C
 
-#include "abstractrunner.h"
+#include "sprinter/abstractrunner.h"
 
 #include <QIcon>
 

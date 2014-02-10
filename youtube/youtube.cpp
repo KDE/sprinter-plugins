@@ -29,7 +29,7 @@
 #include <QNetworkReply>
 #include <QTime>
 
-#include <querycontext.h>
+#include <sprinter/querycontext.h>
 
 static const QString shortTrigger = QObject::tr("yt ");
 static const QString longTrigger = QObject::tr("video ");
