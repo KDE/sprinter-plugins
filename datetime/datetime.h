@@ -20,6 +20,8 @@
 
 #include "sprinter/abstractrunner.h"
 
+#include <QIcon>
+
 class QTimer;
 
 class DateTimeSessionData : public Sprinter::RunnerSessionData
@@ -58,6 +60,7 @@ private:
     void populateTzList();
 
     QHash<QString, QByteArray> m_tzList;
+    QIcon m_icon;
 };
 
 #endif

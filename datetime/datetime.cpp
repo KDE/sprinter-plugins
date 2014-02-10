@@ -68,7 +68,8 @@ void DateTimeSessionData::performUpdate()
 }
 
 DateTimeRunner::DateTimeRunner(QObject *parent)
-    : Sprinter::AbstractRunner(parent)
+    : Sprinter::AbstractRunner(parent),
+      m_icon(QIcon::fromTheme("clock"))
 {
     setMatchTypesGenerated(QVector<Sprinter::QuerySession::MatchType>()
                                 << Sprinter::QuerySession::DateTimeType);
@@ -85,8 +86,7 @@ Sprinter::QueryMatch DateTimeRunner::createMatch(const QString &title, const QSt
     match.setPrecision(Sprinter::QuerySession::ExactMatch);
     match.setType(Sprinter::QuerySession::DateTimeType);
     match.setSource(Sprinter::QuerySession::FromLocalService);
-    qDebug() << "Errr... " << match.title();
-//     match.setIcon(KIcon(QLatin1String( "clock" )));
+//     qDebug() << "Errr... " << match.title();
     return match;
 }
 
@@ -161,7 +161,9 @@ QDateTime DateTimeRunner::datetime(const QString &term, bool date, QString &tzNa
 void DateTimeRunner::match(Sprinter::RunnerSessionData *sessionData, const Sprinter::QueryContext &context)
 {
     Sprinter::QueryMatch match = performMatch(context.query());
-qDebug() << "got" << match.text() << match.isValid();
+    match.setImage(m_icon.pixmap(context.imageSize()).toImage());
+
+//     qDebug() << "got" << match.text() << match.isValid();
     QVector<Sprinter::QueryMatch> matches;
     if (match.isValid()) {
         matches << match;
