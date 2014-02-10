@@ -40,7 +40,8 @@ YoutubeSessionData::YoutubeSessionData(Sprinter::AbstractRunner *runner)
     : Sprinter::RunnerSessionData(runner),
       m_network(new QNetworkAccessManager(this)),
       m_reply(0),
-      m_busyToken(0)
+      m_busyToken(0),
+      m_icon(QIcon::fromTheme("video-x-generic")) // TODO: nicer default icon pls
 {
     connect(runner, SIGNAL(startQuery(QString,Sprinter::QueryContext)),
             this, SLOT(startQuery(QString, Sprinter::QueryContext)));
@@ -152,6 +153,7 @@ void YoutubeSessionData::queryFinished()
                 match.setPrecision(Sprinter::QuerySession::CloseMatch);
                 match.setUserData(url);
                 match.setData(url);
+                match.setImage(m_icon.pixmap(m_context.imageSize()).toImage());
                 matches << match;
 
                 if (!thumbnailUrl.isEmpty()) {
@@ -170,7 +172,7 @@ void YoutubeSessionData::queryFinished()
     reply->deleteLater();
     m_reply = 0;
 }
-
+#include <unistd.h>
 void YoutubeSessionData::thumbRecv()
 {
     if (!m_context.isValid()) {
@@ -185,7 +187,7 @@ void YoutubeSessionData::thumbRecv()
     if (m_thumbJobs.contains(reply->url())) {
         if (reply->error() == QNetworkReply::NoError) {
             Sprinter::QueryMatch match = m_thumbJobs[reply->url()];
-            //TODO this is realy not good: large images won't come in all at once
+            //TODO this is not very good: large images won't come in all at once
             // leading to biiiig chunks here.. in theory the thumbnails are all small
             // however
             QByteArray data = reply->readAll();

@@ -21,6 +21,7 @@
 #include "sprinter/abstractrunner.h"
 
 #include <QHash>
+#include <QIcon>
 
 class QNetworkAccessManager;
 class QNetworkReply;
@@ -44,6 +45,7 @@ private:
     Sprinter::QueryContext m_context;
     RunnerSessionData::Busy *m_busyToken;
     QHash<QUrl, Sprinter::QueryMatch> m_thumbJobs;
+    QIcon m_icon;
 };
 
 class YoutubeRunner : public Sprinter::AbstractRunner
