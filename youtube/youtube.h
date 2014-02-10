@@ -18,7 +18,7 @@
 #ifndef RUNNER_YOUTUBE
 #define RUNNER_YOUTUBE
 
-#include "sprinter/abstractrunner.h"
+#include "sprinter/runner.h"
 
 #include <QHash>
 #include <QIcon>
