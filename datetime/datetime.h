@@ -29,7 +29,7 @@ class DateTimeSessionData : public Sprinter::RunnerSessionData
     Q_OBJECT
 
 public:
-    DateTimeSessionData(Sprinter::AbstractRunner *runner);
+    DateTimeSessionData(Sprinter::Runner *runner);
     bool shouldStartMatch(const Sprinter::QueryContext &context) const;
 
 private Q_SLOTS:
@@ -39,7 +39,7 @@ private:
     QTimer *m_updateTimer;
 };
 
-class DateTimeRunner : public Sprinter::AbstractRunner
+class DateTimeRunner : public Sprinter::Runner
 {
     Q_OBJECT
     Q_PLUGIN_METADATA(IID "org.kde.sprinter.datetime" FILE "datetime.json")

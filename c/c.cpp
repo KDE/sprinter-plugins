@@ -22,7 +22,7 @@
 #include <QDebug>
 
 RunnerC::RunnerC(QObject *parent)
-    : Sprinter::AbstractRunner(parent),
+    : Sprinter::Runner(parent),
       m_icon(QIcon::fromTheme("kate"))
 {
     setGeneratesDefaultMatches(true);

@@ -22,7 +22,7 @@
 
 #include <QIcon>
 
-class RunnerC : public Sprinter::AbstractRunner
+class RunnerC : public Sprinter::Runner
 {
     Q_OBJECT
     Q_PLUGIN_METADATA(IID "org.kde.sprinter.c" FILE "c.json")

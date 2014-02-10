@@ -36,7 +36,7 @@ static const QString longTrigger = QObject::tr("video ");
 // three vars are page size, offset and query (1, 2, 3, 4 resp)
 static const QString url = "http://gdata.youtube.com/feeds/api/videos?max-results=%1&start-index=%2&alt=json&q=%4";
 
-YoutubeSessionData::YoutubeSessionData(Sprinter::AbstractRunner *runner)
+YoutubeSessionData::YoutubeSessionData(Sprinter::Runner *runner)
     : Sprinter::RunnerSessionData(runner),
       m_network(new QNetworkAccessManager(this)),
       m_reply(0),
@@ -206,7 +206,7 @@ void YoutubeSessionData::thumbRecv()
 }
 
 YoutubeRunner::YoutubeRunner(QObject *parent)
-    : AbstractRunner(parent)
+    : Runner(parent)
 {
     setMatchTypesGenerated(QVector<Sprinter::QuerySession::MatchType>()
                                 << Sprinter::QuerySession::VideoType);

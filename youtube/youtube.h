@@ -31,7 +31,7 @@ class YoutubeSessionData : public Sprinter::RunnerSessionData
     Q_OBJECT
 
 public:
-    YoutubeSessionData(Sprinter::AbstractRunner *runner);
+    YoutubeSessionData(Sprinter::Runner *runner);
     ~YoutubeSessionData();
 
 public Q_SLOTS:
@@ -48,7 +48,7 @@ private:
     QIcon m_icon;
 };
 
-class YoutubeRunner : public Sprinter::AbstractRunner
+class YoutubeRunner : public Sprinter::Runner
 {
     Q_OBJECT
     Q_PLUGIN_METADATA(IID "org.kde.sprinter.youtube" FILE "youtube.json")

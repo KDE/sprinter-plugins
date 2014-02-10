@@ -25,7 +25,7 @@
 static const QString dateWord = QObject::tr("date");
 static const QString timeWord = QObject::tr("time");
 
-DateTimeSessionData::DateTimeSessionData(Sprinter::AbstractRunner *runner)
+DateTimeSessionData::DateTimeSessionData(Sprinter::Runner *runner)
     : Sprinter::RunnerSessionData(runner),
       m_updateTimer(new QTimer(this))
 {
@@ -68,7 +68,7 @@ void DateTimeSessionData::performUpdate()
 }
 
 DateTimeRunner::DateTimeRunner(QObject *parent)
-    : Sprinter::AbstractRunner(parent),
+    : Sprinter::Runner(parent),
       m_icon(QIcon::fromTheme("clock"))
 {
     setMatchTypesGenerated(QVector<Sprinter::QuerySession::MatchType>()
