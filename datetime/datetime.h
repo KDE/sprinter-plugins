@@ -50,6 +50,8 @@ public:
     void match(Sprinter::RunnerSessionData *sessionData, const Sprinter::QueryContext &context);
     Sprinter::QueryMatch performMatch(const QString &term);
 
+    QImage image() const;
+
 Q_SIGNALS:
     void startUpdating();
     void stopUpdating();
@@ -61,6 +63,7 @@ private:
 
     QHash<QString, QByteArray> m_tzList;
     QIcon m_icon;
+    QSize m_imageSize;
 };
 
 #endif

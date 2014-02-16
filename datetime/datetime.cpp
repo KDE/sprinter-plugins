@@ -55,6 +55,8 @@ void DateTimeSessionData::performUpdate()
     Sprinter::QueryMatch update;
     foreach (const Sprinter::QueryMatch &match, matches(SynchronizedMatches)) {
         update = dtr->performMatch(match.data().toString());
+        update.setImage(dtr->image());
+
         if (update.isValid()) {
             updates << update;
         }
@@ -161,11 +163,12 @@ QDateTime DateTimeRunner::datetime(const QString &term, bool date, QString &tzNa
 void DateTimeRunner::match(Sprinter::RunnerSessionData *sessionData, const Sprinter::QueryContext &context)
 {
     Sprinter::QueryMatch match = performMatch(context.query());
-    match.setImage(m_icon.pixmap(context.imageSize()).toImage());
 
 //     qDebug() << "got" << match.text() << match.isValid();
     QVector<Sprinter::QueryMatch> matches;
     if (match.isValid()) {
+        m_imageSize = context.imageSize();
+        match.setImage(image());
         matches << match;
     }
 
@@ -205,6 +208,15 @@ Sprinter::QueryMatch DateTimeRunner::performMatch(const QString &term)
     }
 
     return Sprinter::QueryMatch();
+}
+
+QImage DateTimeRunner::image() const
+{
+    if (m_imageSize.isNull()) {
+        return QImage();
+    }
+
+    return m_icon.pixmap(m_imageSize).toImage();
 }
 
 #include "moc_datetime.cpp"
