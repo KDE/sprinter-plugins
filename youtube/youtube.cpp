@@ -172,7 +172,7 @@ void YoutubeSessionData::queryFinished()
     reply->deleteLater();
     m_reply = 0;
 }
-#include <unistd.h>
+
 void YoutubeSessionData::thumbRecv()
 {
     if (!m_context.isValid()) {
@@ -223,6 +223,7 @@ void YoutubeRunner::match(Sprinter::RunnerSessionData *sessionData, const Sprint
 {
     const QString term = context.query();
     QString query;
+
     if (term.startsWith(shortTrigger, Qt::CaseInsensitive)) {
         query = term.right(term.length() - shortTrigger.length());
     } else if (term.startsWith(longTrigger, Qt::CaseInsensitive)) {
