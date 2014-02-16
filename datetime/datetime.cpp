@@ -39,7 +39,7 @@ bool DateTimeSessionData::shouldStartMatch(const Sprinter::QueryContext &context
 {
     bool should = RunnerSessionData::shouldStartMatch(context);
     if (!should) {
-        m_updateTimer->stop();
+        QMetaObject::invokeMethod(m_updateTimer, "stop");
     }
     return should;
 }
@@ -63,7 +63,7 @@ void DateTimeSessionData::performUpdate()
     }
 
     if (updates.isEmpty()) {
-        m_updateTimer->stop();
+        QMetaObject::invokeMethod(m_updateTimer, "stop");
     } else {
         updateMatches(updates);
     }
