@@ -52,6 +52,7 @@ class YoutubeRunner : public Sprinter::Runner
 {
     Q_OBJECT
     Q_PLUGIN_METADATA(IID "org.kde.sprinter.youtube" FILE "youtube.json")
+    Q_INTERFACES(Sprinter::Runner)
 
 public:
     YoutubeRunner(QObject *parent = 0);

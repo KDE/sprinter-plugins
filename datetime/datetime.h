@@ -43,6 +43,7 @@ class DateTimeRunner : public Sprinter::Runner
 {
     Q_OBJECT
     Q_PLUGIN_METADATA(IID "org.kde.sprinter.datetime" FILE "datetime.json")
+    Q_INTERFACES(Sprinter::Runner)
 
 public:
     DateTimeRunner(QObject *parent = 0);

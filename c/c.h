@@ -26,6 +26,7 @@ class RunnerC : public Sprinter::Runner
 {
     Q_OBJECT
     Q_PLUGIN_METADATA(IID "org.kde.sprinter.c" FILE "c.json")
+    Q_INTERFACES(Sprinter::Runner)
 
 public:
     RunnerC(QObject *parent = 0);
