@@ -18,61 +18,73 @@
 
 #include "activities.h"
 
-#include <QEvent>
-#include <QTimer>
+#include <QCoreApplication>
+
+KActivitiesProxy::KActivitiesProxy()
+    : QObject(),
+      m_activities(0)
+{
+    qRegisterMetaType<KActivities::Consumer::ServiceStatus>("KActivities::Consumer::ServiceStatus");
+}
+
+void KActivitiesProxy::start()
+{
+//     qDebug() << "Running the KAMD proxy" << thread() << QCoreApplication::instance()->thread();
+    m_activities = new KActivities::Controller(this);
+    connect(m_activities, &KActivities::Consumer::serviceStatusChanged,
+            this, &KActivitiesProxy::serviceStatusChanged);
+    connect(m_activities, &KActivities::Consumer::activitiesChanged,
+            this, &KActivitiesProxy::activitiesChanged);
+    connect(m_activities, &KActivities::Consumer::currentActivityChanged,
+            this, &KActivitiesProxy::currentActivityChanged);
+    emit activitiesChanged(m_activities->activities());
+    emit currentActivityChanged(m_activities->currentActivity());
+    emit serviceStatusChanged(m_activities->serviceStatus());
+}
+
 ActivitySessionData::ActivitySessionData(Sprinter::Runner *runner)
     : Sprinter::RunnerSessionData(runner),
-//       activities(new KActivities::Controller(this)),
-      activities(0),
-      isEnabled(false)
+      isEnabled(false),
+      m_activitiesProxy(new KActivitiesProxy)
 {
-    qDebug() << "Creating in thread" << thread();
-            activities = new KActivities::Controller(this);
-    connect(activities,
-            &KActivities::Consumer::serviceStatusChanged,
+    m_activitiesProxy->moveToThread(QCoreApplication::instance()->thread());
+    connect(m_activitiesProxy,
+            &KActivitiesProxy::serviceStatusChanged,
             this,
             &ActivitySessionData::serviceStatusChanged);
-}
-
-bool ActivitySessionData::event(QEvent *event)
-{
-    if (event->type() == QEvent::ThreadChange) {
-    qDebug() << "IN NEW THREAD ********************************************" << thread();
-    qDebug() << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!";
-    //serviceStatusChanged(activities->serviceStatus());
-    QTimer *t = new QTimer(this);
-    t->setInterval(1000);
-    t->setSingleShot(true);
-    t->start();
-    connect(t, SIGNAL(timeout()), this, SLOT(testSlot()));
-    qDebug() << "TIMER HAS BEEN SET!";
-    }
-
-    return false;
-}
-
-void ActivitySessionData::testSlot()
-{
-    qDebug() << "............................. er... yes?" << thread() << activities;
-    if (!activities) {
-                activities = new KActivities::Controller(this);
-        connect(activities,
-                &KActivities::Consumer::serviceStatusChanged,
-                this,
-                &ActivitySessionData::serviceStatusChanged);
-    }
-
+    connect(m_activitiesProxy,
+            &KActivitiesProxy::activitiesChanged,
+            this,
+            &ActivitySessionData::activitiesChanged);
+    connect(m_activitiesProxy,
+            &KActivitiesProxy::currentActivityChanged,
+            this,
+            &ActivitySessionData::currentActivityChanged);
+    QMetaObject::invokeMethod(m_activitiesProxy, "start");
 }
 
 ActivitySessionData::~ActivitySessionData()
 {
+    QMetaObject::invokeMethod(m_activitiesProxy, "deleteLater");
 }
 
 void ActivitySessionData::serviceStatusChanged(KActivities::Consumer::ServiceStatus status)
 {
-    QTimer::singleShot(1000, this, SLOT(testSlot()));
     isEnabled = status == KActivities::Consumer::Running;
-    qDebug() << "$$$$$$$$$$$$$$$$ ENABLED?????" << isEnabled;
+//     qDebug() << "$$$$$$$$$$$$$$$$ ENABLED?????" << isEnabled;
+}
+
+void ActivitySessionData::activitiesChanged(const QStringList &acts)
+{
+    activities = acts;
+    qSort(activities);
+//     qDebug() << "$$$$$$$$$$$$$$$$ ?????" << activities;
+}
+
+void ActivitySessionData::currentActivityChanged(const QString &id)
+{
+    currentActivity = id;
+//     qDebug() << "$$$$$$$$$$$$$$$$ ?????" << currentActivity;
 }
 
 ActivityRunner::ActivityRunner(QObject *parent)
@@ -85,6 +97,7 @@ ActivityRunner::ActivityRunner(QObject *parent)
                                 << Sprinter::QuerySession::ActivityType);
     setSourcesUsed(QVector<Sprinter::QuerySession::MatchSource>()
                         << Sprinter::QuerySession::FromLocalService);
+    setGeneratesDefaultMatches(true);
 }
 
 Sprinter::RunnerSessionData *ActivityRunner::createSessionData()
@@ -100,13 +113,15 @@ void ActivityRunner::match(Sprinter::RunnerSessionData *sd,
         return;
     }
 
-    const QString term = context.query().trimmed();
+    const QString term = context.query();
     bool list = false;
+    bool triggerWord = false;
     QString name;
 
     if (context.isDefaultMatchesRequest()) {
         list = true;
     } else if (term.startsWith(m_keywordi18n, Qt::CaseInsensitive)) {
+        triggerWord = true;
         if (term.size() == m_keywordi18n.size()) {
             list = true;
         } else {
@@ -114,6 +129,7 @@ void ActivityRunner::match(Sprinter::RunnerSessionData *sd,
             list = name.isEmpty();
         }
     } else if (term.startsWith(m_keyword, Qt::CaseInsensitive)) {
+        triggerWord = true;
         if (term.size() == m_keyword.size()) {
             list = true;
         } else {
@@ -121,14 +137,12 @@ void ActivityRunner::match(Sprinter::RunnerSessionData *sd,
             list = name.isEmpty();
         }
     } else {
-        return;
+        name = term;
     }
 
+    const QStringList activities = sessionData->activities;
+    const QString currentActivity = sessionData->currentActivity;
     QVector<Sprinter::QueryMatch> matches;
-    QStringList activities = sessionData->activities->activities();
-    qSort(activities);
-
-    const QString current = sessionData->activities->currentActivity();
 
     if (!context.isValid()) {
         return;
@@ -136,12 +150,17 @@ void ActivityRunner::match(Sprinter::RunnerSessionData *sd,
 
     if (list) {
         foreach (const QString &activity, activities) {
-            if (current == activity) {
+            if (currentActivity == activity) {
                 continue;
             }
 
             KActivities::Info info(activity);
-            addMatch(info, true, context, matches);
+            addMatch(info,
+                     (info.state() == KActivities::Info::Running ||
+                      info.state() == KActivities::Info::Starting) ?
+                        Sprinter::QuerySession::ExactMatch :
+                        Sprinter::QuerySession::CloseMatch,
+                     context, matches);
 
             if (!context.isValid()) {
                 return;
@@ -149,14 +168,20 @@ void ActivityRunner::match(Sprinter::RunnerSessionData *sd,
         }
     } else {
         foreach (const QString &activity, activities) {
-            if (current == activity) {
+            if (currentActivity == activity) {
                 continue;
             }
 
             KActivities::Info info(activity);
             if (info.name().startsWith(name, Qt::CaseInsensitive)) {
+                bool exact = info.name().compare(name, Qt::CaseInsensitive) == 0;
                 addMatch(info,
-                         info.name().compare(name, Qt::CaseInsensitive) == 0,
+                         triggerWord ? (exact ?
+                                            Sprinter::QuerySession::ExactMatch :
+                                            Sprinter::QuerySession::CloseMatch)
+                                     : (exact ?
+                                            Sprinter::QuerySession::CloseMatch :
+                                            Sprinter::QuerySession::FuzzyMatch),
                          context,
                          matches);
             }
@@ -170,7 +195,8 @@ void ActivityRunner::match(Sprinter::RunnerSessionData *sd,
     sessionData->setMatches(matches, context);
 }
 
-void ActivityRunner::addMatch(const KActivities::Info &activity, bool exact,
+void ActivityRunner::addMatch(const KActivities::Info &activity,
+                              Sprinter::QuerySession::MatchPrecision precision,
                               const Sprinter::QueryContext &context,
                               QVector<Sprinter::QueryMatch> &matches)
 {
@@ -179,14 +205,8 @@ void ActivityRunner::addMatch(const KActivities::Info &activity, bool exact,
     match.setType(Sprinter::QuerySession::ActivityType);
     match.setSource(Sprinter::QuerySession::FromLocalService);
     match.setImage(image(activity, context));
-    match.setText(tr("Switch to activity \"%1\"").arg(activity.name()));
-    if (exact &&
-        (activity.state() == KActivities::Info::Running ||
-         activity.state() == KActivities::Info::Starting)) {
-        match.setPrecision(Sprinter::QuerySession::ExactMatch);
-    } else {
-        match.setPrecision(Sprinter::QuerySession::CloseMatch);
-    }
+    match.setTitle(tr("Switch to activity \"%1\"").arg(activity.name()));
+    match.setPrecision(precision);
     matches << match;
 }
 

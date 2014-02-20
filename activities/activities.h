@@ -18,11 +18,32 @@
 #ifndef ACTIVITYRUNNER_H
 #define ACTIVITYRUNNER_H
 
+#include "sprinter/querysession.h"
 #include "sprinter/runner.h"
 
 #include <KActivities/Controller>
 
 #include <QIcon>
+
+// this class works around threading brokenness currently
+// found in KDBusConnectionPool
+class KActivitiesProxy : public QObject
+{
+    Q_OBJECT
+public:
+    KActivitiesProxy();
+
+public Q_SLOTS:
+    void start();
+
+Q_SIGNALS:
+    void serviceStatusChanged(KActivities::Consumer::ServiceStatus);
+    void activitiesChanged(const QStringList &activities);
+    void currentActivityChanged(const QString &id);
+
+private:
+    KActivities::Controller *m_activities;
+};
 
 class ActivitySessionData : public Sprinter::RunnerSessionData
 {
@@ -31,14 +52,18 @@ class ActivitySessionData : public Sprinter::RunnerSessionData
 public:
     ActivitySessionData(Sprinter::Runner *runner);
     ~ActivitySessionData();
-    bool event(QEvent *event);
 
-    KActivities::Controller *activities;
+    QStringList activities;
+    QString currentActivity;
     bool isEnabled;
 
 public Q_SLOTS:
-    void testSlot();
     void serviceStatusChanged(KActivities::Consumer::ServiceStatus);
+    void activitiesChanged(const QStringList &activities);
+    void currentActivityChanged(const QString &id);
+
+private:
+    KActivitiesProxy *m_activitiesProxy;
 };
 
 class ActivityRunner : public Sprinter::Runner
@@ -57,7 +82,8 @@ public:
     bool exec(const Sprinter::QueryMatch &match);
 
 private:
-    void addMatch(const KActivities::Info &activity, bool exact,
+    void addMatch(const KActivities::Info &activity,
+                  Sprinter::QuerySession::MatchPrecision precision,
                   const Sprinter::QueryContext &context,
                   QVector<Sprinter::QueryMatch> &matches);
     QImage image(const KActivities::Info &activity,
