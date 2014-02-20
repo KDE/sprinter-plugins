@@ -18,16 +18,50 @@
 
 #include "activities.h"
 
+#include <QEvent>
+#include <QTimer>
 ActivitySessionData::ActivitySessionData(Sprinter::Runner *runner)
     : Sprinter::RunnerSessionData(runner),
-      activities(new KActivities::Controller(this)),
+//       activities(new KActivities::Controller(this)),
+      activities(0),
       isEnabled(false)
 {
+    qDebug() << "Creating in thread" << thread();
+            activities = new KActivities::Controller(this);
     connect(activities,
-            SIGNAL(serviceStatusChanged(Consumer::ServiceStatus)),
+            &KActivities::Consumer::serviceStatusChanged,
             this,
-            SLOT(serviceStatusChanged(KActivities::Consumer::ServiceStatus)));
-    serviceStatusChanged(activities->serviceStatus());
+            &ActivitySessionData::serviceStatusChanged);
+}
+
+bool ActivitySessionData::event(QEvent *event)
+{
+    if (event->type() == QEvent::ThreadChange) {
+    qDebug() << "IN NEW THREAD ********************************************" << thread();
+    qDebug() << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!";
+    //serviceStatusChanged(activities->serviceStatus());
+    QTimer *t = new QTimer(this);
+    t->setInterval(1000);
+    t->setSingleShot(true);
+    t->start();
+    connect(t, SIGNAL(timeout()), this, SLOT(testSlot()));
+    qDebug() << "TIMER HAS BEEN SET!";
+    }
+
+    return false;
+}
+
+void ActivitySessionData::testSlot()
+{
+    qDebug() << "............................. er... yes?" << thread() << activities;
+    if (!activities) {
+                activities = new KActivities::Controller(this);
+        connect(activities,
+                &KActivities::Consumer::serviceStatusChanged,
+                this,
+                &ActivitySessionData::serviceStatusChanged);
+    }
+
 }
 
 ActivitySessionData::~ActivitySessionData()
@@ -36,7 +70,9 @@ ActivitySessionData::~ActivitySessionData()
 
 void ActivitySessionData::serviceStatusChanged(KActivities::Consumer::ServiceStatus status)
 {
+    QTimer::singleShot(1000, this, SLOT(testSlot()));
     isEnabled = status == KActivities::Consumer::Running;
+    qDebug() << "$$$$$$$$$$$$$$$$ ENABLED?????" << isEnabled;
 }
 
 ActivityRunner::ActivityRunner(QObject *parent)

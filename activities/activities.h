@@ -31,11 +31,13 @@ class ActivitySessionData : public Sprinter::RunnerSessionData
 public:
     ActivitySessionData(Sprinter::Runner *runner);
     ~ActivitySessionData();
+    bool event(QEvent *event);
 
     KActivities::Controller *activities;
     bool isEnabled;
 
 public Q_SLOTS:
+    void testSlot();
     void serviceStatusChanged(KActivities::Consumer::ServiceStatus);
 };
 
