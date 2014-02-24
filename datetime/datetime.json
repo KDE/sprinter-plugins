@@ -1,4 +1,14 @@
 {
-    "name": "Date and Time",
-    "description": "World-wide date and time"
+    "Comment": "The current date and time, locally or in any timezone",
+    "Icon": "clock",
+    "Name": "Date and Time",
+    "Type": "Service",
+    "X-KDE-PluginInfo-Author": "Aaron Seigo",
+    "X-KDE-PluginInfo-Email": "aseigo@kde.org",
+    "X-KDE-PluginInfo-EnabledByDefault": true,
+    "X-KDE-PluginInfo-License": "GPL",
+    "X-KDE-PluginInfo-Version": "1.0",
+    "X-KDE-ServiceTypes": [
+        "Sprinter/Runner"
+    ]
 }

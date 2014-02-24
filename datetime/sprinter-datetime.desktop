@@ -101,5 +101,5 @@ Icon=clock
 X-KDE-PluginInfo-Author=Aaron Seigo
 X-KDE-PluginInfo-Email=aseigo@kde.org
 X-KDE-PluginInfo-Version=1.0
-X-KDE-PluginInfo-License=LGPL
+X-KDE-PluginInfo-License=GPL
 X-KDE-PluginInfo-EnabledByDefault=true
