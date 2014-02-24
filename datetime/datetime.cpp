@@ -210,13 +210,17 @@ Sprinter::QueryMatch DateTimeRunner::performMatch(const QString &term)
     return Sprinter::QueryMatch();
 }
 
-QImage DateTimeRunner::image() const
+QImage DateTimeRunner::image()
 {
     if (m_imageSize.isNull()) {
         return QImage();
     }
 
-    return m_icon.pixmap(m_imageSize).toImage();
+    if (m_image.size() != m_imageSize) {
+        m_image = m_icon.pixmap(m_imageSize).toImage();
+    }
+
+    return m_image;
 }
 
 #include "moc_datetime.cpp"
