@@ -1,0 +1,16 @@
+{
+    "Comment": "Calculate expressions",
+    "Icon": "accessories-calculator",
+    "Name": "Calculator",
+    "Type": "Service",
+    "X-KDE-Library": "krunner_calculatorrunner",
+    "X-KDE-PluginInfo-Author": "Plasma Team",
+    "X-KDE-PluginInfo-Email": "plasma-devel@kde.org",
+    "X-KDE-PluginInfo-EnabledByDefault": true,
+    "X-KDE-PluginInfo-License": "LGPL",
+    "X-KDE-PluginInfo-Name": "calculator",
+    "X-KDE-PluginInfo-Version": "1.0",
+    "X-KDE-ServiceTypes": [
+        "Plasma/Runner"
+    ]
+}
