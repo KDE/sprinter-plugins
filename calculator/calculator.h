@@ -27,9 +27,20 @@
 
 #include "qalculate_engine.h"
 
-/**
- * This class evaluates the basic expressions given in the interface.
- */
+class CalculatorSessionData : public Sprinter::RunnerSessionData
+{
+    Q_OBJECT
+
+public:
+    CalculatorSessionData(Sprinter::Runner *runner)
+        : RunnerSessionData(runner),
+          m_engine(new QalculateEngine(this))
+    {
+    }
+
+    QalculateEngine *m_engine;
+};
+
 class CalculatorRunner : public Sprinter::Runner
 {
     Q_OBJECT
@@ -40,6 +51,7 @@ public:
     CalculatorRunner(QObject* parent = 0);
     ~CalculatorRunner();
 
+    Sprinter::RunnerSessionData *createSessionData();
     void match(Sprinter::RunnerSessionData *sessionData,
                const Sprinter::QueryContext &context);
 
@@ -48,7 +60,6 @@ private:
 
     QImage m_image;
     QIcon m_icon;
-    QalculateEngine m_engine;
 };
 
 #endif

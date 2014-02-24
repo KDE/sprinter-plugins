@@ -60,17 +60,27 @@ private:
     QVector<Sprinter::QueryMatch> *m_matches;
 };
 
-void CalculatorRunner::match(Sprinter::RunnerSessionData *sessionData,
+Sprinter::RunnerSessionData *CalculatorRunner::createSessionData()
+{
+    return new CalculatorSessionData(this);
+}
+
+void CalculatorRunner::match(Sprinter::RunnerSessionData *sd,
                              const Sprinter::QueryContext &context)
 {
+    QVector<Sprinter::QueryMatch> matches;
+    SetMatches matchSetter(sd, context, &matches);
+
+    CalculatorSessionData *sessionData = qobject_cast<CalculatorSessionData *>(sd);
+    if (!sessionData) {
+        return;
+    }
+
     const QString term = context.query();
     QString cmd = term;
 
     //no meanless space between friendly guys: helps simplify code
     cmd = cmd.trimmed().remove(' ');
-
-    QVector<Sprinter::QueryMatch> matches;
-    SetMatches matchSetter(sessionData, context, &matches);
 
     if (cmd.toLower() == "universe" || cmd.toLower() == "life") {
         Sprinter::QueryMatch match(this);
@@ -120,7 +130,7 @@ void CalculatorRunner::match(Sprinter::RunnerSessionData *sessionData,
 
     QString result;
     try {
-        result = m_engine.evaluate(term);
+        result = sessionData->m_engine->evaluate(term);
         result = result.replace('.', QLocale::system().decimalPoint(), Qt::CaseInsensitive);
     } catch(std::exception &e) {
         qDebug() << "qalculate error: " << e.what();

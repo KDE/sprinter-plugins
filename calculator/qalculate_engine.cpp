@@ -29,6 +29,7 @@
 
 #include <QDebug>
 #include <QFile>
+#include <QFileInfo>
 #include <QMutexLocker>
 #include <QNetworkReply>
 #include <QNetworkRequest>
@@ -37,6 +38,7 @@ QAtomicInt QalculateEngine::s_counter;
 
 QalculateEngine::QalculateEngine(QObject* parent):
     QObject(parent),
+    m_network(0),
     m_networkReply(0)
 {
     QMutexLocker lock(&m_mutex);
@@ -61,17 +63,31 @@ QalculateEngine::~QalculateEngine()
 
 void QalculateEngine::updateExchangeRates()
 {
-
     QMutexLocker lock(&m_mutex);
-    if (m_exchangeRatesUpdated == QDate::currentDate() ||
-        m_lastAttempt.elapsed() < (30 * 60 * 1000) ||
+    if (m_exchangeRatesUpdated.isNull()) {
+        QFileInfo info(CALCULATOR->getExchangeRatesFileName().c_str());
+        if (info.exists()) {
+            m_exchangeRatesUpdated = info.lastModified();
+        }
+    }
+
+    if ((!m_exchangeRatesUpdated.isNull() &&
+         m_exchangeRatesUpdated.daysTo(QDateTime::currentDateTime()) < 1) ||
+        (!m_lastAttempt.isNull() &&
+         m_lastAttempt.elapsed() < (30 * 60 * 1000)) ||
         m_networkReply) {
         // limit fetches to once per day, or one try every half hour
+        qDebug() <<" NOT EVEN BOTHERING";
         return;
     }
 
-    QNetworkRequest request(QUrl("http://www.ecb.int/stats/eurofxref/eurofxref-daily.xml"));
-    m_networkReply = m_network.get(request);
+    if (!m_network) {
+        m_network = new QNetworkAccessManager(this);
+    }
+
+    m_lastAttempt.restart();
+    QNetworkRequest request(QUrl("http://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml"));
+    m_networkReply = m_network->get(request);
     connect(m_networkReply, &QNetworkReply::finished,
             this, &QalculateEngine::exchangeRatesFetched);
 }
@@ -82,19 +98,25 @@ void QalculateEngine::exchangeRatesFetched()
         return;
     }
 
-    m_exchangeRatesUpdated = QDate::currentDate();
+    m_exchangeRatesUpdated = QDateTime::currentDateTime();
     if (m_networkReply->error() == QNetworkReply::NoError) {
         // the exchange rates have been successfully updated, now load them
         QFile f(CALCULATOR->getExchangeRatesFileName().c_str());
-        if (f.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
-            f.write(m_networkReply->readAll());
+        QByteArray data = m_networkReply->readAll();
+        if (!data.isEmpty() &&
+            f.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
+            f.write(data);
+            f.close();
+            CALCULATOR->loadExchangeRates();
         }
-        qDebug() << "OMG, it actually worked. ;)" << CALCULATOR->getExchangeRatesFileName().c_str();
-        CALCULATOR->loadExchangeRates();
     } else {
         qDebug() << "The exchange rates could not be updated. The following error has been reported:" << m_networkReply->errorString();
     }
 
+    QMutexLocker locker(&m_mutex);
+    m_network->deleteLater();
+    m_network = 0;
+    m_networkReply->deleteLater();
     m_networkReply = 0;
 }
 
@@ -104,7 +126,7 @@ QString QalculateEngine::evaluate(const QString& expression)
         return expression;
     }
 
-    updateExchangeRates();
+    QMetaObject::invokeMethod(this, "updateExchangeRates");
 
     QString input = expression;
     QByteArray ba = input.replace(QChar(0xA3), "GBP").replace(QChar(0xA5), "JPY").replace('$', "USD").replace(QChar(0x20AC), "EUR").toLatin1();

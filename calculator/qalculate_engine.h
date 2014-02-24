@@ -22,7 +22,7 @@
 #define QALCULATEENGINE_H
 
 #include <QAtomicInt>
-#include <QDate>
+#include <QDateTime>
 #include <QObject>
 #include <QMutex>
 #include <QNetworkAccessManager>
@@ -49,9 +49,9 @@ signals:
 
 private:
 	QString m_lastResult;
-    QDate m_exchangeRatesUpdated;
+    QDateTime m_exchangeRatesUpdated;
     QTime m_lastAttempt;
-    QNetworkAccessManager m_network;
+    QNetworkAccessManager *m_network;
     QNetworkReply *m_networkReply;
     QMutex m_mutex;
 	static QAtomicInt s_counter;
