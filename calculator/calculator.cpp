@@ -83,7 +83,7 @@ void CalculatorRunner::match(Sprinter::RunnerSessionData *sd,
     cmd = cmd.trimmed().remove(' ');
 
     if (cmd.toLower() == "universe" || cmd.toLower() == "life") {
-        Sprinter::QueryMatch match(this);
+        Sprinter::QueryMatch match;
         match.setPrecision(Sprinter::QuerySession::ExactMatch);
         match.setType(Sprinter::QuerySession::MathAndUnitsType);
         match.setSource(Sprinter::QuerySession::FromInternalSource);
@@ -141,7 +141,7 @@ void CalculatorRunner::match(Sprinter::RunnerSessionData *sd,
             result = "0x" + QString::number(result.toInt(), 16).toUpper();
         }
 
-        Sprinter::QueryMatch match(this);
+        Sprinter::QueryMatch match;
         match.setPrecision(Sprinter::QuerySession::ExactMatch);
         match.setType(Sprinter::QuerySession::MathAndUnitsType);
         match.setSource(Sprinter::QuerySession::FromInternalSource);

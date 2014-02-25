@@ -145,7 +145,7 @@ void YoutubeSessionData::queryFinished()
 
 //                 qDebug() << "================================";
 //                 qDebug() << title << seconds << time << desc << thumbnailUrl;
-                Sprinter::QueryMatch match(runner());
+                Sprinter::QueryMatch match;
                 match.setTitle(tr("%1 (%2, %3)").arg(title, author, time));
                 match.setText(desc);
                 match.setType(Sprinter::QuerySession::VideoType);

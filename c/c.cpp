@@ -32,7 +32,7 @@ void RunnerC::match(Sprinter::RunnerSessionData *sessionData, const Sprinter::Qu
 {
     QVector<Sprinter::QueryMatch> matches;
     if (context.isDefaultMatchesRequest() || context.query() == "plasma") {
-        Sprinter::QueryMatch match(this);
+        Sprinter::QueryMatch match;
         match.setTitle("Plasma");
         match.setText("Rocks");
         match.setPrecision(Sprinter::QuerySession::ExactMatch);

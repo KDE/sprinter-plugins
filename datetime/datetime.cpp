@@ -55,9 +55,9 @@ void DateTimeSessionData::performUpdate()
     Sprinter::QueryMatch update;
     foreach (const Sprinter::QueryMatch &match, matches(SynchronizedMatches)) {
         update = dtr->performMatch(match.data().toString());
-        update.setImage(dtr->image());
 
         if (update.isValid()) {
+            update.setImage(dtr->image());
             updates << update;
         }
     }
@@ -81,7 +81,7 @@ DateTimeRunner::DateTimeRunner(QObject *parent)
 
 Sprinter::QueryMatch DateTimeRunner::createMatch(const QString &title, const QString &userData, const QString &data)
 {
-    Sprinter::QueryMatch match(this);
+    Sprinter::QueryMatch match;
     match.setTitle(title);
     match.setUserData(userData);
     match.setData(data);
@@ -164,9 +164,9 @@ void DateTimeRunner::match(Sprinter::RunnerSessionData *sessionData, const Sprin
 {
     Sprinter::QueryMatch match = performMatch(context.query());
 
-//     qDebug() << "got" << match.text() << match.isValid();
+//     qDebug() << "got" << match.text() << (!match.data().isNull());
     QVector<Sprinter::QueryMatch> matches;
-    if (match.isValid()) {
+    if (!match.data().isNull()) {
         m_imageSize = context.imageSize();
         match.setImage(image());
         matches << match;

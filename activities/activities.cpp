@@ -200,7 +200,7 @@ void ActivityRunner::addMatch(const KActivities::Info &activity,
                               const Sprinter::QueryContext &context,
                               QVector<Sprinter::QueryMatch> &matches)
 {
-    Sprinter::QueryMatch match(this);
+    Sprinter::QueryMatch match;
     match.setData(activity.id());
     match.setType(Sprinter::QuerySession::ActivityType);
     match.setSource(Sprinter::QuerySession::FromLocalService);
