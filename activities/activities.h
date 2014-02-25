@@ -35,6 +35,7 @@ public:
 
 public Q_SLOTS:
     void start();
+    QFuture<bool> setCurrentActivity(const QString &activityId);
 
 Q_SIGNALS:
     void serviceStatusChanged(KActivities::Consumer::ServiceStatus);
@@ -61,6 +62,7 @@ public Q_SLOTS:
     void serviceStatusChanged(KActivities::Consumer::ServiceStatus);
     void activitiesChanged(const QStringList &activities);
     void currentActivityChanged(const QString &id);
+    bool setCurrentActivity(const QString &activityId);
 
 private:
     KActivitiesProxy *m_activitiesProxy;

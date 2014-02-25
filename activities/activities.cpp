@@ -42,6 +42,11 @@ void KActivitiesProxy::start()
     emit serviceStatusChanged(m_activities->serviceStatus());
 }
 
+QFuture<bool> KActivitiesProxy::setCurrentActivity(const QString &activityId)
+{
+    return m_activities->setCurrentActivity(activityId);
+}
+
 ActivitySessionData::ActivitySessionData(Sprinter::Runner *runner)
     : Sprinter::RunnerSessionData(runner),
       isEnabled(false),
@@ -85,6 +90,20 @@ void ActivitySessionData::currentActivityChanged(const QString &id)
 {
     currentActivity = id;
 //     qDebug() << "$$$$$$$$$$$$$$$$ ?????" << currentActivity;
+}
+
+bool ActivitySessionData::setCurrentActivity(const QString &activityId)
+{
+    QFuture<bool> rv;
+    QMetaObject::invokeMethod(m_activitiesProxy, "setCurrentActivity",
+                              Qt::BlockingQueuedConnection,
+                              Q_RETURN_ARG(QFuture<bool>, rv),
+                              Q_ARG(QString, activityId));
+    rv.waitForFinished();
+
+    //TODO: this shows one of the weaknesses in the QFuture based APIs ....
+    bool value = rv.results().isEmpty() ? false : rv.result();
+    return value;
 }
 
 ActivityRunner::ActivityRunner(QObject *parent)
@@ -233,10 +252,12 @@ QImage ActivityRunner::image(const KActivities::Info &activity,
 
 bool ActivityRunner::exec(const Sprinter::QueryMatch &match)
 {
-    KActivities::Controller activities;
-    QFuture<bool> rv = activities.setCurrentActivity(match.data().toString());
-    rv.waitForFinished();
-    return rv.result();
+    ActivitySessionData *sessionData = qobject_cast<ActivitySessionData *>(match.sessionData());
+    if (!sessionData  || !sessionData->isEnabled) {
+        return false;
+    }
+
+    return sessionData->setCurrentActivity(match.data().toString());
 }
 
 #include "moc_activities.cpp"
