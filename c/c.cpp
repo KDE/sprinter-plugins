@@ -28,10 +28,10 @@ RunnerC::RunnerC(QObject *parent)
     setGeneratesDefaultMatches(true);
 }
 
-void RunnerC::match(Sprinter::RunnerSessionData *sessionData, const Sprinter::QueryContext &context)
+void RunnerC::match(Sprinter::MatchData &matchData)
 {
-    QVector<Sprinter::QueryMatch> matches;
-    if (context.isDefaultMatchesRequest() || context.query() == "plasma") {
+    if (matchData.queryContext().isDefaultMatchesRequest() ||
+        matchData.queryContext().query() == "plasma") {
         Sprinter::QueryMatch match;
         match.setTitle("Plasma");
         match.setText("Rocks");
@@ -40,11 +40,9 @@ void RunnerC::match(Sprinter::RunnerSessionData *sessionData, const Sprinter::Qu
         match.setSource(Sprinter::QuerySession::FromDesktopShell);
         match.setData("time");
         match.setIsSearchTerm(true);
-        match.setImage(m_icon.pixmap(context.imageSize()).toImage());
-        matches << match;
+        match.setImage(m_icon.pixmap(matchData.queryContext().imageSize()).toImage());
+        matchData << match;
     }
-
-    sessionData->setMatches(matches, context);
 }
 
 bool RunnerC::exec(const Sprinter::QueryMatch &match)

@@ -52,8 +52,7 @@ public:
     ~CalculatorRunner();
 
     Sprinter::RunnerSessionData *createSessionData();
-    void match(Sprinter::RunnerSessionData *sessionData,
-               const Sprinter::QueryContext &context);
+    void match(Sprinter::MatchData &matchData);
 
 private:
     QImage image(const Sprinter::QueryContext &context);

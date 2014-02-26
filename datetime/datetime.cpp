@@ -160,23 +160,18 @@ QDateTime DateTimeRunner::datetime(const QString &term, bool date, QString &tzNa
     return dt;
 }
 
-void DateTimeRunner::match(Sprinter::RunnerSessionData *sessionData, const Sprinter::QueryContext &context)
+void DateTimeRunner::match(Sprinter::MatchData &matchData)
 {
-    Sprinter::QueryMatch match = performMatch(context.query());
+    Sprinter::QueryMatch match = performMatch(matchData.queryContext().query());
 
 //     qDebug() << "got" << match.text() << (!match.data().isNull());
-    QVector<Sprinter::QueryMatch> matches;
     if (!match.data().isNull()) {
-        m_imageSize = context.imageSize();
+        m_imageSize = matchData.queryContext().imageSize();
         match.setImage(image());
-        matches << match;
-    }
-
-    sessionData->setMatches(matches, context);
-    if (matches.isEmpty()) {
-        emit stopUpdating();
-    } else {
+        matchData << match;
         emit startUpdating();
+    } else {
+        emit stopUpdating();
     }
 }
 

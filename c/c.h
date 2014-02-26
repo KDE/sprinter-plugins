@@ -31,7 +31,7 @@ class RunnerC : public Sprinter::Runner
 public:
     RunnerC(QObject *parent = 0);
 
-    void match(Sprinter::RunnerSessionData *sessionData, const Sprinter::QueryContext &context);
+    void match(Sprinter::MatchData &matchData);
     bool exec(const Sprinter::QueryMatch &match);
 
 private:

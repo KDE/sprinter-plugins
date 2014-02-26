@@ -79,15 +79,13 @@ public:
 
     Sprinter::RunnerSessionData *createSessionData();
 
-    void match(Sprinter::RunnerSessionData *sessionData,
-               const Sprinter::QueryContext &context);
+    void match(Sprinter::MatchData &matchData);
     bool exec(const Sprinter::QueryMatch &match);
 
 private:
     void addMatch(const KActivities::Info &activity,
                   Sprinter::QuerySession::MatchPrecision precision,
-                  const Sprinter::QueryContext &context,
-                  QVector<Sprinter::QueryMatch> &matches);
+                  Sprinter::MatchData &matchData);
     QImage image(const KActivities::Info &activity,
                  const Sprinter::QueryContext &context);
 

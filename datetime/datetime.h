@@ -48,7 +48,7 @@ class DateTimeRunner : public Sprinter::Runner
 public:
     DateTimeRunner(QObject *parent = 0);
     Sprinter::RunnerSessionData *createSessionData();
-    void match(Sprinter::RunnerSessionData *sessionData, const Sprinter::QueryContext &context);
+    void match(Sprinter::MatchData &matchData);
     Sprinter::QueryMatch performMatch(const QString &term);
 
     QImage image();

@@ -124,20 +124,19 @@ Sprinter::RunnerSessionData *ActivityRunner::createSessionData()
     return new ActivitySessionData(this);
 }
 
-void ActivityRunner::match(Sprinter::RunnerSessionData *sd,
-                           const Sprinter::QueryContext &context)
+void ActivityRunner::match(Sprinter::MatchData &matchData)
 {
-    ActivitySessionData *sessionData = qobject_cast<ActivitySessionData *>(sd);
+    ActivitySessionData *sessionData = qobject_cast<ActivitySessionData *>(matchData.sessionData());
     if (!sessionData  || !sessionData->isEnabled) {
         return;
     }
 
-    const QString term = context.query();
+    const QString term = matchData.queryContext().query();
     bool list = false;
     bool triggerWord = false;
     QString name;
 
-    if (context.isDefaultMatchesRequest()) {
+    if (matchData.queryContext().isDefaultMatchesRequest()) {
         list = true;
     } else if (term.startsWith(m_keywordi18n, Qt::CaseInsensitive)) {
         triggerWord = true;
@@ -161,9 +160,8 @@ void ActivityRunner::match(Sprinter::RunnerSessionData *sd,
 
     const QStringList activities = sessionData->activities;
     const QString currentActivity = sessionData->currentActivity;
-    QVector<Sprinter::QueryMatch> matches;
 
-    if (!context.isValid()) {
+    if (!matchData.isValid()) {
         return;
     }
 
@@ -179,9 +177,9 @@ void ActivityRunner::match(Sprinter::RunnerSessionData *sd,
                       info.state() == KActivities::Info::Starting) ?
                         Sprinter::QuerySession::ExactMatch :
                         Sprinter::QuerySession::CloseMatch,
-                     context, matches);
+                     matchData);
 
-            if (!context.isValid()) {
+            if (!matchData.isValid()) {
                 return;
             }
         }
@@ -201,32 +199,28 @@ void ActivityRunner::match(Sprinter::RunnerSessionData *sd,
                                      : (exact ?
                                             Sprinter::QuerySession::CloseMatch :
                                             Sprinter::QuerySession::FuzzyMatch),
-                         context,
-                         matches);
+                         matchData);
             }
 
-            if (!context.isValid()) {
+            if (!matchData.isValid()) {
                 return;
             }
         }
     }
-
-    sessionData->setMatches(matches, context);
 }
 
 void ActivityRunner::addMatch(const KActivities::Info &activity,
                               Sprinter::QuerySession::MatchPrecision precision,
-                              const Sprinter::QueryContext &context,
-                              QVector<Sprinter::QueryMatch> &matches)
+                              Sprinter::MatchData &matchData)
 {
     Sprinter::QueryMatch match;
     match.setData(activity.id());
     match.setType(Sprinter::QuerySession::ActivityType);
     match.setSource(Sprinter::QuerySession::FromLocalService);
-    match.setImage(image(activity, context));
+    match.setImage(image(activity, matchData.queryContext()));
     match.setTitle(tr("Switch to activity \"%1\"").arg(activity.name()));
     match.setPrecision(precision);
-    matches << match;
+    matchData << match;
 }
 
 QImage ActivityRunner::image(const KActivities::Info &activity,

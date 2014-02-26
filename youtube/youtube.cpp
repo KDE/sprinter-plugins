@@ -219,9 +219,9 @@ Sprinter::RunnerSessionData *YoutubeRunner::createSessionData()
     return new YoutubeSessionData(this);
 }
 
-void YoutubeRunner::match(Sprinter::RunnerSessionData *sessionData, const Sprinter::QueryContext &context)
+void YoutubeRunner::match(Sprinter::MatchData &matchData)
 {
-    const QString term = context.query();
+    const QString term = matchData.queryContext().query();
     QString query;
 
     if (term.startsWith(shortTrigger, Qt::CaseInsensitive)) {
@@ -229,23 +229,21 @@ void YoutubeRunner::match(Sprinter::RunnerSessionData *sessionData, const Sprint
     } else if (term.startsWith(longTrigger, Qt::CaseInsensitive)) {
         query = term.right(term.length() - longTrigger.length());
     } else {
-        sessionData->setMatches(QVector<Sprinter::QueryMatch>(), context);
         return;
     }
 
     if (query.size() < 3) {
-        sessionData->setMatches(QVector<Sprinter::QueryMatch>(), context);
         return;
     }
 
     qDebug() <<" should be matching... " << query;
-    YoutubeSessionData *sd = dynamic_cast<YoutubeSessionData *>(sessionData);
+    YoutubeSessionData *sd = dynamic_cast<YoutubeSessionData *>(matchData.sessionData());
     if (!sd) {
-        sessionData->setMatches(QVector<Sprinter::QueryMatch>(), context);
         return;
     }
 
-    emit startQuery(query, context);
+    matchData.setAsynchronous(true);
+    emit startQuery(query, matchData.queryContext());
 }
 
 bool YoutubeRunner::exec(const Sprinter::QueryMatch &match)

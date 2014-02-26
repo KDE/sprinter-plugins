@@ -57,7 +57,7 @@ class YoutubeRunner : public Sprinter::Runner
 public:
     YoutubeRunner(QObject *parent = 0);
     Sprinter::RunnerSessionData *createSessionData();
-    void match(Sprinter::RunnerSessionData *sessionData, const Sprinter::QueryContext &context);
+    void match(Sprinter::MatchData &matchData);
     bool exec(const Sprinter::QueryMatch &match);
 
 Q_SIGNALS:

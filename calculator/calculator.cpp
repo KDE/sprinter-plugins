@@ -37,46 +37,19 @@ CalculatorRunner::~CalculatorRunner()
 {
 }
 
-class SetMatches
-{
-public:
-    SetMatches(Sprinter::RunnerSessionData *sessionData,
-               const Sprinter::QueryContext &context,
-               QVector<Sprinter::QueryMatch> *matches)
-        : m_sessionData(sessionData),
-          m_context(context),
-          m_matches(matches)
-    {
-    }
-
-    ~SetMatches()
-    {
-        m_sessionData->setMatches(*m_matches, m_context);
-    }
-
-private:
-    Sprinter::RunnerSessionData *m_sessionData;
-    Sprinter::QueryContext m_context;
-    QVector<Sprinter::QueryMatch> *m_matches;
-};
-
 Sprinter::RunnerSessionData *CalculatorRunner::createSessionData()
 {
     return new CalculatorSessionData(this);
 }
 
-void CalculatorRunner::match(Sprinter::RunnerSessionData *sd,
-                             const Sprinter::QueryContext &context)
+void CalculatorRunner::match(Sprinter::MatchData &matchData)
 {
-    QVector<Sprinter::QueryMatch> matches;
-    SetMatches matchSetter(sd, context, &matches);
-
-    CalculatorSessionData *sessionData = qobject_cast<CalculatorSessionData *>(sd);
+    CalculatorSessionData *sessionData = qobject_cast<CalculatorSessionData *>(matchData.sessionData());
     if (!sessionData) {
         return;
     }
 
-    const QString term = context.query();
+    const QString term = matchData.queryContext().query();
     QString cmd = term;
 
     //no meanless space between friendly guys: helps simplify code
@@ -87,10 +60,10 @@ void CalculatorRunner::match(Sprinter::RunnerSessionData *sd,
         match.setPrecision(Sprinter::QuerySession::ExactMatch);
         match.setType(Sprinter::QuerySession::MathAndUnitsType);
         match.setSource(Sprinter::QuerySession::FromInternalSource);
-        match.setImage(image(context));
+        match.setImage(image(matchData.queryContext()));
         match.setText("42");
         match.setData("42");
-        matches << match;
+        matchData << match;
         return;
     }
 
@@ -145,10 +118,10 @@ void CalculatorRunner::match(Sprinter::RunnerSessionData *sd,
         match.setPrecision(Sprinter::QuerySession::ExactMatch);
         match.setType(Sprinter::QuerySession::MathAndUnitsType);
         match.setSource(Sprinter::QuerySession::FromInternalSource);
-        match.setImage(image(context));
+        match.setImage(image(matchData.queryContext()));
         match.setText(result);
         match.setData(result);
-        matches << match;
+        matchData << match;
     }
 }
 
