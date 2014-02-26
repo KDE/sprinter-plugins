@@ -87,6 +87,7 @@ bool UriRunner::exec(const Sprinter::QueryMatch &match)
     KRun *krun = new KRun(match.data().toString(), 0);
     connect(krun, &KRun::finished,
             [&]() { success = !krun->hasError(); loop.exit(); });
+    krun->moveToThread(QCoreApplication::instance()->thread());
     loop.exec();
     return success;
 }
