@@ -1,0 +1,15 @@
+{
+    "Comment": "Go to URLs",
+    "Icon": "internet-web-browser",
+    "Name": "Network Locations",
+    "Type": "Service",
+    "X-KDE-PluginInfo-Author": "Aaron Seigo",
+    "X-KDE-PluginInfo-Email": "aseigo@kde.org",
+    "X-KDE-PluginInfo-EnabledByDefault": true,
+    "X-KDE-PluginInfo-License": "GPL",
+    "X-KDE-PluginInfo-Name": "uri",
+    "X-KDE-PluginInfo-Version": "0.1",
+    "X-KDE-ServiceTypes": [
+        "Sprinter/Runner"
+    ]
+}
