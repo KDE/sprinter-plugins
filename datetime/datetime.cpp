@@ -56,7 +56,7 @@ void DateTimeSessionData::performUpdate()
     foreach (const Sprinter::QueryMatch &match, matches(SynchronizedMatches)) {
         update = dtr->performMatch(match.data().toString());
 
-        if (update.isValid()) {
+        if (!update.data().isNull()) {
             update.setImage(dtr->image());
             updates << update;
         }
