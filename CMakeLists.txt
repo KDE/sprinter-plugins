@@ -1,6 +1,8 @@
 find_package(KF5DBusAddons)
 find_package(KF5KIO)
 find_package(KF5Activities)
+find_package(KF5CoreAddons)
+find_package(KF5ConfigCore)
 find_package(Qalculate)
 
 if (QALCULATE_FOUND)
@@ -14,6 +16,7 @@ endif (KF5Activities_FOUND)
 if (KF5KIO_FOUND)
 #     currently this guy crashes somewhere in KIO
 #     add_subdirectory(uri)
+    add_subdirectory(recentdocs)
 endif (KF5KIO_FOUND)
 
 add_subdirectory(c)
