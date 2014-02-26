@@ -59,6 +59,7 @@ void RecentDocsSessionData::updateRecentDocsList()
 
         seen.insert(doc.name);
         doc.icon = file.readIcon();
+        //TODO: if local, check to see if the file exists on disk
         doc.url = file.readUrl();
         recentDocs << doc;
     }
