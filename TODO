@@ -1,0 +1,60 @@
+== Porting Runners ==
+* kde-workspace
+    * bookmarks
+        * BIIIIG runner, needs a good going over
+        * not a good candidate for "first runner I'll port"
+        * shouldn't need to copy the firefox db file, e.g.
+    * kill
+    * locations
+        * split out file location matcher (already have a URI plugin)
+    * places
+    * powerdevil
+    * services
+    * sessions
+        * requires sorting out libkworkspace in kde-workspace/lib/kworkspace
+          as that has most of the functionality
+    * shell
+        * has options on matches, including:
+            * run as other user (with username/password fields)
+            * run in terminal
+          need some way to preserve this functionality
+    * solid
+        * 4.x version uses hotplug and solid Plasma::DataEngines
+          should be re-written/ported to just use libsolid directly
+    * webshortcuts
+    * windowedwidgets
+    * windows
+* kdeplasma-addons
+    * audioplayercontrol
+    * browserhistory
+    * characters
+    * converter
+    * datetime
+    * dictionary
+    * events
+    * katesessions
+    * konquerorsessions
+    * konsolesessions
+    * kopete
+    * mediawiki
+    * spellchecker
+    * translator
+    * youtube
+* misc places in git.kde.org
+    * kdelibs/baloo/runner (files, contacts, emails)
+    * extragear/base/plasma-mobile/runners/
+    * extragear/kdevelop/kdevelop/app/plasma/runner/
+    * extragear/network/telepathy/ktp-contact-runner/
+    * kde/kdelibs/baloo/src/runner/
+    * playground/pim/zanshin/src/runner/
+    * kde/kdeedu/marble/src/plasmarunner/
+    * kdenetwork/kget/plasma/runner/
+* kde-apps.org
+    * http://kde-apps.org/content/show.php/krunner-vim-sessions?content=163338
+    * http://kde-apps.org/content/show.php/VBox+Runner?content=107926
+    * http://kde-apps.org/content/show.php/Choqok+KRunner+Dent?content=143208
+    * http://kde-apps.org/content/show.php/KRunner+Synonyms?content=157137
+    * http://kde-apps.org/content/show.php/ClockCalc+Runner?content=133447
+    * http://kde-apps.org/content/show.php/ShortLog?content=123379
+    * http://kde-apps.org/content/show.php/Turn+Off+Monitor?content=117849
+    * http://kde-apps.org/content/show.php/Character+Runner?content=122629
