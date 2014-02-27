@@ -92,7 +92,6 @@ private:
     const QString m_keywordi18n;
     const QString m_keyword;
     QIcon m_defaultIcon;
-    QImage m_defaultImage;
 };
 
 #endif

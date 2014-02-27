@@ -227,11 +227,7 @@ QImage ActivityRunner::image(const KActivities::Info &activity,
                              const Sprinter::QueryContext &context)
 {
     if (activity.icon().isEmpty()) {
-        if (m_defaultImage.size() != context.imageSize()) {
-            m_defaultImage = m_defaultIcon.pixmap(context.imageSize()).toImage();
-        }
-
-        return m_defaultImage;
+        return generateImage(m_defaultIcon, context);
     }
 
     QIcon icon;
@@ -241,7 +237,7 @@ QImage ActivityRunner::image(const KActivities::Info &activity,
         icon = QIcon::fromTheme(activity.icon());
     }
 
-    return icon.pixmap(context.imageSize()).toImage();
+    return generateImage(icon, context);
 }
 
 bool ActivityRunner::exec(const Sprinter::QueryMatch &match)
