@@ -24,6 +24,9 @@
     * webshortcuts
     * windowedwidgets
     * windows
+        * done, but needs KWindowInfo to get a default constructor
+        * once that is done, can be enabled and then tested
+        * once tested, WindowsSessionData should then update the window/desktop info in realtime
 * kdeplasma-addons
     * audioplayercontrol
     * browserhistory
