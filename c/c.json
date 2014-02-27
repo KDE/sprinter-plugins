@@ -4,9 +4,8 @@
     "Name": "Testing",
     "X-KDE-PluginInfo-Author": "Aaron Seigo",
     "X-KDE-PluginInfo-Email": "aseigo@kde.org",
-    "X-KDE-PluginInfo-EnabledByDefault": true,
     "X-KDE-PluginInfo-License": "GPL",
-    "X-KDE-PluginInfo-Version": "1.0",
+    "X-KDE-PluginInfo-Version": "1.1",
     "X-KDE-ServiceTypes": [
         "Sprinter/Runner"
     ]

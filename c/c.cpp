@@ -34,7 +34,7 @@ void RunnerC::match(Sprinter::MatchData &matchData)
         matchData.queryContext().query() == "plasma") {
         Sprinter::QueryMatch match;
         match.setTitle("Plasma");
-        match.setText("Rocks");
+        match.setText("Rules");
         match.setPrecision(Sprinter::QuerySession::ExactMatch);
         match.setType(Sprinter::QuerySession::DesktopType);
         match.setSource(Sprinter::QuerySession::FromDesktopShell);
@@ -47,7 +47,6 @@ void RunnerC::match(Sprinter::MatchData &matchData)
 
 bool RunnerC::exec(const Sprinter::QueryMatch &match)
 {
-    qDebug() << "********* EXEC ****************";
     sleep(1);
     return true;
 }
