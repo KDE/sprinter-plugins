@@ -18,7 +18,7 @@
 #ifndef RUNNER_DATETIME
 #define RUNNER_DATETIME
 
-#include "sprinter/runner.h"
+#include "Sprinter/Runner"
 
 #include <QIcon>
 

@@ -18,7 +18,7 @@
 #ifndef RUNNER_URI
 #define RUNNER_URI
 
-#include <sprinter/runner.h>
+#include <Sprinter/Runner>
 
 class UriRunner : public Sprinter::Runner
 {

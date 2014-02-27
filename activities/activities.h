@@ -19,7 +19,7 @@
 #define ACTIVITYRUNNER_H
 
 #include "sprinter/querysession.h"
-#include "sprinter/runner.h"
+#include "Sprinter/Runner"
 
 #include <KActivities/Controller>
 

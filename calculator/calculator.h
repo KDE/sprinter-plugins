@@ -23,7 +23,7 @@
 
 #include <QIcon>
 
-#include <sprinter/runner.h>
+#include <Sprinter/Runner>
 
 #include "qalculate_engine.h"
 

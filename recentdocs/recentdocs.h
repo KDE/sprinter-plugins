@@ -18,7 +18,7 @@
 #ifndef RUNNER_RECENTDOCS
 #define RUNNER_RECENTDOCS
 
-#include <sprinter/runner.h>
+#include <Sprinter/Runner>
 
 struct RecentDoc
 {
