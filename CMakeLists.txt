@@ -21,6 +21,7 @@ find_package(Qalculate)
 set(SPRINTER_PLUGINS_PATH plugins/sprinter)
 set(CMAKE_AUTOMOC ON)
 add_definitions("-Wall -std=c++0x")
+include_directories(${CMAKE_INSTALL_PREFIX}/include/sprinter)
 
 if (QALCULATE_FOUND)
     add_subdirectory(calculator)
