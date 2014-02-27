@@ -55,9 +55,6 @@ public:
     void match(Sprinter::MatchData &matchData);
 
 private:
-    QImage image(const Sprinter::QueryContext &context);
-
-    QImage m_image;
     QIcon m_icon;
 };
 

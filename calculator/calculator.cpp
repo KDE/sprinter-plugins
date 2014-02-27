@@ -60,7 +60,7 @@ void CalculatorRunner::match(Sprinter::MatchData &matchData)
         match.setPrecision(Sprinter::QuerySession::ExactMatch);
         match.setType(Sprinter::QuerySession::MathAndUnitsType);
         match.setSource(Sprinter::QuerySession::FromInternalSource);
-        match.setImage(image(matchData.queryContext()));
+        match.setImage(generateImage(m_icon, matchData.queryContext()));
         match.setText("42");
         match.setData("42");
         matchData << match;
@@ -118,20 +118,11 @@ void CalculatorRunner::match(Sprinter::MatchData &matchData)
         match.setPrecision(Sprinter::QuerySession::ExactMatch);
         match.setType(Sprinter::QuerySession::MathAndUnitsType);
         match.setSource(Sprinter::QuerySession::FromInternalSource);
-        match.setImage(image(matchData.queryContext()));
+        match.setImage(generateImage(m_icon, matchData.queryContext()));
         match.setText(result);
         match.setData(result);
         matchData << match;
     }
-}
-
-QImage CalculatorRunner::image(const Sprinter::QueryContext &context)
-{
-    if (m_image.size() != context.imageSize()) {
-        m_image = m_icon.pixmap(context.imageSize()).toImage();
-    }
-
-    return m_image;
 }
 
 #include "moc_calculator.cpp"
