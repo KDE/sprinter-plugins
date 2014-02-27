@@ -1,0 +1,17 @@
+{
+    "Comment": "List windows and desktops and switch between them",
+    "Icon": "preferences-system-windows",
+    "Name": "Windows",
+    "Type": "Service",
+    "X-KDE-Library": "krunner_windows",
+    "X-KDE-PluginInfo-Author": "Martin Gräßlin",
+    "X-KDE-PluginInfo-Email": "kde@martin-graesslin.com",
+    "X-KDE-PluginInfo-EnabledByDefault": true,
+    "X-KDE-PluginInfo-License": "GPL",
+    "X-KDE-PluginInfo-Name": "windows",
+    "X-KDE-PluginInfo-Version": "1.0",
+    "X-KDE-ServiceTypes": [
+        "Plasma/Runner"
+    ],
+    "X-Plasma-AdvertiseSingleRunnerQueryMode": "true"
+}

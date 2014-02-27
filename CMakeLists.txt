@@ -18,6 +18,17 @@ find_package(KF5CoreAddons)
 find_package(KF5Config)
 find_package(Qalculate)
 
+if (NOT APPLE)
+    find_package(X11)
+endif()
+
+set(HAVE_X11 ${X11_FOUND})
+
+if(X11_FOUND)
+    find_package(Qt5 ${REQUIRED_QT_VERSION} CONFIG REQUIRED X11Extras)
+    find_package(KF5WindowSystem)
+endif (X11_FOUND)
+
 set(SPRINTER_PLUGINS_PATH plugins/sprinter)
 set(CMAKE_AUTOMOC ON)
 add_definitions("-Wall -std=c++0x")
@@ -36,6 +47,11 @@ if (KF5KIO_FOUND)
 #     add_subdirectory(uri)
     add_subdirectory(recentdocs)
 endif (KF5KIO_FOUND)
+
+if (KF5WindowSystem_FOUND)
+    # TODO: needs porting to non-x11. uses NETRootInfo and QX11Info
+#     add_subdirectory(windows)
+endif (KF5WindowSystem_FOUND)
 
 add_subdirectory(c)
 add_subdirectory(datetime)
