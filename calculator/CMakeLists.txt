@@ -1,4 +1,4 @@
-project(sprinter_org_kde_calcaultor)
+project(sprinter_org_kde_calculator)
 
 ########### next target ###############
 

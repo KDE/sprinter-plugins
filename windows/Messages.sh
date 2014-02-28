@@ -1,2 +1,2 @@
 #! /usr/bin/env bash
-$XGETTEXT *.cpp -o $podir/plasma_runner_windows.pot
+$XGETTEXT *.cpp -o $podir/libsprinter_org_kde_windows.pot
