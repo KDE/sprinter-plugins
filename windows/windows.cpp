@@ -21,11 +21,11 @@
 #include "windows.h"
 
 #include <QDebug>
-
-#include <KWindowSystem>
-
-#include <NETWM>
 #include <QX11Info>
+
+#include <KI18n/KLocalizedString
+#include <KWindowSystem>
+#include <NETWM>
 
 
 WindowsSessionData::WindowsSessionData(Sprinter::Runner *runner)
@@ -90,41 +90,41 @@ void WindowsRunner::match(Sprinter::MatchData &matchData)
 
     // check if the search term ends with an action keyword
     WindowAction action = ActivateAction;
-    if (term.endsWith(tr("activate") , Qt::CaseInsensitive)) {
+    if (term.endsWith(i18n("activate") , Qt::CaseInsensitive)) {
         action = ActivateAction;
-        term = term.left(term.lastIndexOf(tr("activate")) - 1);
-    } else if (term.endsWith(tr("close") , Qt::CaseInsensitive)) {
+        term = term.left(term.lastIndexOf(i18n("activate")) - 1);
+    } else if (term.endsWith(i18n("close") , Qt::CaseInsensitive)) {
         action = CloseAction;
-        term = term.left(term.lastIndexOf(tr("close")) - 1);
-    } else if (term.endsWith(tr("min") , Qt::CaseInsensitive)) {
+        term = term.left(term.lastIndexOf(i18n("close")) - 1);
+    } else if (term.endsWith(i18n("min") , Qt::CaseInsensitive)) {
         action = MinimizeAction;
-        term = term.left(term.lastIndexOf(tr("min")) - 1);
-    } else if (term.endsWith(tr("minimize") , Qt::CaseInsensitive)) {
+        term = term.left(term.lastIndexOf(i18n("min")) - 1);
+    } else if (term.endsWith(i18n("minimize") , Qt::CaseInsensitive)) {
         action = MinimizeAction;
-        term = term.left(term.lastIndexOf(tr("minimize")) - 1);
-    } else if (term.endsWith(tr("max") , Qt::CaseInsensitive)) {
+        term = term.left(term.lastIndexOf(i18n("minimize")) - 1);
+    } else if (term.endsWith(i18n("max") , Qt::CaseInsensitive)) {
         action = MaximizeAction;
-        term = term.left(term.lastIndexOf(tr("max")) - 1);
-    } else if (term.endsWith(tr("maximize") , Qt::CaseInsensitive)) {
+        term = term.left(term.lastIndexOf(i18n("max")) - 1);
+    } else if (term.endsWith(i18n("maximize") , Qt::CaseInsensitive)) {
         action = MaximizeAction;
-        term = term.left(term.lastIndexOf(tr("maximize")) - 1);
-    } else if (term.endsWith(tr("fullscreen") , Qt::CaseInsensitive)) {
+        term = term.left(term.lastIndexOf(i18n("maximize")) - 1);
+    } else if (term.endsWith(i18n("fullscreen") , Qt::CaseInsensitive)) {
         action = FullscreenAction;
-        term = term.left(term.lastIndexOf(tr("fullscreen")) - 1);
-    } else if (term.endsWith(tr("shade") , Qt::CaseInsensitive)) {
+        term = term.left(term.lastIndexOf(i18n("fullscreen")) - 1);
+    } else if (term.endsWith(i18n("shade") , Qt::CaseInsensitive)) {
         action = ShadeAction;
-        term = term.left(term.lastIndexOf(tr("shade")) - 1);
-    } else if (term.endsWith(tr("keep above") , Qt::CaseInsensitive)) {
+        term = term.left(term.lastIndexOf(i18n("shade")) - 1);
+    } else if (term.endsWith(i18n("keep above") , Qt::CaseInsensitive)) {
         action = KeepAboveAction;
-        term = term.left(term.lastIndexOf(tr("keep above")) - 1);
-    } else if (term.endsWith(tr("keep below") , Qt::CaseInsensitive)) {
+        term = term.left(term.lastIndexOf(i18n("keep above")) - 1);
+    } else if (term.endsWith(i18n("keep below") , Qt::CaseInsensitive)) {
         action = KeepBelowAction;
-        term = term.left(term.lastIndexOf(tr("keep below")) - 1);
+        term = term.left(term.lastIndexOf(i18n("keep below")) - 1);
     }
 
     // keyword match: when term starts with "window" we list all windows
     // the list can be restricted to windows matching a given name, class, role or desktop
-    if (term.startsWith(tr("window") , Qt::CaseInsensitive)) {
+    if (term.startsWith(i18n("window") , Qt::CaseInsensitive)) {
         const QStringList keywords = term.split(" ");
         QString windowName;
         QString windowClass;
@@ -136,13 +136,13 @@ void WindowsRunner::match(Sprinter::MatchData &matchData)
             if (keyword.endsWith('=')) {
                 continue;
             }
-            if (keyword.startsWith(tr("name") + "=" , Qt::CaseInsensitive)) {
+            if (keyword.startsWith(i18n("name") + "=" , Qt::CaseInsensitive)) {
                 windowName = keyword.split("=")[1];
-            } else if (keyword.startsWith(tr("class") + "=" , Qt::CaseInsensitive)) {
+            } else if (keyword.startsWith(i18n("class") + "=" , Qt::CaseInsensitive)) {
                 windowClass = keyword.split("=")[1];
-            } else if (keyword.startsWith(tr("role") + "=" , Qt::CaseInsensitive)) {
+            } else if (keyword.startsWith(i18n("role") + "=" , Qt::CaseInsensitive)) {
                 windowRole = keyword.split("=")[1];
-            } else if (keyword.startsWith(tr("desktop") + "=" , Qt::CaseInsensitive)) {
+            } else if (keyword.startsWith(i18n("desktop") + "=" , Qt::CaseInsensitive)) {
                 bool ok;
                 desktop = keyword.split("=")[1].toInt(&ok);
                 if (!ok || desktop > KWindowSystem::numberOfDesktops()) {
@@ -207,7 +207,7 @@ void WindowsRunner::match(Sprinter::MatchData &matchData)
 
     bool desktopAdded = false;
     // check for desktop keyword
-    if (term.startsWith(tr("desktop") , Qt::CaseInsensitive)) {
+    if (term.startsWith(i18n("desktop") , Qt::CaseInsensitive)) {
         const QStringList parts = term.split(" ");
         if (parts.size() == 1) {
             // only keyword - list all desktops
@@ -373,7 +373,7 @@ void WindowsRunner::addDesktopMatch(int desktop,
         desktopName = KWindowSystem::desktopName(desktop);
     }
     match.setTitle(desktopName);
-    match.setText(tr("Switch to desktop ").arg(desktop));
+    match.setText(i18n("Switch to desktop ").arg(desktop));
     match.setPrecision(precision);
     matchData << match;
 }
@@ -407,29 +407,29 @@ void WindowsRunner::addWindowMatch(const KWindowInfo& info,
 
     switch (action) {
     case CloseAction:
-        match.setText(tr("Close running window on ").arg(desktopName));
+        match.setText(i18n("Close running window on ").arg(desktopName));
         break;
     case MinimizeAction:
-        match.setText(tr("(Un)minimize running window on ").arg(desktopName));
+        match.setText(i18n("(Un)minimize running window on ").arg(desktopName));
         break;
     case MaximizeAction:
-        match.setText(tr("Maximize/restore running window on ").arg(desktopName));
+        match.setText(i18n("Maximize/restore running window on ").arg(desktopName));
         break;
     case FullscreenAction:
-        match.setText(tr("Toggle fullscreen for running window on ").arg(desktopName));
+        match.setText(i18n("Toggle fullscreen for running window on ").arg(desktopName));
         break;
     case ShadeAction:
-        match.setText(tr("(Un)shade running window on ").arg(desktopName));
+        match.setText(i18n("(Un)shade running window on ").arg(desktopName));
         break;
     case KeepAboveAction:
-        match.setText(tr("Toggle keep above for running window on ").arg(desktopName));
+        match.setText(i18n("Toggle keep above for running window on ").arg(desktopName));
         break;
     case KeepBelowAction:
-        match.setText(tr("Toggle keep below running window on ").arg(desktopName));
+        match.setText(i18n("Toggle keep below running window on ").arg(desktopName));
         break;
     case ActivateAction:
     default:
-        match.setText(tr("Activate running window on ").arg(desktopName));
+        match.setText(i18n("Activate running window on ").arg(desktopName));
         break;
     }
     match.setPrecision(precision);

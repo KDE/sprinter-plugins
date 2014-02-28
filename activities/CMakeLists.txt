@@ -1,8 +1,10 @@
 project(sprinter_org_kde_activities)
 
-include_directories(${CMAKE_CURRENT_BINARY_DIR} KF5::Activities)
 add_definitions(-DQT_PLUGIN)
+include_directories(${CMAKE_CURRENT_BINARY_DIR})
+get_directory_property(DBG INCLUDE_DIRECTORIES)
+message("******************  ${KF5I18N_INCLUDE_DIRS} <___ d ${DBG}")
 add_library(${PROJECT_NAME} SHARED activities.cpp)
 qt5_use_modules(${PROJECT_NAME} Core Gui DBus)
-target_link_libraries(${PROJECT_NAME} KF5::Activities)
+target_link_libraries(${PROJECT_NAME} KF5::Activities KF5::I18n)
 install(TARGETS ${PROJECT_NAME} LIBRARY DESTINATION ${SPRINTER_PLUGINS_PATH})

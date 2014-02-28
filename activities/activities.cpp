@@ -20,6 +20,8 @@
 
 #include <QCoreApplication>
 
+#include <KI18n/KLocalizedString>
+
 KActivitiesProxy::KActivitiesProxy()
     : QObject(),
       m_activities(0)
@@ -108,7 +110,7 @@ bool ActivitySessionData::setCurrentActivity(const QString &activityId)
 
 ActivityRunner::ActivityRunner(QObject *parent)
     : Sprinter::Runner(parent),
-      m_keywordi18n(tr("Search keyword", "activity")),
+      m_keywordi18n(i18nc("Search keyword", "activity")),
       m_keyword("activity"),
       m_defaultIcon(QIcon::fromTheme("preferences-activities"))
 {
@@ -218,7 +220,7 @@ void ActivityRunner::addMatch(const KActivities::Info &activity,
     match.setType(Sprinter::QuerySession::ActivityType);
     match.setSource(Sprinter::QuerySession::FromLocalService);
     match.setImage(image(activity, matchData.queryContext()));
-    match.setTitle(tr("Switch to activity \"%1\"").arg(activity.name()));
+    match.setTitle(i18n("Switch to activity \"%1\"").arg(activity.name()));
     match.setPrecision(precision);
     matchData << match;
 }

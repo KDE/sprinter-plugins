@@ -22,8 +22,10 @@
 #include <QTimer>
 #include <QTimeZone>
 
-static const QString dateWord = QObject::tr("date");
-static const QString timeWord = QObject::tr("time");
+#include <KI18n/KLocalizedString>
+
+static const QString dateWord = i18n("date");
+static const QString timeWord =i18n("time");
 
 DateTimeSessionData::DateTimeSessionData(Sprinter::Runner *runner)
     : Sprinter::RunnerSessionData(runner),
