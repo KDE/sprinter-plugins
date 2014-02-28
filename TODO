@@ -65,9 +65,5 @@
 
 === Windows
 
-WindowsSessionData should update the window/desktop info in realtime
-
-make the window matches (without actions) a search term match, which when selected returns all the actions available for that window?
-
 
 == Ideas for new runners
