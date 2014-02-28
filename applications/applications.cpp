@@ -26,7 +26,7 @@
 #include <KServiceGroup>
 #include <KServiceTypeTrader>
 
-static const QString s_groupSearchKeyword("_groupRelPath");
+static const QString s_groupSearchKeyword("_groupRelPath:");
 
 ApplicationsRunner::ApplicationsRunner(QObject *parent)
     : Sprinter::Runner(parent)
@@ -90,6 +90,7 @@ void ApplicationsRunner::showEntriesInGroup(const QString &relPath,
         }
 
         if (matchData.matchCount() >= matchData.sessionData()->resultsPageSize()) {
+            matchData.sessionData()->setCanFetchMoreMatches(true, context);
             return;
         }
 
@@ -118,6 +119,7 @@ void ApplicationsRunner::showEntriesInGroup(const QString &relPath,
         }
 
         if (matchData.matchCount() >= matchData.sessionData()->resultsPageSize()) {
+            matchData.sessionData()->setCanFetchMoreMatches(true, context);
             return;
         }
 
@@ -165,6 +167,7 @@ void ApplicationsRunner::match(Sprinter::MatchData &matchData)
                 }
 
                 if (matchData.matchCount() >= matchData.sessionData()->resultsPageSize()) {
+                    matchData.sessionData()->setCanFetchMoreMatches(true, context);
                     return;
                 }
 
@@ -208,6 +211,7 @@ void ApplicationsRunner::match(Sprinter::MatchData &matchData)
         }
 
         if (matchData.matchCount() >= matchData.sessionData()->resultsPageSize()) {
+            matchData.sessionData()->setCanFetchMoreMatches(true, context);
             return;
         }
 
@@ -275,6 +279,7 @@ void ApplicationsRunner::match(Sprinter::MatchData &matchData)
         }
 
         if (matchData.matchCount() >= matchData.sessionData()->resultsPageSize()) {
+            matchData.sessionData()->setCanFetchMoreMatches(true, context);
             return;
         }
 
