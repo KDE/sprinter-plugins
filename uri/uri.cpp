@@ -17,6 +17,7 @@
 
 #include "uri.h"
 
+#include <QCoreApplication>
 #include <QDebug>
 #include <QEventLoop>
 #include <QIcon>
