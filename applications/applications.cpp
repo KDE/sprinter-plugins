@@ -47,9 +47,22 @@ void ApplicationsRunner::generateTopLevelGroups(Sprinter::MatchData &matchData,
                                                 const Sprinter::QueryContext &context)
 {
     KServiceGroup::Ptr rootGroup = KServiceGroup::root();
+    if (!rootGroup) {
+        return;
+    }
+
     uint skipCount = 0;
 
     foreach (KServiceGroup::Ptr group, rootGroup->groupEntries()) {
+        //FIXME: without re-fetching the group, the if() statement below
+        // crashes on kservicegroup.cpp:371:
+        // return group->d_func()->m_serviceList;
+        // d_func() is 0x45454545, rather than an actual d_ptr.
+        group = KServiceGroup::group(group->relPath());
+        if (group->groupEntries().isEmpty() && group->serviceEntries().isEmpty()) {
+            continue;
+        }
+
         if (skipCount < matchData.sessionData()->resultsOffset()) {
             ++skipCount;
             continue;
@@ -64,7 +77,7 @@ void ApplicationsRunner::generateTopLevelGroups(Sprinter::MatchData &matchData,
         match.setTitle(group->caption());
         match.setText(group->comment());
         match.setData(s_groupSearchKeyword + group->relPath());
-        match.setType(Sprinter::QuerySession::ExecutableType);
+        match.setType(Sprinter::QuerySession::ApplicationGroupType);
         match.setPrecision(Sprinter::QuerySession::ExactMatch);
         match.setSource(Sprinter::QuerySession::FromFilesystem);
         match.setIsSearchTerm(true);
@@ -82,8 +95,21 @@ void ApplicationsRunner::showEntriesInGroup(const QString &relPath,
                                             const Sprinter::QueryContext &context)
 {
     KServiceGroup::Ptr parentGroup = KServiceGroup::group(relPath);
+    if (!parentGroup) {
+        return;
+    }
+
     uint skipCount = 0;
     foreach (KServiceGroup::Ptr group, parentGroup->groupEntries()) {
+        //FIXME: without re-fetching the group, the if() statement below
+        // crashes on kservicegroup.cpp:371:
+        // return group->d_func()->m_serviceList;
+        // d_func() is 0x45454545, rather than an actual d_ptr.
+        group = KServiceGroup::group(group->relPath());
+        if (group->groupEntries().isEmpty() && group->serviceEntries().isEmpty()) {
+            continue;
+        }
+
         if (skipCount < matchData.sessionData()->resultsOffset()) {
             ++skipCount;
             continue;
@@ -99,7 +125,7 @@ void ApplicationsRunner::showEntriesInGroup(const QString &relPath,
         match.setTitle(group->caption());
         match.setText(group->comment());
         match.setData(s_groupSearchKeyword + group->relPath());
-        match.setType(Sprinter::QuerySession::ExecutableType);
+        match.setType(Sprinter::QuerySession::ApplicationGroupType);
         match.setPrecision(Sprinter::QuerySession::ExactMatch);
         match.setSource(Sprinter::QuerySession::FromFilesystem);
         match.setIsSearchTerm(true);
