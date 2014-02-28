@@ -11,11 +11,14 @@ set(CMAKE_MODULE_PATH
 include(FeatureSummary)
 
 find_package(Sprinter REQUIRED)
-find_package(KF5DBusAddons)
-find_package(KF5KIO)
-find_package(KF5Activities)
-find_package(KF5CoreAddons)
-find_package(KF5Config)
+#TODO: make i18n optional for runners that don't need it?
+find_package(KF5 NO_MODULE
+                 COMPONENTS I18n
+                 OPTIONAL_COMPONENTS
+                    Activities
+                    CoreAddons
+                    ConfigDBusAddons
+                    KIO)
 find_package(Qalculate)
 
 if (NOT APPLE)
@@ -34,6 +37,10 @@ set(CMAKE_AUTOMOC ON)
 add_definitions("-Wall -std=c++0x")
 include_directories(${CMAKE_INSTALL_PREFIX}/include/sprinter)
 
+###
+### add the runners below, depending on the packages found above
+###
+
 if (QALCULATE_FOUND)
     add_subdirectory(calculator)
 endif (QALCULATE_FOUND)
@@ -42,7 +49,7 @@ if (KF5Activities_FOUND)
     add_subdirectory(activities)
 endif (KF5Activities_FOUND)
 
-if (KF5KIO_FOUND)
+if (KF5KIO_FOUND AND KF5CoreAddons_FOUND AND KF5Config_FOUND)
 #     currently this guy crashes somewhere in KIO
 #     add_subdirectory(uri)
     add_subdirectory(recentdocs)
