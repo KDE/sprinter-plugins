@@ -1,4 +1,4 @@
-project(sprinter_org_kde_sprinter_recentdocts)
+project(sprinter_org_kde_recentdocts)
 
 add_definitions(-DQT_PLUGIN)
 include_directories(${CMAKE_CURRENT_BINARY_DIR} KF5::KIOCore KF5::CoreAddons KF5::ConfigCore)

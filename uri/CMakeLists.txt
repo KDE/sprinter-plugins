@@ -1,4 +1,4 @@
-project(sprinter_org_kde_sprinter_uri)
+project(sprinter_org_kde_uri)
 
 add_definitions(-DQT_PLUGIN)
 include_directories(${CMAKE_CURRENT_BINARY_DIR} KF5::KIOWidgets)

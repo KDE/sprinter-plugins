@@ -1,4 +1,4 @@
-project(sprinter_org_kde_sprinter_datetime)
+project(sprinter_org_kde_datetime)
 
 add_definitions(-DQT_PLUGIN)
 include_directories(${CMAKE_CURRENT_BINARY_DIR})

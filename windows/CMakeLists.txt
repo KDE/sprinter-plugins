@@ -1,4 +1,4 @@
-project(sprinter_org_kde_sprinter_windows)
+project(sprinter_org_kde_windows)
 
 add_definitions(-DQT_PLUGIN)
 include_directories(${CMAKE_CURRENT_BINARY_DIR} KF5::WindowSystem)

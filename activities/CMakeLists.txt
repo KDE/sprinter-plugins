@@ -1,4 +1,4 @@
-project(sprinter_org_kde_sprinter_activities)
+project(sprinter_org_kde_activities)
 
 include_directories(${CMAKE_CURRENT_BINARY_DIR} KF5::Activities)
 add_definitions(-DQT_PLUGIN)
