@@ -1,0 +1,10 @@
+{
+    "Comment": "Launch applications",
+    "Icon": "applications-other",
+    "Name": "Applications",
+    "X-KDE-PluginInfo-Author": "Aaron Seigo",
+    "X-KDE-PluginInfo-Email": "aseigo@kde.org",
+    "X-KDE-PluginInfo-License": "GPL",
+    "X-KDE-PluginInfo-Name": "applications",
+    "X-KDE-PluginInfo-Version": "1.0"
+}

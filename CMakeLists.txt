@@ -41,6 +41,10 @@ include_directories(${CMAKE_INSTALL_PREFIX}/include/sprinter)
 ### add the runners below, depending on the packages found above
 ###
 
+add_subdirectory(c)
+add_subdirectory(datetime)
+add_subdirectory(youtube)
+
 if (QALCULATE_FOUND)
     add_subdirectory(calculator)
 endif (QALCULATE_FOUND)
@@ -59,9 +63,5 @@ if (KF5WindowSystem_FOUND)
     # TODO: needs porting to non-x11. uses NETRootInfo and QX11Info
 #     add_subdirectory(windows)
 endif (KF5WindowSystem_FOUND)
-
-add_subdirectory(c)
-add_subdirectory(datetime)
-add_subdirectory(youtube)
 
 feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)
