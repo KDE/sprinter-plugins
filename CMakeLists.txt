@@ -18,7 +18,8 @@ find_package(KF5 NO_MODULE
                     Activities
                     CoreAddons
                     ConfigDBusAddons
-                    KIO)
+                    KIO
+                    Service)
 find_package(Qalculate)
 
 if (NOT APPLE)
@@ -53,10 +54,17 @@ if (KF5Activities_FOUND)
     add_subdirectory(activities)
 endif (KF5Activities_FOUND)
 
-if (KF5KIO_FOUND AND KF5CoreAddons_FOUND AND KF5Config_FOUND)
+if (KF5KIO_FOUND)
 #     currently this guy crashes somewhere in KIO
 #     add_subdirectory(uri)
-    add_subdirectory(recentdocs)
+    if (KF5CoreAddons_FOUND AND KF5Config_FOUND)
+        add_subdirectory(recentdocs)
+    endif (KF5CoreAddons_FOUND AND KF5Config_FOUND)
+
+    if (KF5Service_FOUND)
+        add_subdirectory(applications)
+    endif (KF5Service_FOUND)
+
 endif (KF5KIO_FOUND)
 
 if (KF5WindowSystem_FOUND)
