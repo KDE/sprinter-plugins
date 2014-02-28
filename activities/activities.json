@@ -2,14 +2,15 @@
     "Comment": "List and switch between desktop activities",
     "Icon": "preferences-activities",
     "Name": "Activities",
+    "Type": "Service",
     "X-KDE-Library": "krunner_activities",
-    "X-KDE-PluginInfo-Author": "Plasma Team",
-    "X-KDE-PluginInfo-Email": "plasma-devel@kde.org",
+    "X-KDE-PluginInfo-Author": "Aaron Seigo",
+    "X-KDE-PluginInfo-Email": "aseigo@kde.org",
     "X-KDE-PluginInfo-EnabledByDefault": true,
     "X-KDE-PluginInfo-License": "GPL",
-    "X-KDE-PluginInfo-Name": "org.kde.activities",
     "X-KDE-PluginInfo-Version": "1.0",
     "X-KDE-ServiceTypes": [
         "Plasma/Runner"
-    ]
+    ],
+    "X-Plasma-AdvertiseSingleRunnerQueryMode": "true"
 }
