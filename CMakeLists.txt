@@ -42,7 +42,6 @@ include_directories(${CMAKE_INSTALL_PREFIX}/include/sprinter)
 ### add the runners below, depending on the packages found above
 ###
 
-add_subdirectory(c)
 add_subdirectory(datetime)
 add_subdirectory(youtube)
 
@@ -55,8 +54,7 @@ if (KF5Activities_FOUND)
 endif (KF5Activities_FOUND)
 
 if (KF5KIO_FOUND)
-#     currently this guy crashes somewhere in KIO
-#     add_subdirectory(uri)
+    add_subdirectory(uri)
     if (KF5CoreAddons_FOUND AND KF5Config_FOUND)
         add_subdirectory(recentdocs)
     endif (KF5CoreAddons_FOUND AND KF5Config_FOUND)
