@@ -72,6 +72,7 @@ RecentDocsRunner::RecentDocsRunner(QObject *parent)
                                 << Sprinter::QuerySession::FileType);
     setSourcesUsed(QVector<Sprinter::QuerySession::MatchSource>()
                         << Sprinter::QuerySession::FromFilesystem);
+    setGeneratesDefaultMatches(true);
 }
 
 Sprinter::RunnerSessionData *RecentDocsRunner::createSessionData()
@@ -86,9 +87,24 @@ void RecentDocsRunner::match(Sprinter::MatchData &matchData)
         return;
     }
 
-    const QString term = matchData.queryContext().query();
+
+    uint skipCount = 0;
+    Sprinter::QueryContext context = matchData.queryContext();
+    const bool listAll = context.isDefaultMatchesRequest();
+    const QString term = context.query();
     for (int i = 0; i < sessionData->recentDocs.count(); ++i) {
-        if (sessionData->recentDocs[i].name.contains(term, Qt::CaseInsensitive)) {
+        if (listAll ||
+            sessionData->recentDocs[i].name.contains(term, Qt::CaseInsensitive)) {
+            if (skipCount < matchData.sessionData()->resultsOffset()) {
+                ++skipCount;
+                continue;
+            }
+
+            if (matchData.matchCount() >= matchData.sessionData()->resultsPageSize()) {
+                matchData.sessionData()->setCanFetchMoreMatches(true, context);
+                return;
+            }
+
             Sprinter::QueryMatch match;
             match.setTitle(sessionData->recentDocs[i].name);
             match.setText(tr("Recent Document"));
@@ -101,7 +117,7 @@ void RecentDocsRunner::match(Sprinter::MatchData &matchData)
                 match.setPrecision(Sprinter::QuerySession::CloseMatch);
             }
 
-            match.setImage(QIcon::fromTheme(sessionData->recentDocs[i].icon).pixmap(matchData.queryContext().imageSize()).toImage());
+            match.setImage(QIcon::fromTheme(sessionData->recentDocs[i].icon).pixmap(context.imageSize()).toImage());
             match.setUserData(sessionData->recentDocs[i].url);
             match.setData(sessionData->recentDocs[i].url);
             matchData << match;
