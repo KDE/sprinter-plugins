@@ -25,7 +25,7 @@
 #include <KI18n/KLocalizedString>
 
 static const QString dateWord = i18n("date");
-static const QString timeWord =i18n("time");
+static const QString timeWord = i18n("time");
 
 DateTimeSessionData::DateTimeSessionData(Sprinter::Runner *runner)
     : Sprinter::RunnerSessionData(runner),
@@ -75,10 +75,6 @@ DateTimeRunner::DateTimeRunner(QObject *parent)
     : Sprinter::Runner(parent),
       m_icon(QIcon::fromTheme("clock"))
 {
-    setMatchTypesGenerated(QVector<Sprinter::QuerySession::MatchType>()
-                                << Sprinter::QuerySession::DateTimeType);
-    setSourcesUsed(QVector<Sprinter::QuerySession::MatchSource>()
-                        << Sprinter::QuerySession::FromLocalService);
 }
 
 Sprinter::QueryMatch DateTimeRunner::createMatch(const QString &title, const QString &userData, const QString &data)
@@ -164,7 +160,9 @@ QDateTime DateTimeRunner::datetime(const QString &term, bool date, QString &tzNa
 
 void DateTimeRunner::match(Sprinter::MatchData &matchData)
 {
-    Sprinter::QueryMatch match = performMatch(matchData.queryContext().query());
+    Sprinter::QueryMatch match =
+        performMatch(matchData.queryContext().isDefaultMatchesRequest() ?
+                     timeWord : matchData.queryContext().query());
 
 //     qDebug() << "got" << match.text() << (!match.data().isNull());
     if (!match.data().isNull()) {

@@ -1,10 +1,375 @@
 {
-    "Comment": "Launch applications",
-    "Icon": "applications-other",
-    "Name": "Applications",
-    "X-KDE-PluginInfo-Author": "Aaron Seigo",
-    "X-KDE-PluginInfo-Email": "aseigo@kde.org",
-    "X-KDE-PluginInfo-License": "GPL",
-    "X-KDE-PluginInfo-Name": "applications",
-    "X-KDE-PluginInfo-Version": "1.0"
+    "PluginInfo": {
+        "Authors": [
+            "Aaron Seigo <aseigo@kde.org>"
+        ],
+        "Contact": {
+            "Email": "aseigo@kde.org",
+        },
+        "Description": {
+            "af": {
+                "Name": "Programme"
+            },
+            "ar": {
+                "Comment": "ابحث عن التطبيقات ولوحات التحكم والخدمات",
+                "Name": "تطبيقات"
+            },
+            "as": {
+                "Name": "অনুপ্ৰয়োগ"
+            },
+            "ast": {
+                "Comment": "Aplicaciones, paneles de control y servicios",
+                "Name": "Aplicaciones"
+            },
+            "be": {
+                "Name": "Праграмы"
+            },
+            "be@latin": {
+                "Comment": "Pošuk aplikacyjaŭ, panelaŭ kiravańnia j słužbaŭ",
+                "Name": "Aplikacyi"
+            },
+            "bg": {
+                "Comment": "Търсене на програми, панели и услуги",
+                "Name": "Програми"
+            },
+            "bn": {
+                "Name": "অ্যাপলিকেশন"
+            },
+            "bn_IN": {
+                "Name": "অ্যাপ্লিকেশন তালিকা"
+            },
+            "br": {
+                "Name": "Arloadoù"
+            },
+            "bs": {
+                "Comment": "Tražite programe, kontrolne panele i servise",
+                "Name": "programi"
+            },
+            "en": {
+                "Comment": "Launch applications",
+                "Name": "Applications"
+            },
+            "ca": {
+                "Comment": "Cerca aplicacions, plafons de control i serveis",
+                "Name": "Aplicacions"
+            },
+            "ca@valencia": {
+                "Comment": "Cerca aplicacions, plafons de control i serveis",
+                "Name": "Aplicacions"
+            },
+            "cs": {
+                "Comment": "Najít aplikace, ovládací panely a služby",
+                "Name": "Aplikace"
+            },
+            "csb": {
+                "Name": "Programë"
+            },
+            "cy": {
+                "Name": "Cymhwysiadau"
+            },
+            "da": {
+                "Comment": "Find programmer, kontrolpaneler og tjenester",
+                "Name": "Programmer"
+            },
+            "de": {
+                "Comment": "Auffinden von Anwendungen, Einrichtungsprogrammen und Diensten",
+                "Name": "Programme"
+            },
+            "el": {
+                "Comment": "Αναζήτηση εφαρμογών, πινάκων ελέγχου και υπηρεσιών",
+                "Name": "Εφαρμογές"
+            },
+            "en_GB": {
+                "Comment": "Find applications, control panels and services",
+                "Name": "Applications"
+            },
+            "eo": {
+                "Comment": "Trovi aplikaĵojn, stirpanelojn kaj servojn",
+                "Name": "Aplikaĵoj"
+            },
+            "es": {
+                "Comment": "Aplicaciones, paneles de control y servicios",
+                "Name": "Aplicaciones"
+            },
+            "et": {
+                "Comment": "Rakenduste, juhtpaneelide ja teenuste otsimine",
+                "Name": "Rakendused"
+            },
+            "eu": {
+                "Comment": "Bilatu aplikazioak, aginte-panelak eta zerbitzuak",
+                "Name": "Aplikazioak"
+            },
+            "fa": {
+                "Name": "برنامه‌ها"
+            },
+            "fi": {
+                "Comment": "Etsi ohjelmat, asetukset ja palvelut",
+                "Name": "Sovellukset"
+            },
+            "fr": {
+                "Comment": "Trouver des applications, des tableaux de bords et des services",
+                "Name": "Applications"
+            },
+            "fy": {
+                "Comment": "Sykje om applikaasjes, konfiguraasjemodules en tsjinsten",
+                "Name": "Programma's"
+            },
+            "ga": {
+                "Comment": "Aimsigh feidhmchláir, painéil rialaithe agus seirbhísí",
+                "Name": "Feidhmchláir"
+            },
+            "gl": {
+                "Comment": "Busca programas, paneis de control e servizos",
+                "Name": "Programas"
+            },
+            "gu": {
+                "Comment": "કાર્યક્રમો, નિયંત્રણ પેનલો અને સેવાઓ શોધો",
+                "Name": "કાર્યક્રમો"
+            },
+            "he": {
+                "Comment": "משמש למציאת יישומים, לוחות בקרה ושירותים",
+                "Name": "תוכניות"
+            },
+            "hi": {
+                "Comment": "अनुप्रयोग, नियंत्रण पटल तथा सेवाएँ ढूंढें",
+                "Name": "अनुप्रयोग"
+            },
+            "hne": {
+                "Comment": "अनुपरयोग ढूंढव, नियंत्रन केंद्र अउ सेवा",
+                "Name": "अनुपरयोग"
+            },
+            "hr": {
+                "Comment": "Pronađi aplikacije, kontrolne okvire i usluge",
+                "Name": "Aplikacije"
+            },
+            "hsb": {
+                "Name": "Aplikacija"
+            },
+            "hu": {
+                "Comment": "Alkalmazások, vezérlőpanelek és szolgáltatások keresése",
+                "Name": "Alkalmazások"
+            },
+            "ia": {
+                "Comment": "Trova applicationes, pannellos de controlo e servicios",
+                "Name": "Applicationes"
+            },
+            "id": {
+                "Comment": "Cari aplikasi, panel kontrol dan layanan",
+                "Name": "Aplikasi"
+            },
+            "is": {
+                "Comment": "Finna forrit, stjórneiningar og þjónustur",
+                "Name": "Forrit"
+            },
+            "it": {
+                "Comment": "Trova applicazioni, pannelli di controllo e servizi",
+                "Name": "Applicazioni"
+            },
+            "ja": {
+                "Comment": "アプリケーション、コントロールパネル、サービスを探します",
+                "Name": "アプリケーション"
+            },
+            "ka": {
+                "Name": "პროგრამები"
+            },
+            "kk": {
+                "Comment": "Қолданбаларды табу, панельдер мен қызметтерді басқару",
+                "Name": "Қолданбалар"
+            },
+            "km": {
+                "Comment": "រក​កម្មវិធី បន្ទះ​ត្រួតពិនិត្យ និង​សេវា",
+                "Name": "កម្មវិធី"
+            },
+            "kn": {
+                "Comment": "ಅನ್ವಯಗಳು, ನಿಯಂತ್ರಣಾ ಪುಟೀಪುಗಳು (ಕಂಟ್ರೋಲ್ ಪಾನಲ್ಸ್) ಹಾಗೂ ಸೇವೆಗಳನ್ನು ಹುಡುಕು",
+                "Name": "ಅನ್ವಯಗಳು"
+            },
+            "ko": {
+                "Comment": "프로그램, 제어판, 서비스 찾기",
+                "Name": "응용 프로그램"
+            },
+            "ku": {
+                "Comment": "Sepanan, panelên kontrolê û servîsan bibîne",
+                "Name": "Sepan"
+            },
+            "lt": {
+                "Comment": "Rasti programas, valdymo pultus ir tarnybas",
+                "Name": "Programos"
+            },
+            "lv": {
+                "Comment": "Meklēt lietotnes, kontroles paneļus un servisus",
+                "Name": "Programmas"
+            },
+            "mai": {
+                "Name": "अनुप्रयोग"
+            },
+            "mk": {
+                "Comment": "Пронајдете апликации, контролни панели и сервиси",
+                "Name": "Апликации"
+            },
+            "ml": {
+                "Comment": "പ്രയോഗങ്ങള്‍, നിയന്ത്രണപാനലുകള്‍, സേവനങ്ങള്‍ എന്നിവ കണ്ടുപിടിയ്ക്കുക",
+                "Name": "പ്രയോഗങ്ങള്‍"
+            },
+            "mr": {
+                "Comment": "अनुप्रयोग, नियंत्रण पटल व सेवा शोधा",
+                "Name": "अनुप्रयोग"
+            },
+            "ms": {
+                "Name": "Aplikasi"
+            },
+            "nb": {
+                "Comment": "Finn programmer, kontrollpanel og tjenester",
+                "Name": "Programmer"
+            },
+            "nds": {
+                "Comment": "Programmen, Kuntrullpaneels un Deensten söken",
+                "Name": "Programmen"
+            },
+            "ne": {
+                "Name": "अनुप्रयोग"
+            },
+            "nl": {
+                "Comment": "Zoek naar programma's, configuratiemodules en diensten",
+                "Name": "Programma's"
+            },
+            "nn": {
+                "Comment": "Finn program, kontrollpanel og tenester",
+                "Name": "Program"
+            },
+            "oc": {
+                "Name": "Aplicacions"
+            },
+            "or": {
+                "Comment": "ପ୍ରୟୋଗ, ନିୟନ୍ତ୍ରଣ ପଟି ଏବଂ ସର୍ଭିସଗୁଡ଼ିକୁ ଖୋଜନ୍ତୁ",
+                "Name": "ପ୍ରୟୋଗଗୁଡ଼ିକ"
+            },
+            "pa": {
+                "Comment": "ਐਪਲੀਕੇਸ਼ਨ, ਕੰਟਰੋਲ ਪੈਨਲ ਅਤੇ ਸਰਵਿਸਾਂ ਲੱਭੋ",
+                "Name": "ਐਪਲੀਕੇਸ਼ਨ"
+            },
+            "pl": {
+                "Comment": "Znajdowanie programów, paneli sterowania i usług",
+                "Name": "Programy"
+            },
+            "pt": {
+                "Comment": "Procura aplicações, painéis de controlo e serviços",
+                "Name": "Aplicações"
+            },
+            "pt_BR": {
+                "Comment": "Localiza aplicativos, painéis de controle e serviços",
+                "Name": "Aplicativos"
+            },
+            "ro": {
+                "Comment": "Găsește aplicații, panouri de control și servicii",
+                "Name": "Aplicații"
+            },
+            "ru": {
+                "Comment": "Поиск приложений и служб",
+                "Name": "Приложения"
+            },
+            "se": {
+                "Name": "Prográmmat"
+            },
+            "si": {
+                "Comment": "යෙදුම්, පාළන පුවරු සහ සේවා සොයන්න",
+                "Name": "යෙදුම්"
+            },
+            "sk": {
+                "Comment": "Hľadanie aplikácií, ovládacích panelov a služieb",
+                "Name": "Aplikácie"
+            },
+            "sl": {
+                "Comment": "Najdite programe, nadzorne plošče in storitve",
+                "Name": "Programi"
+            },
+            "sr": {
+                "Comment": "Тражите програме, контролне панеле и сервисе",
+                "Name": "програми"
+            },
+            "sr@ijekavian": {
+                "Comment": "Тражите програме, контролне панеле и сервисе",
+                "Name": "програми"
+            },
+            "sr@ijekavianlatin": {
+                "Comment": "Tražite programe, kontrolne panele i servise",
+                "Name": "programi"
+            },
+            "sr@latin": {
+                "Comment": "Tražite programe, kontrolne panele i servise",
+                "Name": "programi"
+            },
+            "sv": {
+                "Comment": "Sök efter program, kontrollpaneler och tjänster",
+                "Name": "Program"
+            },
+            "ta": {
+                "Comment": "Find applications, control panels and services",
+                "Name": "பயன்பாடுகள்"
+            },
+            "te": {
+                "Comment": "అనువర్తనములను, కంట్రోల్ ప్యానల్‍స్ ను మరియు సేవలను కనుగొనుము",
+                "Name": "కార్యక్రమాలు"
+            },
+            "tg": {
+                "Comment": "Ҷустуҷӯи барномаҳо ва хизматҳо",
+                "Name": "Барномаҳо"
+            },
+            "th": {
+                "Comment": "ค้นหาโปรแกรม, ถาดควบคุม และบริการ",
+                "Name": "โปรแกรมต่าง ๆ"
+            },
+            "tr": {
+                "Comment": "Uygulamaları, kontrol panellerini ve servisleri bul",
+                "Name": "Uygulamalar"
+            },
+            "ug": {
+                "Comment": "پروگرامما، تىزگىن تاختا ۋە مۇلازىمەت ئىزدە",
+                "Name": "پروگراممىلار"
+            },
+            "uk": {
+                "Comment": "Знайти програми, панелі керування та служби",
+                "Name": "Програми"
+            },
+            "uz": {
+                "Name": "Dasturlar"
+            },
+            "uz@cyrillic": {
+                "Name": "Дастурлар"
+            },
+            "vi": {
+                "Comment": "Tìm kiếm ứng dụng, bảng thiết lập và dịch vụ",
+                "Name": "Ứng dụng"
+            },
+            "wa": {
+                "Comment": "Trover des programes, des paneas d' controle et des siervices",
+                "Name": "Programes"
+            },
+            "x-test": {
+                "Comment": "xxFind applications, control panels and servicesxx",
+                "Name": "xxApplicationsxx"
+            },
+            "zh_CN": {
+                "Comment": "查找应用程序、控制面板和服务",
+                "Name": "应用程序"
+            },
+            "zh_TW": {
+                "Comment": "尋找應用程式、控制面板與服務",
+                "Name": "應用程式"
+            }
+        },
+        "Icon": "applications-other",
+        "License": "GPL",
+        "Version": "1.0"
+    },
+    "Sprinter": {
+        "GeneratesDefaultMatches": true,
+        "MatchSources": [
+            "FromFilesystem"
+        ],
+        "MatchTypes": [
+            "ExecutableType",
+            "ApplicationGroupType"
+        ]
+    }
 }

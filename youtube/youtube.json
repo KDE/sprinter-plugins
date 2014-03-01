@@ -1,15 +1,22 @@
 {
-    "Comment": "Watch videos from YouTube",
-    "Icon": "krunner_youtube",
-    "Name": "YouTube",
-    "Type": "Service",
-    "X-KDE-PluginInfo-Author": "Aaron Seigo",
-    "X-KDE-PluginInfo-Email": "aseigo@kde.org",
-    "X-KDE-PluginInfo-EnabledByDefault": true,
-    "X-KDE-PluginInfo-License": "GPL",
-    "X-KDE-PluginInfo-Name": "youtube",
-    "X-KDE-PluginInfo-Version": "0.1",
-    "X-KDE-ServiceTypes": [
-        "Sprinter/Runner"
-    ]
+    "PluginInfo": {
+        "Authors": [
+            "Martin Gräßlin <kde@martin-graesslin.com>",
+            "Aaron Seigo <aseigo@kde.org>"
+        ],
+        "Contact": {
+            "Email": "kde@martin-graesslin.com",
+        },
+        "Icon": "krunner_youtube",
+        "License": "GPL",
+        "Version": "0.1"
+    },
+    "Sprinter": {
+        "MatchSources": [
+            "FromNetworkService"
+        ],
+        "MatchTypes": [
+            "VideoType"
+        ]
+    }
 }

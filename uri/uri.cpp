@@ -29,11 +29,6 @@
 UriRunner::UriRunner(QObject *parent)
     : Sprinter::Runner(parent)
 {
-    setMatchTypesGenerated(QVector<Sprinter::QuerySession::MatchType>()
-                                << Sprinter::QuerySession::NetworkLocationType
-                                << Sprinter::QuerySession::MessageType);
-    setSourcesUsed(QVector<Sprinter::QuerySession::MatchSource>()
-                        << Sprinter::QuerySession::FromInternalSource);
     m_filterList << QStringLiteral("kshorturifilter");
 }
 

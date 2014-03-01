@@ -62,12 +62,6 @@ WindowsSessionData::WindowsSessionData(Sprinter::Runner *runner)
 WindowsRunner::WindowsRunner(QObject* parent)
     : Sprinter::Runner(parent)
 {
-    setMatchTypesGenerated(QVector<Sprinter::QuerySession::MatchType>()
-                                << Sprinter::QuerySession::WindowType
-                                << Sprinter::QuerySession::DesktopType);
-    setSourcesUsed(QVector<Sprinter::QuerySession::MatchSource>()
-                        << Sprinter::QuerySession::FromDesktopShell);
-    setGeneratesDefaultMatches(true);
 }
 
 WindowsRunner::~WindowsRunner()

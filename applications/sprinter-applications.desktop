@@ -165,10 +165,3 @@ Comment[wa]=Trover des programes, des paneas d' controle et des siervices
 Comment[x-test]=xxFind applications, control panels and servicesxx
 Comment[zh_CN]=查找应用程序、控制面板和服务
 Comment[zh_TW]=尋找應用程式、控制面板與服務
-
-Icon=applications-other
-X-KDE-PluginInfo-Author=Aaron Seigo
-X-KDE-PluginInfo-Email=aseigo@kde.org
-X-KDE-PluginInfo-Name=applications
-X-KDE-PluginInfo-Version=1.0
-X-KDE-PluginInfo-License=GPL

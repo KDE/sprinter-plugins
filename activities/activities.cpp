@@ -114,11 +114,6 @@ ActivityRunner::ActivityRunner(QObject *parent)
       m_keyword("activity"),
       m_defaultIcon(QIcon::fromTheme("preferences-activities"))
 {
-    setMatchTypesGenerated(QVector<Sprinter::QuerySession::MatchType>()
-                                << Sprinter::QuerySession::ActivityType);
-    setSourcesUsed(QVector<Sprinter::QuerySession::MatchSource>()
-                        << Sprinter::QuerySession::FromLocalService);
-    setGeneratesDefaultMatches(true);
 }
 
 Sprinter::RunnerSessionData *ActivityRunner::createSessionData()

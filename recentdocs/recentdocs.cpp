@@ -68,11 +68,6 @@ void RecentDocsSessionData::updateRecentDocsList()
 RecentDocsRunner::RecentDocsRunner(QObject *parent)
     : Sprinter::Runner(parent)
 {
-    setMatchTypesGenerated(QVector<Sprinter::QuerySession::MatchType>()
-                                << Sprinter::QuerySession::FileType);
-    setSourcesUsed(QVector<Sprinter::QuerySession::MatchSource>()
-                        << Sprinter::QuerySession::FromFilesystem);
-    setGeneratesDefaultMatches(true);
 }
 
 Sprinter::RunnerSessionData *RecentDocsRunner::createSessionData()

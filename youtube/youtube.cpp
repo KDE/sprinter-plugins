@@ -208,10 +208,6 @@ void YoutubeSessionData::thumbRecv()
 YoutubeRunner::YoutubeRunner(QObject *parent)
     : Runner(parent)
 {
-    setMatchTypesGenerated(QVector<Sprinter::QuerySession::MatchType>()
-                                << Sprinter::QuerySession::VideoType);
-    setSourcesUsed(QVector<Sprinter::QuerySession::MatchSource>()
-                        << Sprinter::QuerySession::FromNetworkService);
 }
 
 Sprinter::RunnerSessionData *YoutubeRunner::createSessionData()

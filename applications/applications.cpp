@@ -31,11 +31,6 @@ static const QString s_groupSearchKeyword("_groupRelPath:");
 ApplicationsRunner::ApplicationsRunner(QObject *parent)
     : Sprinter::Runner(parent)
 {
-    setMatchTypesGenerated(QVector<Sprinter::QuerySession::MatchType>()
-                                << Sprinter::QuerySession::ExecutableType);
-    setSourcesUsed(QVector<Sprinter::QuerySession::MatchSource>()
-                        << Sprinter::QuerySession::FromFilesystem);
-    setGeneratesDefaultMatches(true);
     setMinQueryLength(1);
 }
 
