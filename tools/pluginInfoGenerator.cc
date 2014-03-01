@@ -114,7 +114,14 @@ int main(int argc, char *argv[])
     const QByteArray data = jsonFile.readAll();
     jsonFile.close();
 
-    QJsonDocument json = QJsonDocument::fromJson(data);
+    QJsonParseError error;
+    QJsonDocument json = QJsonDocument::fromJson(data, &error);
+    if (error.error != QJsonParseError::NoError) {
+        qCritical() << "Malformed json in" << opts.value(jsonFileOpt);
+        return -1;
+    }
+
+//     qDebug() << data << json;
     QJsonObject pluginInfo = json.object()["PluginInfo"].toObject();
     pluginInfo.insert("Description", translations);
     QJsonObject topObj = json.object();
