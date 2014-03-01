@@ -19,7 +19,8 @@ find_package(KF5 NO_MODULE
                     CoreAddons
                     ConfigDBusAddons
                     KIO
-                    Service)
+                    Service
+                    Solid)
 find_package(Qalculate)
 
 if (NOT APPLE)
@@ -71,5 +72,9 @@ if (KF5WindowSystem_FOUND)
     # TODO: needs porting to non-x11. uses NETRootInfo and QX11Info
 #     add_subdirectory(windows)
 endif (KF5WindowSystem_FOUND)
+
+if (KF5Solid_FOUND)
+    add_subdirectory(powerdevil)
+endif (KF5Solid_FOUND)
 
 feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)

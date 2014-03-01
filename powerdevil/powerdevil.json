@@ -1,0 +1,14 @@
+{
+    "Comment": "Basic Power Management Operations",
+    "Icon": "preferences-system-power-management",
+    "Name": "PowerDevil",
+    "Type": "Service",
+    "X-KDE-PluginInfo-Author": "Dario Freddi",
+    "X-KDE-PluginInfo-Email": "drf@kdemod.ath.cx",
+    "X-KDE-PluginInfo-EnabledByDefault": true,
+    "X-KDE-PluginInfo-License": "GPL",
+    "X-KDE-PluginInfo-Version": "1.0",
+    "X-KDE-ServiceTypes": [
+        "Sprinter/Runner"
+    ]
+}
