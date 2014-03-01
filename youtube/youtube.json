@@ -6,6 +6,172 @@
         "Contact": {
             "Email": "aseigo@kde.org"
         },
+        "Description": {
+            "bs": {
+                "Comment": "Odgovara YouTube upitima",
+                "Name": "YouTube"
+            },
+            "ca": {
+                "Comment": "Correspon amb consultes a YouTube",
+                "Name": "YouTube"
+            },
+            "ca@valencia": {
+                "Comment": "Correspon amb consultes a YouTube",
+                "Name": "YouTube"
+            },
+            "cs": {
+                "Comment": "Vyhledávání dotazů YouTube",
+                "Name": "YouTube"
+            },
+            "da": {
+                "Comment": "Matcher YouTube-forespørgsler",
+                "Name": "YouTube"
+            },
+            "de": {
+                "Comment": "Entspricht YouTube-Abfragen",
+                "Name": "YouTube"
+            },
+            "el": {
+                "Comment": "Εύρεση αναζητήσεων στο YouTube",
+                "Name": "YouTube"
+            },
+            "en": {
+                "Comment": "Watch videos from YouTube",
+                "Name": "YouTube"
+            },
+            "es": {
+                "Comment": "Busca consultas de YouTube que coincidan",
+                "Name": "YouTube"
+            },
+            "et": {
+                "Comment": "YouTube'i päringud",
+                "Name": "YouTube"
+            },
+            "fi": {
+                "Comment": "Täsmää YouTube-hakuihin",
+                "Name": "YouTube"
+            },
+            "fr": {
+                "Comment": "Correspond aux requêtes Youtube",
+                "Name": "YouTube"
+            },
+            "ga": {
+                "Name": "YouTube"
+            },
+            "gl": {
+                "Comment": "Realiza consultar en YouTube.",
+                "Name": "YouTube"
+            },
+            "hu": {
+                "Comment": "YouTube keresés",
+                "Name": "YouTube"
+            },
+            "it": {
+                "Comment": "Verifica le interrogazioni di YouTube",
+                "Name": "YouTube"
+            },
+            "kk": {
+                "Comment": "YouTube сұраныстарды салыстыру",
+                "Name": "YouTube"
+            },
+            "km": {
+                "Comment": "ផ្គូផ្គង​សំណួរ YouTube",
+                "Name": "YouTube"
+            },
+            "ko": {
+                "Comment": "Youtube 쿼리와 일치",
+                "Name": "YouTube"
+            },
+            "lt": {
+                "Name": "YouTube"
+            },
+            "mr": {
+                "Comment": "यूट्यूब प्रश्न जुळवितो",
+                "Name": "यूट्यूब"
+            },
+            "nb": {
+                "Comment": "Treffer YoutTube-søk",
+                "Name": "YouTube"
+            },
+            "nl": {
+                "Comment": "Komt overeen met YouTube-queries",
+                "Name": "YouTube"
+            },
+            "nn": {
+                "Name": "YouTube"
+            },
+            "pa": {
+                "Name": "ਯੂਟਿਊਬ"
+            },
+            "pl": {
+                "Comment": "Dopasowanie zapytań YouTube",
+                "Name": "YouTube"
+            },
+            "pt": {
+                "Comment": "Corresponde às pesquisas do YouTube",
+                "Name": "YouTube"
+            },
+            "pt_BR": {
+                "Comment": "Corresponde às pesquisas no YouTube",
+                "Name": "YouTube"
+            },
+            "ro": {
+                "Comment": "Potrivește interogări YouTube",
+                "Name": "YouTube"
+            },
+            "ru": {
+                "Comment": "Поиск в YouTube",
+                "Name": "YouTube"
+            },
+            "sk": {
+                "Comment": "Zodpovedá dotazom Youtube",
+                "Name": "YouTube"
+            },
+            "sl": {
+                "Comment": "Ujemajoče poizvedbe z YouTube",
+                "Name": "YouTube"
+            },
+            "sr": {
+                "Comment": "Поклапа упите Јутјубу",
+                "Name": "Јутјуб"
+            },
+            "sr@ijekavian": {
+                "Comment": "Поклапа упите Јутјубу",
+                "Name": "Јутјуб"
+            },
+            "sr@ijekavianlatin": {
+                "Comment": "Poklapa upite YouTubeu",
+                "Name": "YouTube"
+            },
+            "sr@latin": {
+                "Comment": "Poklapa upite YouTubeu",
+                "Name": "YouTube"
+            },
+            "sv": {
+                "Comment": "Matchar sökningar på YouTube",
+                "Name": "YouTube"
+            },
+            "tr": {
+                "Comment": "YouTube sorgularını eşleştirir",
+                "Name": "YouTube"
+            },
+            "uk": {
+                "Comment": "Відповідники запиту за даними YouTube",
+                "Name": "YouTube"
+            },
+            "x-test": {
+                "Comment": "xxMatches YouTube queriesxx",
+                "Name": "xxYouTubexx"
+            },
+            "zh_CN": {
+                "Comment": "匹配 YouTube 查询",
+                "Name": "YouTube"
+            },
+            "zh_TW": {
+                "Comment": "符合 YouTube 查詢",
+                "Name": "YouTube"
+            }
+        },
         "Icon": "krunner_youtube",
         "License": "GPL",
         "Version": "0.1"

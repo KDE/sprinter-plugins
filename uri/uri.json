@@ -6,6 +6,12 @@
         "Contact": {
             "Email": "aseigo@kde.org"
         },
+        "Description": {
+            "en": {
+                "Comment": "Go to URLs",
+                "Name": "Network Locations"
+            }
+        },
         "Icon": "internet-web-browser",
         "License": "GPL",
         "Version": "1.0"

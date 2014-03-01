@@ -7,6 +7,286 @@
         "Contact": {
             "Email": "kde@martin-graesslin.com"
         },
+        "Description": {
+            "ar": {
+                "Comment": "اسرد النوافذ وسطوح المكتب وبدّلها",
+                "Name": "النوافذ"
+            },
+            "ast": {
+                "Comment": "Llista ventanes y escritorios y camuda ente ellos",
+                "Name": "Ventanes"
+            },
+            "bg": {
+                "Comment": "Показване и превключване на прозорци и работни плотове",
+                "Name": "Прозорци"
+            },
+            "bn": {
+                "Name": "উইণ্ডো"
+            },
+            "bs": {
+                "Comment": "Nabrajanje i prebacivanje između prozora i površî",
+                "Name": "prozori"
+            },
+            "ca": {
+                "Comment": "Llista finestres i escriptoris i canvia entre ells",
+                "Name": "Finestres"
+            },
+            "ca@valencia": {
+                "Comment": "Llista finestres i escriptoris i canvia entre ells",
+                "Name": "Finestres"
+            },
+            "cs": {
+                "Comment": "Seznam oken a ploch k přepínání",
+                "Name": "Okna"
+            },
+            "csb": {
+                "Name": "Òkna"
+            },
+            "da": {
+                "Comment": "Oplist vinduer og skriveborde og skift mellem dem",
+                "Name": "Vinduer"
+            },
+            "de": {
+                "Comment": "Listet Fenster und Arbeitsflächen auf und wechselt zwischen ihnen.",
+                "Name": "Fenster"
+            },
+            "el": {
+                "Comment": "Εμφάνιση λίστας παραθύρων και επιφανειών εργασίας για εναλλαγή",
+                "Name": "Παράθυρα"
+            },
+            "en": {
+                "Comment": "List windows and desktops and switch between them",
+                "Name": "Windows"
+            },
+            "en_GB": {
+                "Comment": "List windows and desktops and switch them",
+                "Name": "Windows"
+            },
+            "eo": {
+                "Comment": "Listi fenestrojn kaj labortablojn kaj ŝanĝi ilin",
+                "Name": "Fenestroj"
+            },
+            "es": {
+                "Comment": "Lista ventanas y escritorios y cambia entre ellos",
+                "Name": "Ventanas"
+            },
+            "et": {
+                "Comment": "Akende ja töölauade näitamine võimalusega neile lülituda",
+                "Name": "Aknad"
+            },
+            "eu": {
+                "Comment": "Zerrendatu leihoak eta mahaigainak, eta batetik bestera aldatu",
+                "Name": "Leihoak"
+            },
+            "fa": {
+                "Name": "پنجره‌ها"
+            },
+            "fi": {
+                "Comment": "Luettele ikkunat ja työpöydät ja vaihda niitä",
+                "Name": "Ikkunat"
+            },
+            "fr": {
+                "Comment": "Liste les fenêtres / bureaux et passe de l'un à l'autre",
+                "Name": "Fenêtres"
+            },
+            "fy": {
+                "Comment": "Sommet finsters en buroblêden en wikselt har",
+                "Name": "Finsters"
+            },
+            "ga": {
+                "Comment": "Taispeáin fuinneoga agus deasca agus athraigh eatarthu",
+                "Name": "Fuinneoga"
+            },
+            "gl": {
+                "Comment": "Lista as xanelas e escritorio e salta entre eles",
+                "Name": "Xanelas"
+            },
+            "gu": {
+                "Name": "વિન્ડોઝ"
+            },
+            "he": {
+                "Comment": "משמש להצגת חלונות ושולחנות עבודה ולהחלפה ביניהם",
+                "Name": "חלונות"
+            },
+            "hi": {
+                "Name": "विंडोज़"
+            },
+            "hr": {
+                "Comment": "Popis prozora i radnih površina za laku promjenu među njima",
+                "Name": "Prozori"
+            },
+            "hu": {
+                "Comment": "Kilistázza az ablakokat és asztalokat, és vált rájuk",
+                "Name": "Ablakok"
+            },
+            "ia": {
+                "Comment": "Lista fenestras e scriptorios e commuta  los",
+                "Name": "Fenestras"
+            },
+            "id": {
+                "Comment": "Urutkan jendela dan desktop lalu kemudian tukar mereka",
+                "Name": "Jendela"
+            },
+            "is": {
+                "Comment": "Telur upp glugga og skjáborð og skiptir á milli þeirra",
+                "Name": "Gluggar"
+            },
+            "it": {
+                "Comment": "Elenca e scegli finestre e desktop",
+                "Name": "Finestre"
+            },
+            "ja": {
+                "Comment": "ウィンドウとデスクトップの一覧表示と切り替えを行います",
+                "Name": "ウィンドウ"
+            },
+            "kk": {
+                "Comment": "Бар терезе мен үстелдерді ұсынып оларға ауысу",
+                "Name": "Терезелер"
+            },
+            "km": {
+                "Comment": "រាយ​​បង្អួច និង​ផ្ទៃតុ​ ហើយ​ប្ដូរ​ពួកវា",
+                "Name": "បង្អួច"
+            },
+            "kn": {
+                "Comment": "ವಿಂಡೊ ಹಾಗು ಗಣಕತೆರೆಗಳನ್ನು ಪಟ್ಟಿಮಾಡು ಹಾಗು ಅವುಗಳನ್ನು ಬದಲಾಯಿಸು",
+                "Name": "ಕಿಟಕಿಗಳು"
+            },
+            "ko": {
+                "Comment": "창 및 데스크톱 목록을 보여 주고 전환합니다",
+                "Name": "창"
+            },
+            "lt": {
+                "Comment": "Išvardija langus ir darbastalius su galimybe į juos pereiti",
+                "Name": "Langai"
+            },
+            "lv": {
+                "Comment": "Parāda logus un darbvirsmas un pārslēdz tos",
+                "Name": "Logi"
+            },
+            "mk": {
+                "Comment": "Приказ на прозорци и раб. површини и преминување меѓу нив",
+                "Name": "Прозорци"
+            },
+            "ml": {
+                "Comment": "ജാലകങ്ങളും പണിയിടങ്ങളും പട്ടികയായി കണ്ടു് പരസ്പരം മാറുക",
+                "Name": "ജാലകങ്ങള്‍"
+            },
+            "mr": {
+                "Comment": "वेगळ्या चौकट व डेस्कटॉप वर जाण्यासाठी यादी दर्शवा व बदला",
+                "Name": "चौकटी"
+            },
+            "nb": {
+                "Comment": "List vinduer og skrivebord og bytt mellom dem",
+                "Name": "Vinduer"
+            },
+            "nds": {
+                "Comment": "Finstern un Schriefdischen oplisten un wesseln",
+                "Name": "Finstern"
+            },
+            "nl": {
+                "Comment": "Toon vensters en bureaubladen en schakel ze om",
+                "Name": "Vensters"
+            },
+            "nn": {
+                "Comment": "Vis vindauge og skrivebord, og byt mellom dei",
+                "Name": "Vindauge"
+            },
+            "pa": {
+                "Comment": "ਵਿੰਡੋਜ਼ ਅਤੇ ਡੈਸਕਟਾਪ ਦੀ ਲਿਸਟ ਅਤੇ ਉਹਨਾਂ ਵਿੱਚ ਬਦਲੋ",
+                "Name": "ਵਿੰਡੋਜ਼"
+            },
+            "pl": {
+                "Comment": "Lista okien i pulpitów oraz przełączenia ich",
+                "Name": "Okna"
+            },
+            "pt": {
+                "Comment": "Listar as janelas e ecrãs e mudar entre eles",
+                "Name": "Janelas"
+            },
+            "pt_BR": {
+                "Comment": "Lista as janelas e áreas de trabalho e alterna entre elas",
+                "Name": "Janelas"
+            },
+            "ro": {
+                "Comment": "Enumeră ferestre și birouri și le comută",
+                "Name": "Ferestre"
+            },
+            "ru": {
+                "Comment": "Список окон и рабочих столов с возможностью переключения между ними",
+                "Name": "Окна"
+            },
+            "si": {
+                "Comment": "කවුළු හා වැඩතල ලැයිස්තුගත කර ඒවා මාරුකරන්න",
+                "Name": "කවුළු"
+            },
+            "sk": {
+                "Comment": "Zoznam okien a plôch a ich prepínanie",
+                "Name": "Okná"
+            },
+            "sl": {
+                "Comment": "Seznam oken in namizij ter preklapljanje med njimi",
+                "Name": "Okna"
+            },
+            "sr": {
+                "Comment": "Набрајање и пребацивање између прозора и површи̂",
+                "Name": "прозори"
+            },
+            "sr@ijekavian": {
+                "Comment": "Набрајање и пребацивање између прозора и површи̂",
+                "Name": "прозори"
+            },
+            "sr@ijekavianlatin": {
+                "Comment": "Nabrajanje i prebacivanje između prozora i površî",
+                "Name": "prozori"
+            },
+            "sr@latin": {
+                "Comment": "Nabrajanje i prebacivanje između prozora i površî",
+                "Name": "prozori"
+            },
+            "sv": {
+                "Comment": "Lista fönster och skrivbord, och byt mellan dem",
+                "Name": "Fönster"
+            },
+            "tg": {
+                "Comment": "Намоиши рӯйхати тирезаҳо, мизҳои корӣ ва панелҳо",
+                "Name": "Windows"
+            },
+            "th": {
+                "Comment": "รายการหน้าต่างและพื้นที่ทำงานต่าง ๆ ที่สามารถสลับไปใช้งานได้",
+                "Name": "หน้าต่างต่าง ๆ"
+            },
+            "tr": {
+                "Comment": "Pencereleri ve masaüstlerini listele ve seç",
+                "Name": "Pencereler"
+            },
+            "ug": {
+                "Comment": "ھەممە كۆزنەكلەر ۋە ئۈستەلئۈستى تىزىمىنى كۆرسىتىپ، ئۇلارنى ئالماشتۇرىدۇ",
+                "Name": "كۆزنەكلەر"
+            },
+            "uk": {
+                "Comment": "Показує список вікон і стільниць і перемикає їх",
+                "Name": "Вікна"
+            },
+            "vi": {
+                "Comment": "Liệt kê các cửa sổ, màn hình làm việc và chuyển đổi chúng"
+            },
+            "wa": {
+                "Comment": "Fé l' djivêye des fniesses eyet des scribannes eyet passer d' n' onk a l' ôte",
+                "Name": "Finiesses"
+            },
+            "x-test": {
+                "Comment": "xxList windows and desktops and switch themxx",
+                "Name": "xxWindowsxx"
+            },
+            "zh_CN": {
+                "Comment": "列出所有窗口和桌面，并可供切换",
+                "Name": "窗口"
+            },
+            "zh_TW": {
+                "Comment": "列出視窗與桌面並切換",
+                "Name": "視窗"
+            }
+        },
         "Icon": "preferences-system-windows",
         "License": "GPL",
         "Version": "1.0"

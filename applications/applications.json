@@ -45,10 +45,6 @@
                 "Comment": "Tražite programe, kontrolne panele i servise",
                 "Name": "programi"
             },
-            "en": {
-                "Comment": "Launch applications",
-                "Name": "Applications"
-            },
             "ca": {
                 "Comment": "Cerca aplicacions, plafons de control i serveis",
                 "Name": "Aplicacions"
@@ -78,6 +74,10 @@
             "el": {
                 "Comment": "Αναζήτηση εφαρμογών, πινάκων ελέγχου και υπηρεσιών",
                 "Name": "Εφαρμογές"
+            },
+            "en": {
+                "Comment": "Launch applications",
+                "Name": "Applications"
             },
             "en_GB": {
                 "Comment": "Find applications, control panels and services",

@@ -6,6 +6,260 @@
         "Contact": {
             "Email": "aseigo@kde.org"
         },
+        "Description": {
+            "ar": {
+                "Name": "المسندات الحديثة"
+            },
+            "ast": {
+                "Name": "Documentos recientes"
+            },
+            "be": {
+                "Name": "Нядаўнія дакументы"
+            },
+            "be@latin": {
+                "Name": "Niadaŭnyja dakumenty"
+            },
+            "bg": {
+                "Name": "Последно използвани"
+            },
+            "bn": {
+                "Name": "সম্প্রতি ব্যবহৃত নথী"
+            },
+            "br": {
+                "Name": "Teulioù nevez"
+            },
+            "bs": {
+                "Name": "nedavnii dokumenti"
+            },
+            "ca": {
+                "Name": "Documents recents"
+            },
+            "ca@valencia": {
+                "Name": "Documents recents"
+            },
+            "cs": {
+                "Name": "Nedávné dokumenty"
+            },
+            "cy": {
+                "Name": "Dogfenni Diweddar"
+            },
+            "da": {
+                "Name": "Nylige dokumenter"
+            },
+            "de": {
+                "Name": "Zuletzt geöffnete Dokumente"
+            },
+            "el": {
+                "Name": "Πρόσφατα έγγραφα"
+            },
+            "en": {
+                "Name": "Recent Documents"
+            },
+            "en_GB": {
+                "Name": "Recent Documents"
+            },
+            "eo": {
+                "Name": "Lastlaboritaj dokumentoj"
+            },
+            "es": {
+                "Name": "Documentos recientes"
+            },
+            "et": {
+                "Name": "Viimati kasutatud dokumendid"
+            },
+            "eu": {
+                "Name": "Azken dokumentuak"
+            },
+            "fa": {
+                "Name": "سندهای اخیر"
+            },
+            "fi": {
+                "Name": "Viimeksi käytetyt asiakirjat"
+            },
+            "fr": {
+                "Name": "Documents récents"
+            },
+            "fy": {
+                "Name": "Koatlyn brûkte dokuminten"
+            },
+            "ga": {
+                "Name": "Cáipéisí is Déanaí"
+            },
+            "gl": {
+                "Name": "Documentos recentes"
+            },
+            "gu": {
+                "Name": "હાલનાં દસ્તાવેજો"
+            },
+            "he": {
+                "Name": "מסמכים שהיו בשימוש לאחרונה"
+            },
+            "hi": {
+                "Name": "हाल ही में प्रयुक्त दस्तावेज़"
+            },
+            "hne": {
+                "Name": "हाल ही मं प्रयुक्त कागद"
+            },
+            "hr": {
+                "Name": "Nedavno pristupljeni dokumenti"
+            },
+            "hu": {
+                "Name": "Nemrég használt dokumentumok"
+            },
+            "ia": {
+                "Name": "Documentos recente"
+            },
+            "id": {
+                "Name": "Dokumen Terkini"
+            },
+            "is": {
+                "Name": "Nýleg skjöl"
+            },
+            "it": {
+                "Name": "Documenti recenti"
+            },
+            "ja": {
+                "Name": "最近の文書"
+            },
+            "ka": {
+                "Name": "ბოლო დოკუმენტები"
+            },
+            "kk": {
+                "Name": "Жуырда ашылғандар"
+            },
+            "km": {
+                "Name": "ឯកសារ​បច្ចុប្បន្ន"
+            },
+            "kn": {
+                "Name": "ಇತ್ತೀಚಿನ ದಸ್ತಾವೇಜುಗಳು"
+            },
+            "ko": {
+                "Name": "최근 문서"
+            },
+            "ku": {
+                "Name": "Pelgeyên Hatine Bikaranîn"
+            },
+            "lt": {
+                "Name": "Neseni dokumentai"
+            },
+            "lv": {
+                "Name": "Nesenie dokumenti"
+            },
+            "mai": {
+                "Name": "हालक दस्ताबेज"
+            },
+            "mk": {
+                "Name": "Скорешни документи"
+            },
+            "ml": {
+                "Name": "ഈയിടെ തുറന്ന രേഖകള്‍"
+            },
+            "mr": {
+                "Name": "अलिकडील दस्तऐवज"
+            },
+            "nb": {
+                "Name": "Nylig brukte dokumenter"
+            },
+            "nds": {
+                "Name": "Tolest bruukt Dokmenten"
+            },
+            "nl": {
+                "Name": "Recente documenten"
+            },
+            "nn": {
+                "Name": "Nyleg brukte dokument"
+            },
+            "or": {
+                "Name": "ପ୍ରଚଳିତ ଦଲିଲଗୁଡ଼ିକ"
+            },
+            "pa": {
+                "Name": "ਤਾਜ਼ਾ ਡੌਕੂਮੈਂਟ"
+            },
+            "pl": {
+                "Name": "Ostatnie dokumenty"
+            },
+            "pt": {
+                "Name": "Documentos Recentes"
+            },
+            "pt_BR": {
+                "Name": "Documentos recentes"
+            },
+            "ro": {
+                "Name": "Documente recente"
+            },
+            "ru": {
+                "Name": "Последние документы"
+            },
+            "si": {
+                "Name": "මෑතකදි භාවිත කළ ලේඛන"
+            },
+            "sk": {
+                "Name": "Nedávne dokumenty"
+            },
+            "sl": {
+                "Name": "Nedavni dokumenti"
+            },
+            "sr": {
+                "Name": "недавни документи"
+            },
+            "sr@ijekavian": {
+                "Name": "недавни документи"
+            },
+            "sr@ijekavianlatin": {
+                "Name": "nedavni dokumenti"
+            },
+            "sr@latin": {
+                "Name": "nedavni dokumenti"
+            },
+            "sv": {
+                "Name": "Senaste dokument"
+            },
+            "ta": {
+                "Name": "Recent Documents"
+            },
+            "te": {
+                "Name": "ఇటీవలి పత్రములు"
+            },
+            "tg": {
+                "Name": "Ҳуҷҷатҳои кушодашуда"
+            },
+            "th": {
+                "Name": "เอกสารที่เรียกใช้ไม่นานนี้"
+            },
+            "tr": {
+                "Name": "Son Kullanılan Belgeler"
+            },
+            "ug": {
+                "Name": "يېقىنقى پۈتۈكلەر"
+            },
+            "uk": {
+                "Name": "Недавні документи"
+            },
+            "uz": {
+                "Name": "Yaqinda ochilgan hujjatlar"
+            },
+            "uz@cyrillic": {
+                "Name": "Яқинда очилган ҳужжатлар"
+            },
+            "vi": {
+                "Name": "Tài liệu gần đây"
+            },
+            "wa": {
+                "Name": "Documints d' enawaire"
+            },
+            "x-test": {
+                "Name": "xxRecent Documentsxx"
+            },
+            "xh": {
+                "Name": "Uxwebhu Olusandukusebenziswa"
+            },
+            "zh_CN": {
+                "Name": "最近的文档"
+            },
+            "zh_TW": {
+                "Name": "最近的文件"
+            }
+        },
         "Icon": "document-open-recent",
         "License": "GPL",
         "Version": "1.0"

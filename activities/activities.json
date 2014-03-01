@@ -6,6 +6,48 @@
         "Contact": {
             "Email": "aseigo@kde.org"
         },
+        "Description": {
+            "cs": {
+                "Comment": "Zobrazení a přepínač aktivit pracovní plochy",
+                "Name": "Aktivity"
+            },
+            "de": {
+                "Comment": "Aktivitäten anzeigen und zwischen ihnen umschalten",
+                "Name": "Aktivitäten"
+            },
+            "en": {
+                "Comment": "List and switch between desktop activities",
+                "Name": "Activities"
+            },
+            "nl": {
+                "Comment": "Bureaubladactiviteiten laten zien en er tussen schakelen",
+                "Name": "Activiteiten"
+            },
+            "pt": {
+                "Comment": "Ver e mudar de actividades no ambiente de trabalho",
+                "Name": "Actividades"
+            },
+            "pt_BR": {
+                "Comment": "Lista e alterna entre as atividades da área de trabalho",
+                "Name": "Atividades"
+            },
+            "sk": {
+                "Comment": "Vypísať a prepínať medzi aktivitami pracovnej plochy",
+                "Name": "Aktivity"
+            },
+            "sv": {
+                "Comment": "Lista och byt mellan skrivbordsaktiviteter",
+                "Name": "Aktiviteter"
+            },
+            "uk": {
+                "Comment": "Показ списку та перемиканням між просторами дій стільниці",
+                "Name": "Простори дій"
+            },
+            "x-test": {
+                "Comment": "xxList and switch between desktop activitiesxx",
+                "Name": "xxActivitiesxx"
+            }
+        },
         "Icon": "preferences-activities",
         "License": "GPL",
         "Version": "1.0"

@@ -6,6 +6,200 @@
         "Contact": {
             "Email": "aseigo@kde.org"
         },
+        "Description": {
+            "bs": {
+                "Comment": "Trenutni datum i vrijeme, lokalno ili u nekoj drugoj vremenskoj zoni",
+                "Name": "Datum i vrijeme"
+            },
+            "ca": {
+                "Comment": "La data i l'hora actuals, localment o en qualsevol zona horària",
+                "Name": "Data i hora"
+            },
+            "ca@valencia": {
+                "Comment": "La data i l'hora actuals, localment o en qualsevol zona horària",
+                "Name": "Data i hora"
+            },
+            "cs": {
+                "Comment": "Aktuální datum a čas, lokální, nebo v libovolné časové zóně",
+                "Name": "Datum a čas"
+            },
+            "da": {
+                "Comment": "Den nuværende dato og tid, lokalt eller i en enhver tidszone",
+                "Name": "Dato og tid"
+            },
+            "de": {
+                "Comment": "Aktuelles Datum und Zeit; lokal oder in einer anderen Zeitzone",
+                "Name": "Datum und Zeit"
+            },
+            "el": {
+                "Comment": "Η τρέχουσα ημερομηνία και ώρα, τοπικά ή σε οποιαδήποτε ωρολογιακή ζώνη",
+                "Name": "Ημερομηνία και ώρα"
+            },
+            "en": {
+                "Comment": "The current date and time, locally or in any timezone",
+                "Name": "Date and Time"
+            },
+            "en_GB": {
+                "Comment": "The current date and time, locally or in any timezone",
+                "Name": "Date and Time"
+            },
+            "eo": {
+                "Name": "Dato kaj Tempo"
+            },
+            "es": {
+                "Comment": "La fecha y hora actual, local o en cualquier zona horaria",
+                "Name": "Fecha y hora"
+            },
+            "et": {
+                "Comment": "Praegune kuupäev ja kellaaeg, kohalik või mis tahes ajavööndi oma",
+                "Name": "Kuupäev ja kellaaeg"
+            },
+            "fi": {
+                "Comment": "Paikallinen tai minkä tahansa aikavyöhykkeen nykyinen aika ja päiväys",
+                "Name": "Aika ja päiväys"
+            },
+            "fr": {
+                "Comment": "La date et l'heure courante, locale ou selon un fuseau horaire",
+                "Name": "Date et heure"
+            },
+            "ga": {
+                "Comment": "An dáta agus agus t-am faoi láthair, anseo nó i gcrios ama ar bith",
+                "Name": "Dáta agus Am"
+            },
+            "gl": {
+                "Comment": "A data e hora actuais, locais ou de calquera fuso horario.",
+                "Name": "Data e hora"
+            },
+            "hr": {
+                "Comment": "Trenutni datum i vrijeme, lokalno ili u bilo kojoj vremenskoj zoni",
+                "Name": "Datum i vrijeme"
+            },
+            "hu": {
+                "Comment": "A jelenlegi dátum és idő, helyileg vagy bármelyik időzónában",
+                "Name": "Dátum és idő"
+            },
+            "it": {
+                "Comment": "La data e l'ora corrente, localmente o in qualsiasi fuso orario",
+                "Name": "Data e ora"
+            },
+            "ja": {
+                "Comment": "現在の日時を任意のタイムゾーンで",
+                "Name": "日付と時間"
+            },
+            "kk": {
+                "Comment": "Жергілікті не басқа уақыт белдеуіндегі қазіргі күн мен уақыты",
+                "Name": "Күні мен уақыты"
+            },
+            "km": {
+                "Comment": "កាលបរិច្ឆេទ និង​ទិន្នន័យ​បច្ចុប្បន្ន​ មូលដ្ឋាន ឬ​តំបន់​ពេលវេលា​ណាមួយ",
+                "Name": "កាលបរិច្ឆេទ និងពេលវេលា"
+            },
+            "ko": {
+                "Comment": "오늘 날짜와 시간",
+                "Name": "날짜와 시간"
+            },
+            "lt": {
+                "Name": "Data ir laikas"
+            },
+            "lv": {
+                "Comment": "Pašreizējais datums un laiks lokāli vai jebkurā laika zonā",
+                "Name": "Datums un laiks"
+            },
+            "mr": {
+                "Comment": "कोणत्याही वेळक्षेत्रा प्रमाणे किंवा स्थानिक वर्तमान दिनांक व वेळ",
+                "Name": "दिनांक व वेळ"
+            },
+            "nb": {
+                "Comment": "Dagens dato og tid, lokalt eller i en hver tidssone",
+                "Name": "Dato og klokkeslett"
+            },
+            "nds": {
+                "Comment": "Dat aktuelle Datum un de Tiet, lokaal oder in en anner Tietrebeet",
+                "Name": "Datum un Tiet"
+            },
+            "nl": {
+                "Comment": "De huidige datum en tijd, lokaal of in elke tijdzone",
+                "Name": "Datum en tijd"
+            },
+            "pa": {
+                "Comment": "ਮੌਜੂਦਾ ਮਿਤੀ ਤੇ ਸਮਾਂ, ਸਥਾਨਕ ਜਾਂ ਕੋਈ ਹੋਰ ਸਮਾਂ ਖੇਤਰ ਵਿੱਚ",
+                "Name": "ਮਿਤੀ ਤੇ ਸਮਾਂ"
+            },
+            "pl": {
+                "Comment": "Bieżąca data i czas, lokalne lub w strefie czasowej",
+                "Name": "Data i czas"
+            },
+            "pt": {
+                "Comment": "A data e hora actuais, a nível local ou noutro fuso-horário qualquer",
+                "Name": "Data e Hora"
+            },
+            "pt_BR": {
+                "Comment": "A data e a hora atual, local ou em qualquer fuso horário",
+                "Name": "Data e hora"
+            },
+            "ro": {
+                "Comment": "Data și ora curentă, local sau din orice fus orar",
+                "Name": "Data și ora"
+            },
+            "ru": {
+                "Comment": "Текущие дата и время. Местные или для любого часового пояса.",
+                "Name": "Дата и время"
+            },
+            "sk": {
+                "Comment": "Aktuálny dátum a čas, lokálny alebo v inom časovom pásme",
+                "Name": "Dátum a čas"
+            },
+            "sl": {
+                "Comment": "Trenutni datum in čas, krajevno ali v kateremkoli časovnem pasu",
+                "Name": "Datum in čas"
+            },
+            "sr": {
+                "Comment": "Тренутни датум и време, локално или у некој другој временској зони",
+                "Name": "датум и време"
+            },
+            "sr@ijekavian": {
+                "Comment": "Тренутни датум и вријеме, локално или у некој другој временској зони",
+                "Name": "датум и време"
+            },
+            "sr@ijekavianlatin": {
+                "Comment": "Trenutni datum i vrijeme, lokalno ili u nekoj drugoj vremenskoj zoni",
+                "Name": "datum i vreme"
+            },
+            "sr@latin": {
+                "Comment": "Trenutni datum i vreme, lokalno ili u nekoj drugoj vremenskoj zoni",
+                "Name": "datum i vreme"
+            },
+            "sv": {
+                "Comment": "Nuvarande datum och tid, lokalt eller i godtycklig tidszon",
+                "Name": "Datum och tid"
+            },
+            "tr": {
+                "Comment": "Yerel veya herhangi bir zaman dilimindeki tarih ve zaman",
+                "Name": "Tarih ve Saat"
+            },
+            "ug": {
+                "Name": "چېسلا ۋە ۋاقىت"
+            },
+            "uk": {
+                "Comment": "Поточна дата і час, місцевий або час будь-якого часового поясу",
+                "Name": "Дата і час"
+            },
+            "wa": {
+                "Name": "Date et eure"
+            },
+            "x-test": {
+                "Comment": "xxThe current date and time, locally or in any timezonexx",
+                "Name": "xxDate and Timexx"
+            },
+            "zh_CN": {
+                "Comment": "当前日期和时间，本地或任何时区",
+                "Name": "日期和时间"
+            },
+            "zh_TW": {
+                "Comment": "目前的日期與時間，可以是任何時區",
+                "Name": "日期與時間"
+            }
+        },
         "Icon": "clock",
         "License": "GPL",
         "Version": "1.0"

@@ -6,6 +6,334 @@
         "Contact": {
             "Email": "plasma-devel@kde.org"
         },
+        "Description": {
+            "ar": {
+                "Comment": "احسب تعبيرات",
+                "Name": "آلة حاسبة"
+            },
+            "ast": {
+                "Comment": "Calcular espresiones",
+                "Name": "Calculadora"
+            },
+            "be@latin": {
+                "Comment": "Padlik vyrazaŭ.",
+                "Name": "Kalkulatar"
+            },
+            "bg": {
+                "Comment": "Изчисления",
+                "Name": "Калкулатор"
+            },
+            "bn": {
+                "Name": "ক্যালকুলেটর"
+            },
+            "bn_IN": {
+                "Name": "ক্যালকুলেটর"
+            },
+            "bs": {
+                "Comment": "Računajte izraze",
+                "Name": "kalkulator"
+            },
+            "ca": {
+                "Comment": "Calcula expressions",
+                "Name": "Calculadora"
+            },
+            "ca@valencia": {
+                "Comment": "Calcula expressions",
+                "Name": "Calculadora"
+            },
+            "cs": {
+                "Comment": "Výpočet vzorců",
+                "Name": "Kalkulátor"
+            },
+            "csb": {
+                "Comment": "Przeprowôdzanié rechòwaniô",
+                "Name": "Kalkùlator"
+            },
+            "da": {
+                "Comment": "Beregn udtryk",
+                "Name": "Regnemaskine"
+            },
+            "de": {
+                "Comment": "Berechnungen durchführen",
+                "Name": "Rechner"
+            },
+            "el": {
+                "Comment": "Υπολογισμός εκφράσεων",
+                "Name": "Αριθμομηχανή"
+            },
+            "en": {
+                "Comment": "Calculate expressions",
+                "Name": "Calculator"
+            },
+            "en_GB": {
+                "Comment": "Calculate expressions",
+                "Name": "Calculator"
+            },
+            "eo": {
+                "Comment": "Kalkuli esprimojn",
+                "Name": "Kalkulilo"
+            },
+            "es": {
+                "Comment": "Calcular expresiones",
+                "Name": "Calculadora"
+            },
+            "et": {
+                "Comment": "Avaldiste arvutamine",
+                "Name": "Kalkulaator"
+            },
+            "eu": {
+                "Comment": "Kalkulatu adierazpenak",
+                "Name": "Kalkulagailua"
+            },
+            "fa": {
+                "Comment": "محاسبه عبارات"
+            },
+            "fi": {
+                "Comment": "Suorittaa laskutoimituksia",
+                "Name": "Laskin"
+            },
+            "fr": {
+                "Comment": "Calcule des expressions",
+                "Name": "Calculatrice"
+            },
+            "fy": {
+                "Comment": "Utdrukkings berekkenje",
+                "Name": "Rekkenmasine"
+            },
+            "ga": {
+                "Comment": "Áirigh sloinn",
+                "Name": "Áireamhán"
+            },
+            "gl": {
+                "Comment": "Calcula expresións",
+                "Name": "Calculadora"
+            },
+            "gu": {
+                "Comment": "સૂત્રોની ગણતરી કરો",
+                "Name": "કેલ્ક્યુલેટર"
+            },
+            "he": {
+                "Comment": "חישוב ביטויים",
+                "Name": "מחשבון"
+            },
+            "hi": {
+                "Comment": "एक्सप्रेशन्स गणना करें",
+                "Name": "गणक"
+            },
+            "hne": {
+                "Comment": "एक्सप्रेसन्स गनना करव",
+                "Name": "केलकुलेटर"
+            },
+            "hr": {
+                "Comment": "Izračunaj izraze",
+                "Name": "Kalkulator"
+            },
+            "hu": {
+                "Comment": "Kifejezéseket kezelni tudó számológép",
+                "Name": "Számológép"
+            },
+            "ia": {
+                "Comment": "Calcula expressiones",
+                "Name": "Calculator"
+            },
+            "id": {
+                "Comment": "Kalkukasi ekspresi",
+                "Name": "Kalkulator"
+            },
+            "is": {
+                "Comment": "Reikna segðir",
+                "Name": "Reiknivél"
+            },
+            "it": {
+                "Comment": "Calcola espressioni",
+                "Name": "Calcolatrice"
+            },
+            "ja": {
+                "Comment": "数式を計算します",
+                "Name": "計算機"
+            },
+            "kk": {
+                "Comment": "Өрнектерді есептеу",
+                "Name": "Калькулятор"
+            },
+            "km": {
+                "Comment": "គណនា​កន្សោម​​",
+                "Name": "ម៉ាស៊ីន​គិត​លេខ"
+            },
+            "kn": {
+                "Comment": "ಕ್ರಮೋಕ್ತಿಗಳನ್ನು (ಎಕ್ಸ್ಪ್ರೆಶನ್) ಬಿಡಿಸು",
+                "Name": "ಲೆಕ್ಕಿಗ (ಕಾಲ್ಕುಲೇಟರ್)"
+            },
+            "ko": {
+                "Comment": "수식 계산기",
+                "Name": "계산기"
+            },
+            "ku": {
+                "Comment": "ravekirinên Hesabkirinê",
+                "Name": "Makîneya Hesaban"
+            },
+            "lt": {
+                "Comment": "Skaičiuoti išraiškas",
+                "Name": "Skaičiuotuvas"
+            },
+            "lv": {
+                "Comment": "Rēķina izteiksmes",
+                "Name": "Kalkulators"
+            },
+            "mai": {
+                "Comment": "एक्सप्रेशन्स गणना करू",
+                "Name": "कैलकुलेटर"
+            },
+            "mk": {
+                "Comment": "Пресметувајте изрази",
+                "Name": "Калкулатор"
+            },
+            "ml": {
+                "Comment": "എക്സ്പ്രെഷനുകള്‍ കണക്കുകൂട്ടുക",
+                "Name": "കാല്‍ക്കുലേറ്റര്‍"
+            },
+            "mr": {
+                "Comment": "एक्सप्रेशन्स गणना करा",
+                "Name": "गणनायंत्र"
+            },
+            "nb": {
+                "Comment": "Beregn uttrykk",
+                "Name": "Kalkulator"
+            },
+            "nds": {
+                "Comment": "Utdrück utreken",
+                "Name": "Taschenreekner"
+            },
+            "ne": {
+                "Comment": "अभिव्यक्ति गणना गर्नुहोस्"
+            },
+            "nl": {
+                "Comment": "Expressies berekenen",
+                "Name": "Rekenmachine"
+            },
+            "nn": {
+                "Comment": "Grafisk kalkulator",
+                "Name": "Kalkulator"
+            },
+            "or": {
+                "Comment": "ଅଭିବ୍ୟକ୍ତିଗୁଡ଼ିକୁ ଗଣନା କରନ୍ତୁ",
+                "Name": "କାଲକୁଲେଟର"
+            },
+            "pa": {
+                "Comment": "ਸਮੀਕਰਨ ਕੱਢੋ",
+                "Name": "ਕੈਲਕੂਲੇਟਰ"
+            },
+            "pl": {
+                "Comment": "Obliczanie wyrażeń",
+                "Name": "Kalkulator"
+            },
+            "pt": {
+                "Comment": "Calcular expressões",
+                "Name": "Calculadora"
+            },
+            "pt_BR": {
+                "Comment": "Calcula expressões",
+                "Name": "Calculadora"
+            },
+            "ro": {
+                "Comment": "Calculează expresii",
+                "Name": "Calculator"
+            },
+            "ru": {
+                "Comment": "Вычисление выражений",
+                "Name": "Калькулятор"
+            },
+            "se": {
+                "Comment": "Rehkenastte mattebihtáid",
+                "Name": "Kalkuláhtor"
+            },
+            "si": {
+                "Comment": "ප්‍රකාශන ගණනය කරන්න",
+                "Name": "ගණනය"
+            },
+            "sk": {
+                "Comment": "Výpočty na kalkulačke",
+                "Name": "Kalkulačka"
+            },
+            "sl": {
+                "Comment": "Izračunaj izraze",
+                "Name": "Računalo"
+            },
+            "sr": {
+                "Comment": "Рачунајте изразе",
+                "Name": "калкулатор"
+            },
+            "sr@ijekavian": {
+                "Comment": "Рачунајте изразе",
+                "Name": "калкулатор"
+            },
+            "sr@ijekavianlatin": {
+                "Comment": "Računajte izraze",
+                "Name": "kalkulator"
+            },
+            "sr@latin": {
+                "Comment": "Računajte izraze",
+                "Name": "kalkulator"
+            },
+            "sv": {
+                "Comment": "Beräkna uttryck",
+                "Name": "Miniräknare"
+            },
+            "ta": {
+                "Comment": "Calculate expressions",
+                "Name": "Calculator"
+            },
+            "te": {
+                "Comment": "సమాసాలను గణించుము",
+                "Name": "గణనపరికరం"
+            },
+            "tg": {
+                "Comment": "Вычисление выражений",
+                "Name": "Калкулятор"
+            },
+            "th": {
+                "Comment": "คำนวณนิพจน์",
+                "Name": "เครื่องคิดเลข"
+            },
+            "tr": {
+                "Comment": "İfadeleri hesapla",
+                "Name": "Hesap Makinesi"
+            },
+            "ug": {
+                "Comment": "ئىپادىنى ھېسابلا",
+                "Name": "ھېسابلىغۇچ"
+            },
+            "uk": {
+                "Comment": "Обчислення виразів",
+                "Name": "Калькулятор"
+            },
+            "uz": {
+                "Name": "Kalkulyator"
+            },
+            "uz@cyrillic": {
+                "Name": "Калкулятор"
+            },
+            "vi": {
+                "Comment": "Tính biểu thức",
+                "Name": "Máy tính"
+            },
+            "wa": {
+                "Comment": "Carcule des ratourneures",
+                "Name": "Carculete"
+            },
+            "x-test": {
+                "Comment": "xxCalculate expressionsxx",
+                "Name": "xxCalculatorxx"
+            },
+            "zh_CN": {
+                "Comment": "计算表达式",
+                "Name": "计算器"
+            },
+            "zh_TW": {
+                "Comment": "計算機表示式",
+                "Name": "計算機"
+            }
+        },
         "Icon": "accessories-calculator",
         "License": "LGPL",
         "Version": "1.0"
