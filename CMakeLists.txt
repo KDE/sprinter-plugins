@@ -38,6 +38,8 @@ set(CMAKE_AUTOMOC ON)
 add_definitions("-Wall -std=c++0x")
 include_directories(${CMAKE_INSTALL_PREFIX}/include/sprinter)
 
+add_subdirectory(tools)
+
 ###
 ### add the runners below, depending on the packages found above
 ###
