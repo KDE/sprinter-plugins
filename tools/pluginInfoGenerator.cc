@@ -94,6 +94,8 @@ int main(int argc, char *argv[])
                     lang = langRe.cap(1);
                 }
                 key = "Comment";
+            } else {
+                continue;
             }
 
             QJsonObject obj = translations[lang].toObject();
