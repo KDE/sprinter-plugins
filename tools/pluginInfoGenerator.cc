@@ -36,7 +36,6 @@ int main(int argc, char *argv[])
         opts.showHelp();
     }
 
-    qDebug() << "We have .. " << opts.isSet(desktopFileOpt) << opts.value(desktopFileOpt);
     QFile desktopFile(opts.value(desktopFileOpt));
     if (!desktopFile.open(QIODevice::ReadOnly)) {
         qCritical() << "Could not open .desktop file:" << opts.value(desktopFileOpt);
@@ -104,7 +103,7 @@ int main(int argc, char *argv[])
         }
     }
 
-//     qDebug() << translations;
+//      qDebug() << translations;
     QFile jsonFile(opts.value(jsonFileOpt));
     if (!jsonFile.open(QIODevice::ReadOnly)) {
         qCritical() << "Could not open json file:" << opts.value(jsonFileOpt);
