@@ -1,11 +1,10 @@
 {
     "PluginInfo": {
         "Authors": [
-            "Martin Gräßlin <kde@martin-graesslin.com>",
             "Aaron Seigo <aseigo@kde.org>"
         ],
         "Contact": {
-            "Email": "kde@martin-graesslin.com",
+            "Email": "aseigo@kde.org"
         },
         "Icon": "krunner_youtube",
         "License": "GPL",
