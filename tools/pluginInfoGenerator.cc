@@ -81,14 +81,14 @@ int main(int argc, char *argv[])
             const QString value = keyValueRe.cap(2).trimmed();
             QString lang;
             if (key == "Name") {
-                lang = "c";
+                lang = "en";
             } else if (key.startsWith("Name[")) {
                 if (langRe.indexIn(buf) != -1) {
                     lang = langRe.cap(1);
                 }
                 key = "Name";
             } else if (key == "Comment") {
-                lang = "c";
+                lang = "en";
             } else if (key.startsWith("Comment[")) {
                 if (langRe.indexIn(buf) != -1) {
                     lang = langRe.cap(1);
