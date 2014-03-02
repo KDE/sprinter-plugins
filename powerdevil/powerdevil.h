@@ -44,6 +44,7 @@ class PowerDevilRunner : public Sprinter::Runner
         ChangeBrightnessAction,
         DimTotalAction,
         DimHalfAction,
+        DimNotAction,
         SuspendAction,
         HibernateAction
     };

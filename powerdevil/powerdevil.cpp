@@ -41,6 +41,7 @@ PowerDevilRunner::PowerDevilRunner(QObject *parent)
         m_actionIcons.insert(ChangeBrightnessAction, QIcon::fromTheme("preferences-system-power-management"));
         m_actionIcons.insert(DimTotalAction,         QIcon::fromTheme("preferences-system-power-management"));
         m_actionIcons.insert(DimHalfAction,          QIcon::fromTheme("preferences-system-power-management"));
+        m_actionIcons.insert(DimNotAction,           QIcon::fromTheme("preferences-system-power-management"));
         m_actionIcons.insert(SuspendAction,          QIcon::fromTheme("system-suspend"));
         m_actionIcons.insert(HibernateAction,        QIcon::fromTheme("system-suspend-hibernate"));
     }
@@ -123,6 +124,7 @@ void PowerDevilRunner::match(Sprinter::MatchData &matchData)
         } else {
             addMatch(DimTotalAction, matchData);
             addMatch(DimHalfAction, matchData);
+            addMatch(DimNotAction, matchData);
         }
         } break;
 
@@ -143,6 +145,10 @@ void PowerDevilRunner::addMatch(PowerDevilRunner::PowerDevilAction action, Sprin
 
     case DimHalfAction:
         match.setText(i18n("Dim screen by half"));
+        break;
+
+    case DimNotAction:
+        match.setText(i18n("No screen dimming"));
         break;
 
     case SuspendAction:
@@ -225,6 +231,10 @@ bool PowerDevilRunner::exec(const Sprinter::QueryMatch &match)
 
     case DimHalfAction:
         setBrightness(50);
+        break;
+
+    case DimNotAction:
+        setBrightness(100);
         break;
 
     case PowerDevilRunner::SuspendAction:
