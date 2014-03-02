@@ -1,14 +1,327 @@
 {
-    "Comment": "Basic Power Management Operations",
-    "Icon": "preferences-system-power-management",
-    "Name": "PowerDevil",
-    "Type": "Service",
-    "X-KDE-PluginInfo-Author": "Dario Freddi",
-    "X-KDE-PluginInfo-Email": "drf@kdemod.ath.cx",
-    "X-KDE-PluginInfo-EnabledByDefault": true,
-    "X-KDE-PluginInfo-License": "GPL",
-    "X-KDE-PluginInfo-Version": "1.0",
-    "X-KDE-ServiceTypes": [
-        "Sprinter/Runner"
-    ]
+    "PluginInfo": {
+        "Authors": [
+            "Dario Freddi <drf@kdemod.ath.cx>"
+        ],
+        "Contact": {
+            "Email": "drf@kdemod.ath.cx"
+        },
+        "Description": {
+            "ar": {
+                "Comment": "عمليات إدارة الطاقة الأساسية",
+                "Name": "عفريت الطاقة"
+            },
+            "ast": {
+                "Comment": "Operaciones básiques de xestión de la batería",
+                "Name": "PowerDevil"
+            },
+            "be@latin": {
+                "Comment": "Prostyja aperacyi dla kiravańnia enerhijaj",
+                "Name": "PowerDevil"
+            },
+            "bg": {
+                "Comment": "Основни операции по захранването",
+                "Name": "PowerDevil"
+            },
+            "bn": {
+                "Name": "পাওয়ার-ডেভিল"
+            },
+            "bn_IN": {
+                "Name": "PowerDevil"
+            },
+            "bs": {
+                "Comment": "Osnovni postupci upravljanja napajanjem",
+                "Name": "PowerDevil"
+            },
+            "ca": {
+                "Comment": "Operacions bàsiques de gestió d'energia",
+                "Name": "PowerDevil"
+            },
+            "ca@valencia": {
+                "Comment": "Operacions bàsiques de gestió d'energia",
+                "Name": "PowerDevil"
+            },
+            "cs": {
+                "Comment": "Základní úkony týkající se správy napájení",
+                "Name": "PowerDevil"
+            },
+            "csb": {
+                "Comment": "Spòdlowé òperacejë sprôwiania mòcą"
+            },
+            "da": {
+                "Comment": "Grundlæggende strømstyringsoperationer",
+                "Name": "PowerDevil"
+            },
+            "de": {
+                "Comment": "Grundlegende Operationen zur Energieverwaltung",
+                "Name": "PowerDevil"
+            },
+            "el": {
+                "Comment": "Βασικές λειτουργίες διαχείρισης ενέργειας",
+                "Name": "PowerDevil"
+            },
+            "en": {
+                "Comment": "Basic Power Management Operations",
+                "Name": "PowerDevil"
+            },
+            "en_GB": {
+                "Comment": "Basic Power Management Operations",
+                "Name": "PowerDevil"
+            },
+            "eo": {
+                "Name": "PowerDevil"
+            },
+            "es": {
+                "Comment": "Operaciones básicas de gestión de la batería",
+                "Name": "PowerDevil"
+            },
+            "et": {
+                "Comment": "Peamised toitehalduse toimingud",
+                "Name": "PowerDevil"
+            },
+            "eu": {
+                "Comment": "Energia kudeaketarako oinarrizko eragiketak",
+                "Name": "PowerDevil"
+            },
+            "fi": {
+                "Comment": "Yksinkertaiset virranhallintaoperaatiot",
+                "Name": "PowerDevil"
+            },
+            "fr": {
+                "Comment": "Opérations basiques de gestion de l'énergie",
+                "Name": "PowerDevil"
+            },
+            "fy": {
+                "Comment": "Basis enerzjybehear aksjes",
+                "Name": "PowerDevil"
+            },
+            "ga": {
+                "Comment": "Bunoibríochtaí Bainisteoireachta Cumhachta",
+                "Name": "PowerDevil"
+            },
+            "gl": {
+                "Comment": "Operacións básicas de xestión da enerxía",
+                "Name": "PowerDevil"
+            },
+            "gu": {
+                "Comment": "સામાન્ય પાવર વ્યવસ્થાપક પ્રક્રિયાઓ",
+                "Name": "પાવરડેવિલ"
+            },
+            "he": {
+                "Comment": "פעולות בסיסיות לניהול צריכת חשמל",
+                "Name": "PowerDevil"
+            },
+            "hi": {
+                "Comment": "आधारभूत बिज़ली प्रबंधन ऑपरेशन",
+                "Name": "पावर-डेविल"
+            },
+            "hne": {
+                "Comment": "मूल पावर प्रबंधन आपरेसन",
+                "Name": "पावर-डेविल"
+            },
+            "hr": {
+                "Comment": "Osnovne operacije upravljanja potrošnjom energije",
+                "Name": "PowerDevil"
+            },
+            "hu": {
+                "Comment": "Energiakezelési funkciók",
+                "Name": "Power Devil"
+            },
+            "ia": {
+                "Comment": "Operationes basic de gestion de energia",
+                "Name": "PowerDevil"
+            },
+            "id": {
+                "Comment": "Operasi Manajemen Daya Dasar",
+                "Name": "PowerDevil"
+            },
+            "is": {
+                "Comment": "Grunnaðgerðir orkustýringarkerfis",
+                "Name": "OrkuPúki"
+            },
+            "it": {
+                "Comment": "Operazioni di base per la gestione energetica",
+                "Name": "PowerDevil"
+            },
+            "ja": {
+                "Comment": "基本的な電源管理操作",
+                "Name": "PowerDevil"
+            },
+            "kk": {
+                "Comment": "Негізгі қуаттандыруды басқару амалдары",
+                "Name": "PowerDevil"
+            },
+            "km": {
+                "Comment": "ប្រតិបត្តិការ​គ្រប់គ្រង​ថាមពល​ជា​មូលដ្ឋាន",
+                "Name": "PowerDevil"
+            },
+            "kn": {
+                "Comment": "ಮೂಲಭೂತ ವಿದ್ಯುಚ್ಛಕ್ತಿ ವ್ಯವಸ್ಥಾಪನಾ ಕಾರ್ಯಾಚರಣೆಗಳು",
+                "Name": "ಪವರ್ ಡೆವಿಲ್"
+            },
+            "ko": {
+                "Comment": "기본 전원 관리 작업",
+                "Name": "PowerDevil"
+            },
+            "ku": {
+                "Comment": "Çalakiyên Rêveberiya Hêzê yê Bingehîn"
+            },
+            "lt": {
+                "Comment": "Elementarios maitinimo valdymo operacijos",
+                "Name": "PowerDevil"
+            },
+            "lv": {
+                "Comment": "Pamata energokontroles darbības",
+                "Name": "PowerDevil"
+            },
+            "mai": {
+                "Name": "पावर-डेविल"
+            },
+            "mk": {
+                "Comment": "Основни операции за менаџмент на енергија"
+            },
+            "ml": {
+                "Comment": "അടിസ്ഥാനപരമായ പവര്‍ മാനേജ്മെന്റ് ബാക്കെന്‍ഡ് നടപടികള്‍",
+                "Name": "പവര്‍ഡെവിള്‍"
+            },
+            "mr": {
+                "Comment": "मूळ पावर व्यवस्थापन कार्ये",
+                "Name": "पॉवरडेव्हिल"
+            },
+            "nb": {
+                "Comment": "Enkle strømstyringshandlinger",
+                "Name": "PowerDevil"
+            },
+            "nds": {
+                "Comment": "Eenfache Stroomkuntrull-Funkschonen",
+                "Name": "Stroomdüvel"
+            },
+            "nl": {
+                "Comment": "Basis energiebeheeroperaties",
+                "Name": "PowerDevil"
+            },
+            "nn": {
+                "Comment": "Grunnleggjande straumstyringsfunksjonar",
+                "Name": "PowerDevil"
+            },
+            "or": {
+                "Comment": "ମୌଳିକ ଶକ୍ତି ପରିଚାଳନା ପ୍ରୟୋଗଗୁଡ଼ିକ",
+                "Name": "PowerDevil"
+            },
+            "pa": {
+                "Comment": "ਬੇਸਿਕ ਪਾਵਰ ਮੈਨਿਜਮੈਂਟ ਓਪਰੇਸ਼ਨ",
+                "Name": "ਪਾਵਰ-ਡੀਵਿਲ"
+            },
+            "pl": {
+                "Comment": "Podstawowe operacje zarządzania energią",
+                "Name": "PowerDevil"
+            },
+            "pt": {
+                "Comment": "Operações Básicas de Gestão da Energia",
+                "Name": "PowerDevil"
+            },
+            "pt_BR": {
+                "Comment": "Operações básicas de gerenciamento de energia",
+                "Name": "PowerDevil"
+            },
+            "ro": {
+                "Comment": "Operații de bază pentru gestiunea energiei",
+                "Name": "PowerDevil"
+            },
+            "ru": {
+                "Comment": "Управление питанием",
+                "Name": "PowerDevil"
+            },
+            "si": {
+                "Comment": "මූලික බල පරිපාලන ක්‍රියාකාරකම්",
+                "Name": "PowerDevil"
+            },
+            "sk": {
+                "Comment": "Základné operácie správy napájania",
+                "Name": "PowerDevil"
+            },
+            "sl": {
+                "Comment": "Osnovna dejanja upravljanja z energijo",
+                "Name": "PowerDevil"
+            },
+            "sr": {
+                "Comment": "Основни поступци управљања напајањем",
+                "Name": "Струјни ђаво"
+            },
+            "sr@ijekavian": {
+                "Comment": "Основни поступци управљања напајањем",
+                "Name": "Струјни ђаво"
+            },
+            "sr@ijekavianlatin": {
+                "Comment": "Osnovni postupci upravljanja napajanjem",
+                "Name": "Strujni đavo"
+            },
+            "sr@latin": {
+                "Comment": "Osnovni postupci upravljanja napajanjem",
+                "Name": "Strujni đavo"
+            },
+            "sv": {
+                "Comment": "Grundläggande strömsparfunktioner",
+                "Name": "Powerdevil"
+            },
+            "ta": {
+                "Comment": "Basic Power Management Operations",
+                "Name": "PowerDevil"
+            },
+            "te": {
+                "Name": "PowerDevil"
+            },
+            "tg": {
+                "Comment": "Служба управления питанием ноутбука",
+                "Name": "PowerDevil"
+            },
+            "th": {
+                "Comment": "ปฏิบัติการจัดการพลังงานขั้นพื้นฐาน",
+                "Name": "PowerDevil"
+            },
+            "tr": {
+                "Comment": "Temel Güç Yönetimi İşlemleri",
+                "Name": "PowerDevil"
+            },
+            "ug": {
+                "Comment": "ئاساسىي توك مەنبە باشقۇرۇش مەشغۇلاتى",
+                "Name": "PowerDevil"
+            },
+            "uk": {
+                "Comment": "Керування базовими операціями з керування живленням",
+                "Name": "PowerDevil"
+            },
+            "vi": {
+                "Comment": "Thao tác quản lý năng lượng cơ bản"
+            },
+            "wa": {
+                "Comment": "Operåcions di båze do manaedjmint di l' enerdjeye",
+                "Name": "Li Diâle d' Enerdjeye"
+            },
+            "x-test": {
+                "Comment": "xxBasic Power Management Operationsxx",
+                "Name": "xxPowerDevilxx"
+            },
+            "zh_CN": {
+                "Comment": "基本电源管理操作",
+                "Name": "PowerDevil"
+            },
+            "zh_TW": {
+                "Comment": "基本的電源管理操作",
+                "Name": "PowerDevil"
+            }
+        },
+        "Icon": "preferences-system-power-management",
+        "License": "GPL",
+        "Version": "1.0"
+    },
+    "Sprinter": {
+        "GeneratesDefaultMatches": true,
+        "MatchSources": [
+            "FromLocalService"
+        ],
+        "MatchTypes": [
+            "HardwareType"
+        ]
+    }
 }

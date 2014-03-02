@@ -36,11 +36,6 @@ int PowerDevilRunner::m_minQueryLength = 0;
 PowerDevilRunner::PowerDevilRunner(QObject *parent)
     : Runner(parent)
 {
-    setMatchTypesGenerated(QVector<Sprinter::QuerySession::MatchType>()
-                                << Sprinter::QuerySession::HardwareType);
-    setSourcesUsed(QVector<Sprinter::QuerySession::MatchSource>()
-                        << Sprinter::QuerySession::FromLocalService);
-
     // initialize static m_actionIcons
     if (m_actionIcons.isEmpty()) {
         m_actionIcons.insert(ChangeBrightnessAction, QIcon::fromTheme("preferences-system-power-management"));
