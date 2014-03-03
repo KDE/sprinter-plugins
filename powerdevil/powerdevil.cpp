@@ -84,10 +84,11 @@ void PowerDevilRunner::match(Sprinter::MatchData &matchData)
         if (states.contains(Solid::PowerManagement::SuspendState)) {
             addMatch(SuspendAction, matchData);
         }
+
         if (states.contains(Solid::PowerManagement::HibernateState)) {
             addMatch(HibernateAction, matchData);
         }
-        } break;
+    } break;
 
     case SleepWord:
     case ToRamWord:
@@ -116,7 +117,7 @@ void PowerDevilRunner::match(Sprinter::MatchData &matchData)
             addMatch(DimHalfAction, matchData);
             addMatch(DimNotAction, matchData);
         }
-        } break;
+    } break;
 
     default:
         // No match found
