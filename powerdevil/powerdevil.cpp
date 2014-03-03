@@ -131,15 +131,15 @@ void PowerDevilRunner::addMatch(PowerDevilRunner::PowerDevilAction action, Sprin
 
     switch (action) {
     case DimTotalAction:
-        match.setText(i18n("Dim screen totally"));
+        match.setText(i18n("Dim screen completely"));
         break;
 
     case DimHalfAction:
-        match.setText(i18n("Dim screen by half"));
+        match.setText(i18n("Dim screen halfway"));
         break;
 
     case DimNotAction:
-        match.setText(i18n("No screen dimming"));
+        match.setText(i18n("Make screen bright"));
         break;
 
     case SuspendAction:
