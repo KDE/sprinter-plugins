@@ -52,8 +52,8 @@ class PowerDevilRunner : public Sprinter::Runner
 public:
     PowerDevilRunner(QObject *parent = nullptr);
 
-    virtual void match(Sprinter::MatchData &matchData);
-    virtual bool exec(const Sprinter::QueryMatch &match);
+    void match(Sprinter::MatchData &matchData) Q_DECL_OVERRIDE;
+    bool exec(const Sprinter::QueryMatch &match) Q_DECL_OVERRIDE;
 
 private:
     void addMatch(PowerDevilAction action, Sprinter::MatchData &matchData);
