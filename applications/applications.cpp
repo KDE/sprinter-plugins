@@ -339,6 +339,7 @@ void ApplicationsRunner::setupMatch(const KService::Ptr &service, Sprinter::Quer
     const QString name = service->name();
 
     match.setTitle(name);
+    match.setUserData(service->entryPath());
     match.setData(service->storageId());
     match.setType(Sprinter::QuerySession::ExecutableType);
     match.setSource(Sprinter::QuerySession::FromFilesystem);
