@@ -34,6 +34,7 @@ public:
 
 private Q_SLOTS:
     void startQuery(const QString &query, const Sprinter::QueryContext &context);
+    void startExec(const Sprinter::QueryMatch &match);
 
 private:
     KFilePlacesModel m_places;
@@ -55,6 +56,7 @@ public:
 
 Q_SIGNALS:
     void startQuery(const QString &query, const Sprinter::QueryContext &context);
+    void startExec(const Sprinter::QueryMatch &match);
 
 private:
     const QString m_placesWord;

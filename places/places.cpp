@@ -29,6 +29,14 @@ PlacesSessionData::PlacesSessionData(Sprinter::Runner *runner)
 {
     connect(runner, SIGNAL(startQuery(QString,Sprinter::QueryContext)),
             this, SLOT(startQuery(QString, Sprinter::QueryContext)));
+    connect(runner, SIGNAL(startExec(Sprinter::QueryMatch)),
+            this, SLOT(startExec(Sprinter::QueryMatch)));
+
+    connect(&m_places, &KFilePlacesModel::setupDone, [this](QModelIndex index, bool success) {
+            if (success) {
+                new KRun(m_places.url(index), nullptr);
+            }
+        });
 }
 
 void PlacesSessionData::startQuery(const QString &query, const Sprinter::QueryContext &context)
@@ -63,7 +71,7 @@ void PlacesSessionData::startQuery(const QString &query, const Sprinter::QueryCo
             match.setType(Sprinter::QuerySession::FilesystemLocationType);
             match.setSource(Sprinter::QuerySession::FromFilesystem);
             match.setPrecision(precision);
-            //match.setImage(generateImage(m_places.icon(index), context)); FIXME
+            match.setImage(runner()->generateImage(m_places.icon(index), context));
             match.setText(text);
 
             // if we have to mount it set the device udi instead of the URL, as we can't open it directly
@@ -78,6 +86,24 @@ void PlacesSessionData::startQuery(const QString &query, const Sprinter::QueryCo
     }
 
     setMatches(matches, context);
+}
+
+void PlacesSessionData::startExec(const Sprinter::QueryMatch& match)
+{
+    if (match.data().canConvert<QUrl>()) {
+        new KRun(match.data().toUrl(), nullptr);
+    } else if (match.data().canConvert<QString>()) {
+        // Search our list for the device with the same udi, then set it up (mount it).
+        const QString deviceUdi = match.data().toString();
+
+        for (int i = 0; i <= m_places.rowCount(); ++i) {
+            const QModelIndex index = m_places.index(i, 0);
+
+            if (m_places.isDevice(index) && m_places.deviceForIndex(index).udi() == deviceUdi) {
+                m_places.requestSetup(index);
+            }
+        }
+    }
 }
 
 PlacesRunner::PlacesRunner(QObject *parent)
@@ -109,37 +135,12 @@ void PlacesRunner::match(Sprinter::MatchData &matchData)
 
 bool PlacesRunner::exec(const Sprinter::QueryMatch &match)
 {
-    if (match.data().canConvert<QUrl>()) {
-        new KRun(match.data().toUrl(), nullptr);
-        return true;
-    } else if (match.data().canConvert<QString>()) {
-        // Search our list for the device with the same udi, then set it up (mount it).
-        const QString deviceUdi = match.data().toString();
-
-        // Gets deleted when the setup is done or when the device could not be found
-        KFilePlacesModel* places = new KFilePlacesModel(this);
-
-        for (int i = 0; i <= places->rowCount(); ++i) {
-            const QModelIndex index = places->index(i, 0);
-
-            if (places->isDevice(index) && places->deviceForIndex(index).udi() == deviceUdi) {
-                // Device found so request setup
-                connect(places, &KFilePlacesModel::setupDone, [places](QModelIndex index, bool success) {
-                            if (success) {
-                                new KRun(places->url(index), nullptr);
-                            }
-                            places->deleteLater();
-                        });
-                places->requestSetup(index);
-                return true;
-            }
-        }
-
-        // Device not found so delete places here
-        delete places;
+    if (!dynamic_cast<PlacesSessionData *>(match.sessionData())) {
+        return false;
     }
 
-    return false;
+    emit startExec(match);
+    return true;
 }
 
 #include "places.moc"
