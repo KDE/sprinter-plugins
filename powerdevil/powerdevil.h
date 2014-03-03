@@ -60,9 +60,8 @@ private:
     void addBrightnessMatch(int brightness, Sprinter::MatchData &matchData);
 
 private:
-    static QMap<PowerDevilAction, QIcon> m_actionIcons;
-    static QMap<PowerDevilWord, QString> m_words;
-    static int m_minQueryLength;
+    QMap<PowerDevilAction, QIcon> m_actionIcons;
+    QMap<PowerDevilWord, QString> m_words;
 };
 
 #endif // POWERDEVILRUNNER_H

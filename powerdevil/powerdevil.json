@@ -3,7 +3,7 @@
         "Authors": [
             "Dario Freddi <drf@kdemod.ath.cx>",
             "Sebastian Kügler <sebas@kde.org>",
-            "Emmanuel Pescosta <emmanuelpescosta099@gmail.com>",
+            "Emmanuel Pescosta <emmanuelpescosta099@gmail.com>"
         ],
         "Contact": {
             "Email": "emmanuelpescosta099@gmail.com"
@@ -63,12 +63,8 @@
                 "Name": "PowerDevil"
             },
             "en": {
-                "Comment": "Basic Power Management Operations",
-                "Name": "PowerDevil"
-=======
                 "Comment": "Suspend, hibernate and screen backlight control",
                 "Name": "Power Management"
->>>>>>> current style json
             },
             "en_GB": {
                 "Comment": "Basic Power Management Operations",

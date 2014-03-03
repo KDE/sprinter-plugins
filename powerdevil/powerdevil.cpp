@@ -29,44 +29,34 @@
 
 static const QChar ParameterSeperator('_');
 
-QMap<PowerDevilRunner::PowerDevilAction, QIcon> PowerDevilRunner::m_actionIcons;
-QMap<PowerDevilRunner::PowerDevilWord, QString> PowerDevilRunner::m_words;
-int PowerDevilRunner::m_minQueryLength = 0;
-
 PowerDevilRunner::PowerDevilRunner(QObject *parent)
     : Runner(parent)
 {
-    // initialize static m_actionIcons
-    if (m_actionIcons.isEmpty()) {
-        m_actionIcons.insert(ChangeBrightnessAction, QIcon::fromTheme("preferences-system-power-management"));
-        m_actionIcons.insert(DimTotalAction,         QIcon::fromTheme("preferences-system-power-management"));
-        m_actionIcons.insert(DimHalfAction,          QIcon::fromTheme("preferences-system-power-management"));
-        m_actionIcons.insert(DimNotAction,           QIcon::fromTheme("preferences-system-power-management"));
-        m_actionIcons.insert(SuspendAction,          QIcon::fromTheme("system-suspend"));
-        m_actionIcons.insert(HibernateAction,        QIcon::fromTheme("system-suspend-hibernate"));
-    }
+    m_actionIcons.insert(ChangeBrightnessAction, QIcon::fromTheme("preferences-system-power-management"));
+    m_actionIcons.insert(DimTotalAction,         QIcon::fromTheme("preferences-system-power-management"));
+    m_actionIcons.insert(DimHalfAction,          QIcon::fromTheme("preferences-system-power-management"));
+    m_actionIcons.insert(SuspendAction,          QIcon::fromTheme("system-suspend"));
+    m_actionIcons.insert(HibernateAction,        QIcon::fromTheme("system-suspend-hibernate"));
 
-    // initialize static m_words and static m_minQueryLength
-    if (m_words.isEmpty()) {
-        m_words.insert(SuspendWord,          i18n("suspend"));
-        m_words.insert(SleepWord,            i18n("sleep"));
-        m_words.insert(HibernateWord,        i18n("hibernate"));
-        m_words.insert(ToDiskWord,           i18n("to disk"));
-        m_words.insert(ToRamWord,            i18n("to ram"));
-        m_words.insert(ScreenBrightnessWord, i18n("screen brightness"));
-        m_words.insert(DimScreenWord,        i18n("dim screen"));
+    m_words.insert(SuspendWord,          i18n("suspend"));
+    m_words.insert(SleepWord,            i18n("sleep"));
+    m_words.insert(HibernateWord,        i18n("hibernate"));
+    m_words.insert(ToDiskWord,           i18n("to disk"));
+    m_words.insert(ToRamWord,            i18n("to ram"));
+    m_words.insert(ScreenBrightnessWord, i18n("screen brightness"));
+    m_words.insert(DimScreenWord,        i18n("dim screen"));
 
-        // find the shortest word length
-        const QStringList words = m_words.values();
-        m_minQueryLength = words.first().length();
-        foreach (const QString &word, words) {
-            if (word.length() < m_minQueryLength) {
-                m_minQueryLength = word.length();
-            }
+    // find the shortest word length
+    int minQueryLength = 100;
+    QMapIterator<PowerDevilWord, QString> it(m_words);
+    while (it.hasNext()) {
+        it.next();
+        if (it.value().length() < minQueryLength) {
+            minQueryLength = it.value().length();
         }
     }
 
-    setMinQueryLength(m_minQueryLength);
+    setMinQueryLength(minQueryLength);
 }
 
 void PowerDevilRunner::match(Sprinter::MatchData &matchData)
