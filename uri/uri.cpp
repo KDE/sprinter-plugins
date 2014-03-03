@@ -50,6 +50,7 @@ void UriRunner::match(Sprinter::MatchData &matchData)
     }
 
     Sprinter::QueryMatch match;
+    match.setUserData(location);
     match.setData(location);
     QIcon icon = QIcon::fromTheme(KProtocolInfo::icon(url.scheme()));
     if (!icon.isNull()) {
