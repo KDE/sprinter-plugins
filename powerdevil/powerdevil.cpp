@@ -35,6 +35,7 @@ PowerDevilRunner::PowerDevilRunner(QObject *parent)
     m_actionIcons.insert(ChangeBrightnessAction, QIcon::fromTheme("preferences-system-power-management"));
     m_actionIcons.insert(DimTotalAction,         QIcon::fromTheme("preferences-system-power-management"));
     m_actionIcons.insert(DimHalfAction,          QIcon::fromTheme("preferences-system-power-management"));
+    m_actionIcons.insert(DimNotAction ,          QIcon::fromTheme("preferences-system-power-management"));
     m_actionIcons.insert(SuspendAction,          QIcon::fromTheme("system-suspend"));
     m_actionIcons.insert(HibernateAction,        QIcon::fromTheme("system-suspend-hibernate"));
 
