@@ -49,9 +49,7 @@ PowerDevilRunner::PowerDevilRunner(QObject *parent)
 
     // find the shortest word length
     int minQueryLength = 100;
-    QMapIterator<PowerDevilWord, QString> it(m_words);
-    while (it.hasNext()) {
-        it.next();
+    for (auto it = m_words.cbegin(); it != m_words.cend(); ++it) {
         if (it.value().length() < minQueryLength) {
             minQueryLength = it.value().length();
         }
