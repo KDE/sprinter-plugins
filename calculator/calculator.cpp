@@ -62,6 +62,7 @@ void CalculatorRunner::match(Sprinter::MatchData &matchData)
         match.setSource(Sprinter::QuerySession::FromInternalSource);
         match.setImage(generateImage(m_icon, matchData.queryContext()));
         match.setText("42");
+        match.setUserData("42");
         match.setData("42");
         matchData << match;
         return;
@@ -120,6 +121,7 @@ void CalculatorRunner::match(Sprinter::MatchData &matchData)
         match.setSource(Sprinter::QuerySession::FromInternalSource);
         match.setImage(generateImage(m_icon, matchData.queryContext()));
         match.setText(result);
+        match.setUserData(result);
         match.setData(result);
         matchData << match;
     }
