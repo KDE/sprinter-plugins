@@ -159,6 +159,7 @@ void PowerDevilRunner::addMatch(PowerDevilRunner::PowerDevilAction action, Sprin
     }
 
     match.setType(Sprinter::QuerySession::HardwareType);
+    match.setSource(Sprinter::QuerySession::FromLocalService);
     match.setPrecision(Sprinter::QuerySession::ExactMatch);
     match.setImage(generateImage(m_actionIcons.value(action), matchData.queryContext()));
 
@@ -176,6 +177,7 @@ void PowerDevilRunner::addBrightnessMatch(int brightness, Sprinter::MatchData &m
 
     Sprinter::QueryMatch match;
     match.setType(Sprinter::QuerySession::HardwareType);
+    match.setSource(Sprinter::QuerySession::FromLocalService);
     match.setImage(generateImage(m_actionIcons.value(ChangeBrightnessAction), matchData.queryContext()));
     match.setText(i18n("Set Brightness to %1", brightness));
     match.setPrecision(Sprinter::QuerySession::ExactMatch);
