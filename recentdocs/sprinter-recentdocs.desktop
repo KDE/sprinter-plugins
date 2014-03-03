@@ -83,10 +83,3 @@ Name[xh]=Uxwebhu Olusandukusebenziswa
 Name[x-test]=xxRecent Documentsxx
 Name[zh_CN]=最近的文档
 Name[zh_TW]=最近的文件
-Icon=document-open-recent
-
-X-KDE-PluginInfo-Author=Aaron Seigo
-X-KDE-PluginInfo-Email=aseigo@kde.org
-X-KDE-PluginInfo-Name=recentdocuments
-X-KDE-PluginInfo-Version=1.0
-X-KDE-PluginInfo-License=GPL

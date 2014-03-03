@@ -94,12 +94,3 @@ Comment[uk]=Поточна дата і час, місцевий або час б
 Comment[x-test]=xxThe current date and time, locally or in any timezonexx
 Comment[zh_CN]=当前日期和时间，本地或任何时区
 Comment[zh_TW]=目前的日期與時間，可以是任何時區
-
-X-KDE-ServiceTypes=Sprinter/Runner
-Type=Service
-Icon=clock
-X-KDE-PluginInfo-Author=Aaron Seigo
-X-KDE-PluginInfo-Email=aseigo@kde.org
-X-KDE-PluginInfo-Version=1.0
-X-KDE-PluginInfo-License=GPL
-X-KDE-PluginInfo-EnabledByDefault=true
