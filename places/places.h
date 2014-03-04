@@ -25,19 +25,28 @@
 
 #include <KIOFileWidgets/KFilePlacesModel>
 
+#include <QMutex>
+#include <QWaitCondition>
+
 class PlacesSessionData : public Sprinter::RunnerSessionData
 {
     Q_OBJECT
 
 public:
     PlacesSessionData(Sprinter::Runner *runner);
+    bool startExec(const Sprinter::QueryMatch &match);
 
 private Q_SLOTS:
     void startQuery(const QString &query, const Sprinter::QueryContext &context);
-    void startExec(const Sprinter::QueryMatch &match);
+    void requestSetup(const QString &deviceUdi);
 
 private:
+    void run(const QUrl &url);
+
     KFilePlacesModel m_places;
+    QMutex m_mutex;
+    QWaitCondition m_runWait;
+    bool m_successfulRun;
 };
 
 class PlacesRunner : public Sprinter::Runner
@@ -56,7 +65,6 @@ public:
 
 Q_SIGNALS:
     void startQuery(const QString &query, const Sprinter::QueryContext &context);
-    void startExec(const Sprinter::QueryMatch &match);
 
 private:
     const QString m_placesWord;
