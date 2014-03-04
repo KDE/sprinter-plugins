@@ -285,6 +285,7 @@
         "Version": "1.1"
     },
     "Sprinter": {
+        "GeneratesDefaultMatches": true,
         "MatchSources": [
             "FromFilesystem"
         ],
