@@ -1,0 +1,296 @@
+{
+    "PluginInfo": {
+        "Authors": [
+            "David Edmundson <kde@davidedmundson.co.uk>",
+            "Emmanuel Pescosta <emmanuelpescosta099@gmail.com>"
+        ],
+        "Contact": {
+            "Email": "emmanuelpescosta099@gmail.com"
+        },
+        "Description": {
+            "ar": {
+                "Name": "الأماكن"
+            },
+            "ast": {
+                "Name": "Llugares"
+            },
+            "be@latin": {
+                "Name": "Miescy"
+            },
+            "bg": {
+                "Name": "Места"
+            },
+            "bn": {
+                "Name": "স্থান"
+            },
+            "bs": {
+                "Comment": "Otvoreni uređaji i mape favorita",
+                "Name": "mjesta"
+            },
+            "ca": {
+                "Comment": "Obre els punts dels dispositius i dels preferits",
+                "Name": "Llocs"
+            },
+            "ca@valencia": {
+                "Comment": "Obri els punts dels dispositius i dels preferits",
+                "Name": "Llocs"
+            },
+            "cs": {
+                "Comment": "Otevřít záložky zařízení a složek",
+                "Name": "Místa"
+            },
+            "csb": {
+                "Name": "Place"
+            },
+            "da": {
+                "Comment": "Åbn enheder og mappebogmærker",
+                "Name": "Steder"
+            },
+            "de": {
+                "Comment": "Geräte und Lesezeichen für Ordner öffnen",
+                "Name": "Orte"
+            },
+            "el": {
+                "Comment": "Άνοιγμα σελιδοδεικτών συσκευών και φακέλων",
+                "Name": "Τοποθεσίες"
+            },
+            "en": {
+                "Comment": "Open devices and folder bookmarks",
+                "Name": "Places"
+            },
+            "en_GB": {
+                "Name": "Places"
+            },
+            "eo": {
+                "Name": "Lokoj"
+            },
+            "es": {
+                "Comment": "Abrir dispositivos y marcadores de carpetas",
+                "Name": "Lugares"
+            },
+            "et": {
+                "Comment": "Seadmete ja kataloogide järjehoidjate avamine",
+                "Name": "Asukohad"
+            },
+            "eu": {
+                "Name": "Lekuak"
+            },
+            "fi": {
+                "Comment": "Avaa laitteita ja kansiokirjanmerkkejä",
+                "Name": "Sijainnit"
+            },
+            "fr": {
+                "Comment": "Ouvrir les signets de périphériques et de dossiers",
+                "Name": "Emplacements"
+            },
+            "fy": {
+                "Name": "Places"
+            },
+            "ga": {
+                "Comment": "Oscail gléasanna agus leabharmharcanna fillteáin",
+                "Name": "Áiteanna"
+            },
+            "gl": {
+                "Comment": "Abre dispositivos e cartafoles de marcadores",
+                "Name": "Lugares"
+            },
+            "gu": {
+                "Name": "જગ્યાઓ"
+            },
+            "he": {
+                "Comment": "פותח סימניות התקנים ותיקיות",
+                "Name": "מקומות"
+            },
+            "hi": {
+                "Name": "स्थान"
+            },
+            "hne": {
+                "Name": "प्लेसेस"
+            },
+            "hr": {
+                "Name": "Mjesta"
+            },
+            "hu": {
+                "Comment": "Eszközökre és mappákra mutató könyvjelzők megnyitása",
+                "Name": "Helyek"
+            },
+            "ia": {
+                "Comment": "Aperi dispositivos e marcatores de libros de dossieres",
+                "Name": "Placias"
+            },
+            "id": {
+                "Name": "Tempat"
+            },
+            "is": {
+                "Name": "Staðir"
+            },
+            "it": {
+                "Comment": "Apre segnalibri di dispositivi e cartelle",
+                "Name": "Risorse"
+            },
+            "ja": {
+                "Name": "場所"
+            },
+            "ka": {
+                "Name": "ადგილები"
+            },
+            "kk": {
+                "Comment": "Құрылғы мен қапшықтардың бетбелгілерін ашу",
+                "Name": "Орындар"
+            },
+            "km": {
+                "Comment": "បើក​ឧបករណ៍ និង​ចំណាំ​ថត",
+                "Name": "កន្លែង"
+            },
+            "kn": {
+                "Name": "ಸ್ಥಳಗಳು"
+            },
+            "ko": {
+                "Comment": "장치와 폴더 책갈피 열기",
+                "Name": "위치"
+            },
+            "ku": {
+                "Name": "Cih"
+            },
+            "lt": {
+                "Comment": "Atverti įrenginių ir aplankų žymeles",
+                "Name": "Vietos"
+            },
+            "lv": {
+                "Name": "Vietas"
+            },
+            "mai": {
+                "Name": "स्थान"
+            },
+            "mk": {
+                "Name": "Места"
+            },
+            "ml": {
+                "Name": "സ്ഥലങ്ങള്‍"
+            },
+            "mr": {
+                "Comment": "साधने व संचयीका ओळखचिन्ह उघडा",
+                "Name": "जागा"
+            },
+            "nb": {
+                "Comment": "Åpne bokmerker for enheter og mapper",
+                "Name": "Steder"
+            },
+            "nds": {
+                "Name": "Steden"
+            },
+            "nl": {
+                "Comment": "Apparaten- en mappenbladwijzers openen",
+                "Name": "Locaties"
+            },
+            "nn": {
+                "Name": "Stader"
+            },
+            "or": {
+                "Name": "ସ୍ଥାନଗୁଡ଼ିକ"
+            },
+            "pa": {
+                "Comment": "ਜੰਤਰ ਅਤੇ ਫੋਲਡਰ ਬੁੱਕਮਾਰਕ ਖੋਲ੍ਹੋ",
+                "Name": "ਥਾਵਾਂ"
+            },
+            "pl": {
+                "Comment": "Otwieranie urządzeń i zakładek katalogów",
+                "Name": "Miejsca"
+            },
+            "pt": {
+                "Comment": "Abrir os favoritos dos dispositivos e pastas",
+                "Name": "Locais"
+            },
+            "pt_BR": {
+                "Comment": "Abre os favoritos dos dispositivos e pastas",
+                "Name": "Locais"
+            },
+            "ro": {
+                "Comment": "Deschide semne de carte pentru dispozitive și dosare",
+                "Name": "Locuri"
+            },
+            "ru": {
+                "Comment": "Переход по закладкам для устройств и папок",
+                "Name": "Точки входа"
+            },
+            "si": {
+                "Name": "ස්ථාන"
+            },
+            "sk": {
+                "Comment": "Otváranie záložiek priečinkov a zariadení",
+                "Name": "Miesta"
+            },
+            "sl": {
+                "Comment": "Odpiranje naprav in map, ki so med zaznamki",
+                "Name": "Mesta"
+            },
+            "sr": {
+                "Comment": "Отварајте обележиваче уређаја и фасцикли",
+                "Name": "места"
+            },
+            "sr@ijekavian": {
+                "Comment": "Отварајте обиљеживаче уређаја и фасцикли",
+                "Name": "мјеста"
+            },
+            "sr@ijekavianlatin": {
+                "Comment": "Otvarajte obilježivače uređaja i fascikli",
+                "Name": "mjesta"
+            },
+            "sr@latin": {
+                "Comment": "Otvarajte obeleživače uređaja i fascikli",
+                "Name": "mesta"
+            },
+            "sv": {
+                "Comment": "Öppna enhets- och katalogbokmärken",
+                "Name": "Platser"
+            },
+            "ta": {
+                "Name": "Places"
+            },
+            "tg": {
+                "Name": "Ҷойҳо"
+            },
+            "th": {
+                "Name": "ที่หลัก ๆ"
+            },
+            "tr": {
+                "Comment": "Aygıt ve dizin yer imlerini aç",
+                "Name": "Konumlar"
+            },
+            "ug": {
+                "Name": "ئورۇنلار"
+            },
+            "uk": {
+                "Comment": "Відкриття пристроїв та закладок на теки",
+                "Name": "Місця"
+            },
+            "wa": {
+                "Name": "Plaeces"
+            },
+            "x-test": {
+                "Comment": "xxOpen devices and folder bookmarksxx",
+                "Name": "xxPlacesxx"
+            },
+            "zh_CN": {
+                "Comment": "打开设备和文件夹书签",
+                "Name": "位置"
+            },
+            "zh_TW": {
+                "Comment": "開啟裝置與資料夾書籤",
+                "Name": "地方"
+            }
+        },
+        "Icon": "user-home",
+        "License": "LGPL",
+        "Version": "1.1"
+    },
+    "Sprinter": {
+        "GeneratesDefaultMatches": true,
+        "MatchSources": [
+            "FromFilesystem"
+        ],
+        "MatchTypes": [
+            "FilesystemLocationType"
+        ]
+    }
+}

@@ -58,6 +58,7 @@ endif (KF5Activities_FOUND)
 
 if (KF5KIO_FOUND)
     add_subdirectory(uri)
+    add_subdirectory(places)
     if (KF5CoreAddons_FOUND AND KF5Config_FOUND)
         add_subdirectory(recentdocs)
     endif (KF5CoreAddons_FOUND AND KF5Config_FOUND)

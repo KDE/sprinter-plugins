@@ -7,7 +7,6 @@
     * kill
     * locations
         * split out file location matcher (already have a URI plugin)
-    * places
     * services
     * sessions
         * requires sorting out libkworkspace in kde-workspace/lib/kworkspace
