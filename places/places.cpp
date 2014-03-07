@@ -46,7 +46,7 @@ PlacesSessionData::PlacesSessionData(Sprinter::Runner *runner)
 
 void PlacesSessionData::startQuery(const QString &query, const Sprinter::QueryContext &context)
 {
-    if (!context.isValid()) {
+    if (!context.isValid(this)) {
         return;
     }
 

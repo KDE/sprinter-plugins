@@ -61,7 +61,7 @@ void YoutubeSessionData::startQuery(const QString &query, const Sprinter::QueryC
     }
 
     m_context = context;
-    if (!m_context.isValid()) {
+    if (!m_context.isValid(this)) {
         qDebug() << "REJECTING YOUTUBE REPLY: context is already invalid";
         delete m_busyToken;
         m_busyToken = 0;
@@ -98,7 +98,7 @@ void YoutubeSessionData::queryFinished()
     delete m_busyToken;
     m_busyToken = 0;
 
-    if (m_context.isValid()) {
+    if (m_context.isValid(this)) {
         QByteArray data = reply->readAll();
         QJsonParseError *error = 0;
         QJsonDocument doc = QJsonDocument::fromJson(data, error);
@@ -175,7 +175,7 @@ void YoutubeSessionData::queryFinished()
 
 void YoutubeSessionData::thumbRecv()
 {
-    if (!m_context.isValid()) {
+    if (!m_context.isValid(this)) {
         return;
     }
 
