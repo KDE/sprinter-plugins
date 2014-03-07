@@ -204,7 +204,7 @@ void ApplicationsRunner::match(Sprinter::MatchData &matchData)
         }
     }
 
-    if (!context.isValid()) {
+    if (!matchData.isValid()) {
         return;
     }
 
@@ -236,7 +236,7 @@ void ApplicationsRunner::match(Sprinter::MatchData &matchData)
             return;
         }
 
-        if (!context.isValid()) {
+        if (!matchData.isValid()) {
             return;
         }
 
@@ -304,7 +304,7 @@ void ApplicationsRunner::match(Sprinter::MatchData &matchData)
             return;
         }
 
-        if (!context.isValid()) {
+        if (!matchData.isValid()) {
             return;
         }
 
