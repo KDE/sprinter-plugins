@@ -24,6 +24,42 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 
+bool processDescription(const QString &key, const QString &value,
+                        QJsonObject &descriptions)
+{
+    static const QRegExp langRe("\\[(.+)\\]");
+    QString destKey;
+    QString lang;
+    if (key == "Name" || key == "Comment") {
+        destKey = key;
+        lang = "en";
+    } else if (key.startsWith("Name[")) {
+        if (langRe.indexIn(key) == -1) {
+            // no language, but it was a Name, so pretend we processed it
+            return true;
+        }
+
+        lang = langRe.cap(1);
+        destKey = "Name";
+    } else if (key.startsWith("Comment[")) {
+        if (langRe.indexIn(key) == -1) {
+            // no language, but it was a Comment, so pretend we processed it
+            return true;
+        }
+
+        lang = langRe.cap(1);
+        destKey = "Comment";
+    } else {
+        return false;
+    }
+
+
+    QJsonObject obj = descriptions[lang].toObject();
+    obj.insert(destKey, value);
+    descriptions[lang] = obj;
+    return true;
+}
+
 int main(int argc, char *argv[])
 {
     QCoreApplication app(argc, argv);
@@ -63,13 +99,76 @@ int main(int argc, char *argv[])
         return -1;
     }
 
-    QJsonObject translations;
-    QByteArray line;
-    bool inDesktopGroup = false;
+    const bool migrating = opts.isSet(migrateOption);
+//     qDebug() << "*******************************" <<  migrating;
+    //
+    // Our various configuration value definitions
+    ///
+    QSet<QString> desktopListEntries;
+    desktopListEntries << "Implements" << "Dependencies";
+
+    QSet<QString> jsonArrayEntries;
+    jsonArrayEntries << "Categories" << "Authors" << "Implements" << "Dependencies";
+
+    // empty strings mean it is recognized, but deprecated and therefore skipped
+    QHash<QString, QString> pluginInfoKeyDict;
+    pluginInfoKeyDict.insert("X-KDE-ServiceTypes", "Implements");
+    pluginInfoKeyDict.insert("ServiceTypes", "Implements");
+    pluginInfoKeyDict.insert("X-KDE-PluginInfo-Author", "Authors");
+    pluginInfoKeyDict.insert("X-KDE-PluginInfo-Version", "Version");
+    pluginInfoKeyDict.insert("X-KDE-PluginInfo-License", "License");
+    pluginInfoKeyDict.insert("X-KDE-PluginInfo-Depends", "Dependencies");
+    pluginInfoKeyDict.insert("X-KDE-PluginInfo-EnabledByDefault", "EnabledByDefault");
+    pluginInfoKeyDict.insert("Type", QString());
+    pluginInfoKeyDict.insert("X-KDE-PluginInfo-Name", QString());
+    pluginInfoKeyDict.insert("X-KDE-Library", QString());
+    pluginInfoKeyDict.insert("Icon", "Icon");
+    pluginInfoKeyDict.insert("Hidden", "Hidden");
+    pluginInfoKeyDict.insert("X-KDE-PluginInfo-Category", "Categories");
+
+    QHash<QString, QString> contactKeyDict;
+    contactKeyDict.insert("X-KDE-PluginInfo-Email", "Email");
+    contactKeyDict.insert("X-KDE-PluginInfo-Website", "Website");
+
     const char *desktopGroupName = "[Desktop Entry]";
-    char buf[1024];
-    QRegExp keyValueRe("(.*)=(.*)");
-    QRegExp langRe("\\[(.*)\\]");
+
+    //
+    // Read in the current json file, if any, and go from there
+    //
+    QString jsonFilePath = opts.value(jsonFileOpt);
+    if (jsonFilePath.isEmpty()) {
+        jsonFilePath = opts.value(desktopFileOpt).replace(QRegExp("\\.desktop$"), ".json");
+    } else if (!jsonFilePath.endsWith(".json")) {
+        jsonFilePath.append(".json");
+    }
+
+    QJsonDocument json;
+    QFile jsonFile(jsonFilePath);
+//     qDebug() << jsonFilePath;
+    if (jsonFile.open(QIODevice::ReadOnly)) {
+        const QByteArray data = jsonFile.readAll();
+        jsonFile.close();
+
+        QJsonParseError error;
+        json = QJsonDocument::fromJson(data, &error);
+        if (error.error != QJsonParseError::NoError) {
+            qCritical() << "Malformed json in" << jsonFilePath;
+            return -1;
+        }
+//         qDebug() << "read that fucker!" << data;
+    }
+
+    QJsonObject pluginInfo = json.object()["PluginInfo"].toObject();
+    QJsonObject descriptions = pluginInfo["Description"].toObject();
+    QJsonObject contacts = pluginInfo["Contacts"].toObject();
+
+    //
+    // Start processing the .desktop file and populating the json objects
+    //
+    char buf[2048];
+    const QRegExp keyValueRe("(.*)=(.*)");
+    bool inDesktopGroup = false;
+
     while (1) {
         qint64 len = desktopFile.readLine(buf, sizeof(buf));
         if (len == -1) {
@@ -86,6 +185,7 @@ int main(int argc, char *argv[])
         }
 
         if (buf[0] == '[') {
+            // Group section check; we really only care about DesktopGroup
             if (inDesktopGroup) {
                 break;
             } else if (qstrcmp(buf, desktopGroupName) == 0) {
@@ -93,62 +193,72 @@ int main(int argc, char *argv[])
                 continue;
             }
         } else if (inDesktopGroup) {
+            // being in the desktop group, now process the key
             if (keyValueRe.indexIn(buf) == -1) {
                 continue;
             }
+            const QString key = keyValueRe.cap(1);
 
-            QString key = keyValueRe.cap(1);
             const QString value = keyValueRe.cap(2).trimmed();
-            QString lang;
-            if (key == "Name") {
-                lang = "en";
-            } else if (key.startsWith("Name[")) {
-                if (langRe.indexIn(buf) != -1) {
-                    lang = langRe.cap(1);
-                }
-                key = "Name";
-            } else if (key == "Comment") {
-                lang = "en";
-            } else if (key.startsWith("Comment[")) {
-                if (langRe.indexIn(buf) != -1) {
-                    lang = langRe.cap(1);
-                }
-                key = "Comment";
-            } else {
+            if (value.isEmpty()) {
                 continue;
             }
 
-            QJsonObject obj = translations[lang].toObject();
-            obj.insert(key, value);
-            translations[lang] = obj;
+            if (processDescription(key, value, descriptions) || !migrating) {
+                continue;
+            } else if (pluginInfoKeyDict.contains(key)) {
+                const QString destKey = pluginInfoKeyDict.value(key);
+                qDebug() << key << "is a pluginfo entry mapping to" << destKey;
+                if (destKey.isEmpty()) {
+                    continue;
+                }
+
+                QJsonValue jsonValue;
+                if (jsonArrayEntries.contains(destKey)) {
+                    QJsonArray array = pluginInfo[destKey].toArray();
+//                     qDebug() << "      it is also an array entry";
+                    QStringList values;
+                    if (desktopListEntries.contains(destKey)) {
+                        values = value.split(",");
+                    } else {
+                        values << value;
+                    }
+
+                    for (auto v: values) {
+                        if (!array.contains(v)) {
+                            array.append(v);
+                        }
+                    }
+
+                    if (array.isEmpty()) {
+                        continue;
+                    }
+
+                    jsonValue = array;
+                } else {
+                    jsonValue = value;
+                }
+
+                pluginInfo.insert(destKey, jsonValue);
+            } else if (contactKeyDict.contains(key)) {
+//                 qDebug() << key << "is a contact entry";
+                const QString destKey = contactKeyDict.value(key);
+                if (destKey.isEmpty()) {
+                    continue;
+                }
+
+                contacts.insert(destKey, value);
+            } else {
+            }
         }
     }
 
-//      qDebug() << translations;
-    QString jsonFilePath = opts.value(jsonFileOpt);
-    if (jsonFilePath.isEmpty()) {
-        jsonFilePath = opts.value(desktopFileOpt).replace(QRegExp("\\.desktop$"), ".json");
-    } else if (!jsonFilePath.endsWith(".json")) {
-        jsonFilePath.append(".json");
-    }
-
-    QJsonDocument json;
-    QFile jsonFile(jsonFilePath);
-    if (jsonFile.open(QIODevice::ReadOnly)) {
-        const QByteArray data = jsonFile.readAll();
-        jsonFile.close();
-
-        QJsonParseError error;
-        QJsonDocument json = QJsonDocument::fromJson(data, &error);
-        if (error.error != QJsonParseError::NoError) {
-            qCritical() << "Malformed json in" << jsonFilePath;
-            return -1;
-        }
-    }
-
-//     qDebug() << data << json;
-    QJsonObject pluginInfo = json.object()["PluginInfo"].toObject();
-    pluginInfo.insert("Description", translations);
+    //
+    // Re-insert the modified results
+    //
+    // qDebug() << descriptions;
+    pluginInfo.insert("Description", descriptions);
+    pluginInfo.insert("Contacts", contacts);
     QJsonObject topObj = json.object();
     topObj.insert("PluginInfo", pluginInfo);
     json.setObject(topObj);
