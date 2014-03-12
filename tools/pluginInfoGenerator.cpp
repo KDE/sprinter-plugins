@@ -132,20 +132,18 @@ int main(int argc, char *argv[])
         jsonFilePath.append(".json");
     }
 
+    QJsonDocument json;
     QFile jsonFile(jsonFilePath);
-    if (!jsonFile.open(QIODevice::ReadOnly)) {
-        qCritical() << "Could not open json file:" << jsonFilePath;
-        return -1;
-    }
+    if (jsonFile.open(QIODevice::ReadOnly)) {
+        const QByteArray data = jsonFile.readAll();
+        jsonFile.close();
 
-    const QByteArray data = jsonFile.readAll();
-    jsonFile.close();
-
-    QJsonParseError error;
-    QJsonDocument json = QJsonDocument::fromJson(data, &error);
-    if (error.error != QJsonParseError::NoError) {
-        qCritical() << "Malformed json in" << jsonFilePath;
-        return -1;
+        QJsonParseError error;
+        QJsonDocument json = QJsonDocument::fromJson(data, &error);
+        if (error.error != QJsonParseError::NoError) {
+            qCritical() << "Malformed json in" << jsonFilePath;
+            return -1;
+        }
     }
 
 //     qDebug() << data << json;
