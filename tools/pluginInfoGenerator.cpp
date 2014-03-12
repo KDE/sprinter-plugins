@@ -158,7 +158,8 @@ int main(int argc, char *argv[])
 //         qDebug() << "read that fucker!" << data;
     }
 
-    QJsonObject pluginInfo = json.object()["PluginInfo"].toObject();
+    QJsonObject topObj = json.object();
+    QJsonObject pluginInfo = topObj["PluginInfo"].toObject();
     QJsonObject descriptions = pluginInfo["Description"].toObject();
     QJsonObject contacts = pluginInfo["Contacts"].toObject();
 
@@ -208,7 +209,7 @@ int main(int argc, char *argv[])
                 continue;
             } else if (pluginInfoKeyDict.contains(key)) {
                 const QString destKey = pluginInfoKeyDict.value(key);
-                qDebug() << key << "is a pluginfo entry mapping to" << destKey;
+//                 qDebug() << key << "is a pluginfo entry mapping to" << destKey;
                 if (destKey.isEmpty()) {
                     continue;
                 }
@@ -219,7 +220,7 @@ int main(int argc, char *argv[])
 //                     qDebug() << "      it is also an array entry";
                     QStringList values;
                     if (desktopListEntries.contains(destKey)) {
-                        values = value.split(",");
+                        values = value.split(",", QString::SkipEmptyParts);
                     } else {
                         values << value;
                     }
@@ -248,7 +249,36 @@ int main(int argc, char *argv[])
                 }
 
                 contacts.insert(destKey, value);
+            } else if (key.startsWith("X-")) {
+//                 qDebug() << "got an X- key" << key;
+                QStringList jsonObjNames = key.right(key.length() - 2).split('-', QString::SkipEmptyParts);
+                if (jsonObjNames.isEmpty()) {
+                    continue;
+                }
+
+                const QString destKey = jsonObjNames.takeLast();
+//                 qDebug() << destKey << "..." << jsonObjNames;
+                if (jsonObjNames.isEmpty()) {
+                    // we don't know where to put this ... :/
+                    qWarning() << "Found a key we don't know what to do with:" << key;
+                    continue;
+                }
+
+                QVector<QJsonObject> objects;
+                for (auto name: jsonObjNames) {
+                    QJsonObject obj = topObj[name].toObject();
+                    objects.append(obj);
+                }
+                objects.last().insert(destKey, value);
+                for (int i = objects.size() - 1; i > 0; --i) {
+                    QJsonObject obj = objects[i];
+                    objects[i - 1].insert(jsonObjNames[i], objects[i]);
+                }
+
+//                 qDebug() << "inserting" << objects[0] << "as" << jsonObjNames[0];
+                topObj.insert(jsonObjNames[0], objects[0]);
             } else {
+                qWarning() << "Found a key we don't know what to do with:" << key;
             }
         }
     }
@@ -259,7 +289,6 @@ int main(int argc, char *argv[])
     // qDebug() << descriptions;
     pluginInfo.insert("Description", descriptions);
     pluginInfo.insert("Contacts", contacts);
-    QJsonObject topObj = json.object();
     topObj.insert("PluginInfo", pluginInfo);
     json.setObject(topObj);
 
