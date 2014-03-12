@@ -84,7 +84,7 @@ int main(int argc, char *argv[])
 
 
     QCommandLineOption migrateOption(QStringList() << "m" << "migrate",
-                                     QCoreApplication::translate("main", "Performs a full migration of the desktop file. This will completely overwrite the json file"));
+                                     QCoreApplication::translate("main", "Performs a full migration of all values in the desktop file; otherwise only translated entries will be merged."));
     opts.addOption(migrateOption);
 
     opts.process(app);
@@ -236,6 +236,10 @@ int main(int argc, char *argv[])
                     }
 
                     jsonValue = array;
+                } else if (value == "false") {
+                    jsonValue = false;
+                } else if (value == "true") {
+                    jsonValue = true;
                 } else {
                     jsonValue = value;
                 }
@@ -248,7 +252,15 @@ int main(int argc, char *argv[])
                     continue;
                 }
 
-                contacts.insert(destKey, value);
+                QJsonValue jsonValue;
+                if (value == "false") {
+                    jsonValue = false;
+                } else if (value == "true") {
+                    jsonValue = true;
+                } else {
+                    jsonValue = value;
+                }
+                contacts.insert(destKey, jsonValue);
             } else if (key.startsWith("X-")) {
 //                 qDebug() << "got an X- key" << key;
                 QStringList jsonObjNames = key.right(key.length() - 2).split('-', QString::SkipEmptyParts);
