@@ -53,7 +53,7 @@ int main(int argc, char *argv[])
 
     opts.process(app);
 
-    if (!opts.isSet(desktopFileOpt) || !opts.isSet(jsonFileOpt)) {
+    if (!opts.isSet(desktopFileOpt)) {
         opts.showHelp();
     }
 
@@ -125,9 +125,16 @@ int main(int argc, char *argv[])
     }
 
 //      qDebug() << translations;
-    QFile jsonFile(opts.value(jsonFileOpt));
+    QString jsonFilePath = opts.value(jsonFileOpt);
+    if (jsonFilePath.isEmpty()) {
+        jsonFilePath = opts.value(desktopFileOpt).replace(QRegExp("\\.desktop$"), ".json");
+    } else if (!jsonFilePath.endsWith(".json")) {
+        jsonFilePath.append(".json");
+    }
+
+    QFile jsonFile(jsonFilePath);
     if (!jsonFile.open(QIODevice::ReadOnly)) {
-        qCritical() << "Could not open json file:" << opts.value(jsonFileOpt);
+        qCritical() << "Could not open json file:" << jsonFilePath;
         return -1;
     }
 
@@ -137,7 +144,7 @@ int main(int argc, char *argv[])
     QJsonParseError error;
     QJsonDocument json = QJsonDocument::fromJson(data, &error);
     if (error.error != QJsonParseError::NoError) {
-        qCritical() << "Malformed json in" << opts.value(jsonFileOpt);
+        qCritical() << "Malformed json in" << jsonFilePath;
         return -1;
     }
 
@@ -149,7 +156,7 @@ int main(int argc, char *argv[])
     json.setObject(topObj);
 
     if (!jsonFile.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
-        qCritical() << "Could not open json file for writing:" << opts.value(jsonFileOpt);
+        qCritical() << "Could not open json file for writing:" << jsonFilePath;
         return -1;
     }
 
