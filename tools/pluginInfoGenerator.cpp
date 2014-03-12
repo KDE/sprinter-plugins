@@ -46,6 +46,11 @@ int main(int argc, char *argv[])
                                   );
     opts.addOption(jsonFileOpt);
 
+
+    QCommandLineOption migrateOption(QStringList() << "m" << "migrate",
+                                     QCoreApplication::translate("main", "Performs a full migration of the desktop file. This will completely overwrite the json file"));
+    opts.addOption(migrateOption);
+
     opts.process(app);
 
     if (!opts.isSet(desktopFileOpt) || !opts.isSet(jsonFileOpt)) {
