@@ -26,21 +26,6 @@
 
 class KWindowInfo;
 
-class WindowsSessionData : public Sprinter::RunnerSessionData
-{
-    Q_OBJECT
-
-public:
-    WindowsSessionData(Sprinter::Runner *runner);
-
-    QHash<WId, KWindowInfo> m_windows;
-    QHash<WId, QIcon> m_icons;
-    QStringList m_desktopNames;
-
-private Q_SLOTS:
-    void performUpdate();
-};
-
 class WindowsRunner : public Sprinter::Runner
 {
     Q_OBJECT
@@ -51,7 +36,6 @@ public:
     WindowsRunner(QObject *parent = 0);
     ~WindowsRunner();
 
-    Sprinter::RunnerSessionData *createSessionData();
     virtual void match(Sprinter::MatchData &context);
     virtual bool exec(const Sprinter::QueryMatch &match);
 
@@ -71,6 +55,10 @@ private:
         KeepAboveAction,
         KeepBelowAction
     };
+
+    template<typename Func>
+    void forEachWindow(Func algorithm) const;
+
     void addDesktopMatch(int desktop,
                          Sprinter::QuerySession::MatchPrecision precision,
                          Sprinter::MatchData &context);

@@ -78,7 +78,7 @@ endif (KF5KIO_FOUND)
 
 if (KF5WindowSystem_FOUND)
     # TODO: needs porting to non-x11. uses NETRootInfo and QX11Info
-#     add_subdirectory(windows)
+    add_subdirectory(windows)
 endif (KF5WindowSystem_FOUND)
 
 if (KF5Solid_FOUND)

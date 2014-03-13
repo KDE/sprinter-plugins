@@ -23,6 +23,7 @@
     * windows
         * done, but needs KWindowInfo to get a default constructor
         * once that is done, can be enabled and then tested
+
 * kdeplasma-addons
     * audioplayercontrol
     * browserhistory

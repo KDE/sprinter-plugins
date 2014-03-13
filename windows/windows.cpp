@@ -27,19 +27,31 @@
 #include <KWindowSystem>
 #include <NETWM>
 
-
-WindowsSessionData::WindowsSessionData(Sprinter::Runner *runner)
-    : Sprinter::RunnerSessionData(runner)
+WindowsRunner::WindowsRunner(QObject* parent)
+    : Sprinter::Runner(parent),
+      m_desktopIcon(QIcon::fromTheme("user-desktop"))
 {
-    foreach (const WId w, KWindowSystem::windows()) {
+}
+
+WindowsRunner::~WindowsRunner()
+{
+}
+
+template<typename Func>
+void WindowsRunner::forEachWindow(Func algorithm) const
+{
+    for (auto w: KWindowSystem::windows()) {
         KWindowInfo info = KWindowInfo(w, NET::WMWindowType | NET::WMDesktop |
-                                          NET::WMState | NET::XAWMState |
-                                          NET::WMName,
-                                          NET::WM2WindowClass | NET::WM2WindowRole | NET::WM2AllowedActions);
+                                       NET::WMState | NET::XAWMState |
+                                       NET::WMName,
+                                       NET::WM2WindowClass | NET::WM2WindowRole |
+                                       NET::WM2AllowedActions);
         if (info.valid()) {
             // ignore NET::Tool and other special window types
-            NET::WindowType wType = info.windowType(NET::NormalMask | NET::DesktopMask | NET::DockMask |
-                                                    NET::ToolbarMask | NET::MenuMask | NET::DialogMask |
+            NET::WindowType wType = info.windowType(NET::NormalMask | NET::DesktopMask |
+                                                    NET::DockMask |
+                                                    NET::ToolbarMask | NET::MenuMask |
+                                                    NET::DialogMask |
                                                     NET::OverrideMask | NET::TopMenuMask |
                                                     NET::UtilityMask | NET::SplashMask);
 
@@ -48,38 +60,13 @@ WindowsSessionData::WindowsSessionData(Sprinter::Runner *runner)
                 continue;
             }
 
-            m_windows.insert(w, info);
-            m_icons.insert(w, QIcon(KWindowSystem::icon(w)));
+            algorithm(info);
         }
     }
-
-    for (int i = 1; i <= KWindowSystem::numberOfDesktops(); i++) {
-        m_desktopNames << KWindowSystem::desktopName(i);
-    }
-}
-
-
-WindowsRunner::WindowsRunner(QObject* parent)
-    : Sprinter::Runner(parent)
-{
-}
-
-WindowsRunner::~WindowsRunner()
-{
-}
-
-Sprinter::RunnerSessionData *WindowsRunner::createSessionData()
-{
-    return new WindowsSessionData(this);
 }
 
 void WindowsRunner::match(Sprinter::MatchData &matchData)
 {
-    WindowsSessionData *sessionData = qobject_cast<WindowsSessionData *>(matchData.sessionData());
-    if (!sessionData) {
-        return;
-    }
-
     QString term = matchData.queryContext().query();
 
     // check if the search term ends with an action keyword
@@ -151,29 +138,27 @@ void WindowsRunner::match(Sprinter::MatchData &matchData)
             }
         }
 
-        QHashIterator<WId, KWindowInfo> it(sessionData->m_windows);
-        while(it.hasNext()) {
-            it.next();
-            WId w = it.key();
-            KWindowInfo info = it.value();
+
+        auto matchWindow = [&](const KWindowInfo &info) {
             QString windowClassCompare = QString::fromUtf8(info.windowClassName()) + " " +
                                          QString::fromUtf8(info.windowClassClass());
             // exclude not matching windows
-            if (!KWindowSystem::hasWId(w)) {
-                continue;
-            }
             if (!windowName.isEmpty() && !info.name().contains(windowName, Qt::CaseInsensitive)) {
-                continue;
+                return;
             }
+
             if (!windowClass.isEmpty() && !windowClassCompare.contains(windowClass, Qt::CaseInsensitive)) {
-                continue;
+                return;
             }
+
             if (!windowRole.isEmpty() && !QString::fromUtf8(info.windowRole()).contains(windowRole, Qt::CaseInsensitive)) {
-                continue;
+                return;
             }
+
             if (desktop != -1 && !info.isOnDesktop(desktop)) {
-                continue;
+                return;
             }
+
             // check for windows when no keywords were used
             // check the name, class and role for containing the query without the keyword
             if (windowName.isEmpty() && windowClass.isEmpty() && windowRole.isEmpty() && desktop == -1) {
@@ -181,9 +166,10 @@ void WindowsRunner::match(Sprinter::MatchData &matchData)
                 if (!info.name().contains(test, Qt::CaseInsensitive) &&
                     !windowClassCompare.contains(test, Qt::CaseInsensitive) &&
                     !QString::fromUtf8(info.windowRole()).contains(test, Qt::CaseInsensitive)) {
-                    continue;
+                    return;
                 }
             }
+
             // blacklisted everything else: we have a match
             if (actionSupported(info, action)){
                 addWindowMatch(info, action,
@@ -191,14 +177,15 @@ void WindowsRunner::match(Sprinter::MatchData &matchData)
                                matchData);
                 found = true;
             }
-        }
+        };
+
+        forEachWindow(matchWindow);
 
         if (found) {
             // the window keyword found matches - do not process other syntax possibilities
             return;
         }
     }
-
     bool desktopAdded = false;
     // check for desktop keyword
     if (term.startsWith(i18n("desktop") , Qt::CaseInsensitive)) {
@@ -224,15 +211,8 @@ void WindowsRunner::match(Sprinter::MatchData &matchData)
     }
 
     // check for matches without keywords
-    QHashIterator<WId, KWindowInfo> it(sessionData->m_windows);
-    while (it.hasNext()) {
-        it.next();
-        WId w = it.key();
-        if (!KWindowSystem::hasWId(w)) {
-            continue;
-        }
+    auto matchWindow = [&](const KWindowInfo &info) {
         // check if window name, class or role contains the query
-        KWindowInfo info = it.value();
         QString className = QString::fromUtf8(info.windowClassName());
         if (info.name().startsWith(term, Qt::CaseInsensitive) ||
             className.startsWith(term, Qt::CaseInsensitive)) {
@@ -246,41 +226,36 @@ void WindowsRunner::match(Sprinter::MatchData &matchData)
                            Sprinter::QuerySession::FuzzyMatch,
                            matchData);
         }
-    }
+    };
+
+    forEachWindow(matchWindow);
 
     // check for matching desktops by name
-    int desktopNum = 1;
-    foreach (const QString& desktopName, sessionData->m_desktopNames) {
-        int desktop = desktopNum++;
+    for (int i = 1; i <= KWindowSystem::numberOfDesktops(); ++i) {
+        const QString desktopName = KWindowSystem::desktopName(i);
         if (desktopName.contains(term, Qt::CaseInsensitive)) {
             // desktop name matches - offer switch to
             // only add desktops if it hasn't been added by the keyword which is quite likely
-            if (!desktopAdded && desktop != KWindowSystem::currentDesktop()) {
-                addDesktopMatch(desktop, Sprinter::QuerySession::CloseMatch, matchData);
+            if (!desktopAdded && i != KWindowSystem::currentDesktop()) {
+                addDesktopMatch(i, Sprinter::QuerySession::CloseMatch, matchData);
             }
 
             // search for windows on desktop and list them with less relevance
-            QHashIterator<WId, KWindowInfo> it(sessionData->m_windows);
-            while (it.hasNext()) {
-                it.next();
-                KWindowInfo info = it.value();
-                if (info.isOnDesktop(desktop) && actionSupported(info, action)) {
+            auto matchWindowsOnDesktop = [&](const KWindowInfo &info) {
+                if (info.isOnDesktop(i) && actionSupported(info, action)) {
                     addWindowMatch(info, action,
                                    Sprinter::QuerySession::FuzzyMatch,
                                    matchData);
                 }
-            }
+            };
+
+            forEachWindow(matchWindowsOnDesktop);
         }
     }
 }
 
 bool WindowsRunner::exec(const Sprinter::QueryMatch& match)
 {
-    WindowsSessionData *sessionData = qobject_cast<WindowsSessionData *>(match.sessionData());
-    if (!sessionData) {
-        return false;
-    }
-
     // check if it's a desktop
     if (match.type() == Sprinter::QuerySession::DesktopType) {
         KWindowSystem::setCurrentDesktop(match.data().toInt());
@@ -290,7 +265,7 @@ bool WindowsRunner::exec(const Sprinter::QueryMatch& match)
     const QStringList parts = match.data().toString().split("_");
     WindowAction action = WindowAction(parts[0].toInt());
     WId w = WId(parts[1].toULong());
-    KWindowInfo info = sessionData->m_windows[w];
+    KWindowInfo info = KWindowInfo(w, NET::WMState);
     switch (action) {
     case ActivateAction:
         KWindowSystem::forceActiveWindow(w);
@@ -352,20 +327,12 @@ void WindowsRunner::addDesktopMatch(int desktop,
                                     Sprinter::QuerySession::MatchPrecision precision,
                                     Sprinter::MatchData &matchData)
 {
-    WindowsSessionData *sessionData = static_cast<WindowsSessionData *>(matchData.sessionData());
-
     Sprinter::QueryMatch match;
     match.setType(Sprinter::QuerySession::DesktopType);
     match.setSource(Sprinter::QuerySession::FromDesktopShell);
     match.setData(desktop);
     match.setImage(generateImage(m_desktopIcon, matchData.queryContext()));
-    QString desktopName;
-
-    if (desktop <= sessionData->m_desktopNames.size()) {
-        desktopName = sessionData->m_desktopNames[desktop - 1];
-    } else {
-        desktopName = KWindowSystem::desktopName(desktop);
-    }
+    QString desktopName = KWindowSystem::desktopName(desktop);
     match.setTitle(desktopName);
     match.setText(i18n("Switch to desktop ").arg(desktop));
     match.setPrecision(precision);
@@ -377,27 +344,22 @@ void WindowsRunner::addWindowMatch(const KWindowInfo& info,
                                    Sprinter::QuerySession::MatchPrecision precision,
                                    Sprinter::MatchData &matchData)
 {
-    WindowsSessionData *sessionData = static_cast<WindowsSessionData *>(matchData.sessionData());
-
     Sprinter::QueryMatch match;
     match.setType(Sprinter::QuerySession::WindowType);
     match.setSource(Sprinter::QuerySession::FromDesktopShell);
     match.setData(QString(QString::number((int)action) + "_" + QString::number(info.win())));
-    match.setImage(generateImage(sessionData->m_icons[info.win()],
-                   matchData.queryContext()));
+    const QSize imageSize = matchData.queryContext().imageSize();
+    //TODO: cache the images?
+    QImage icon = KWindowSystem::icon(info.win(), imageSize.width(), imageSize.height()).scaled(imageSize, Qt::KeepAspectRatio, Qt::SmoothTransformation).toImage();
+    match.setImage(icon);
     match.setTitle(info.name());
 
-    QString desktopName;
     int desktop = info.desktop();
     if (desktop == NET::OnAllDesktops) {
         desktop = KWindowSystem::currentDesktop();
     }
 
-    if (desktop <= sessionData->m_desktopNames.size()) {
-        desktopName = sessionData->m_desktopNames[desktop - 1];
-    } else {
-        desktopName = KWindowSystem::desktopName(desktop);
-    }
+    QString desktopName = KWindowSystem::desktopName(desktop);
 
     switch (action) {
     case CloseAction:

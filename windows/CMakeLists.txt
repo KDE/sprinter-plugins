@@ -2,8 +2,6 @@ project(sprinter_org_kde_windows)
 
 add_definitions(-DQT_PLUGIN)
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
-get_directory_property(INCDIRS INCLUDE_DIRECTORIES)
-message(".............. ${INCDIRS}")
 
 add_library(${PROJECT_NAME} SHARED windows.cpp)
 qt5_use_modules(${PROJECT_NAME} Core Gui)
