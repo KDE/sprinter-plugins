@@ -11,11 +11,13 @@ set(CMAKE_MODULE_PATH
 include(FeatureSummary)
 
 find_package(Sprinter REQUIRED)
+find_package(KSysguardProc)
 #TODO: make i18n optional for runners that don't need it?
 find_package(KF5 NO_MODULE
                  COMPONENTS I18n
                  OPTIONAL_COMPONENTS
                     Activities
+                    Auth
                     CoreAddons
                     Config
                     DBusAddons
@@ -48,6 +50,10 @@ add_subdirectory(tools)
 
 add_subdirectory(datetime)
 add_subdirectory(youtube)
+
+if (KF5Auth_FOUND AND KSYSGUARDPROC_FOUND)
+    add_subdirectory(kill)
+endif (KF5Auth_FOUND AND KSYSGUARDPROC_FOUND)
 
 if (QALCULATE_FOUND)
     add_subdirectory(calculator)

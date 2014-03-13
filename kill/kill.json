@@ -1,0 +1,302 @@
+{
+    "PluginInfo": {
+        "Authors": [
+            "Jan Gerrit Marker"
+        ],
+        "Contacts": {
+            "Email": "jangerrit@weiler-marker.com"
+        },
+        "Description": {
+            "ar": {
+                "Comment": "أوقف برامجاً قيد الشغيل حالياً",
+                "Name": "أنهِ تطبيقات"
+            },
+            "ast": {
+                "Comment": "Parar aplicaciones que tan executándose",
+                "Name": "Zarrar aplicaciones"
+            },
+            "bg": {
+                "Comment": "Спиране на работещи в момента програми",
+                "Name": "Прекъсване на програми"
+            },
+            "bn": {
+                "Name": "অ্যাপলিকেশন থামাও"
+            },
+            "bs": {
+                "Comment": "Zaustavlja programe trenutno u pogonu",
+                "Name": "obustavljanje programa"
+            },
+            "ca": {
+                "Comment": "Atura aplicacions que estan actualment en execució",
+                "Name": "Finalitza aplicacions"
+            },
+            "ca@valencia": {
+                "Comment": "Para aplicacions que estan actualment en execució",
+                "Name": "Finalitza aplicacions"
+            },
+            "cs": {
+                "Comment": "Ukončit aktuálně spuštěné aplikace",
+                "Name": "Ukončit aplikace"
+            },
+            "csb": {
+                "Comment": "Zamëkô prawie robiącé aplikacëje",
+                "Name": "Zamëkô apliakcëje"
+            },
+            "da": {
+                "Comment": "Stop programmer der kører i øjeblikket",
+                "Name": "Afslut programmer"
+            },
+            "de": {
+                "Comment": "Gerade laufende Anwendungen beenden",
+                "Name": "Programme beenden"
+            },
+            "el": {
+                "Comment": "Σταμάτημα των εκτελούμενων εργασιών",
+                "Name": "Τερματισμός εφαρμογών"
+            },
+            "en": {
+                "Comment": "Stop applications that are currently running",
+                "Name": "Terminate Applications"
+            },
+            "en_GB": {
+                "Comment": "Stop applications that are currently running",
+                "Name": "Terminate Applications"
+            },
+            "eo": {
+                "Name": "Terminalaj Aplikaĵoj"
+            },
+            "es": {
+                "Comment": "Parar aplicaciones que se están ejecutando",
+                "Name": "Cerrar aplicaciones"
+            },
+            "et": {
+                "Comment": "Töötavate rakenduste töö lõpetamine",
+                "Name": "Rakenduste töö lõpetamine"
+            },
+            "eu": {
+                "Comment": "Gelditu une honetan exekutatzen ari diren aplikazioak",
+                "Name": "Amaitu aplikazioak"
+            },
+            "fa": {
+                "Name": "پایان دادن به برنامه‌ها"
+            },
+            "fi": {
+                "Comment": "Pysäytä sovellukset, joita parhaillaan suoritetaan",
+                "Name": "Lopeta sovellukset"
+            },
+            "fr": {
+                "Comment": "Arrête des applications en cours d'exécution",
+                "Name": "Terminer des applications"
+            },
+            "fy": {
+                "Comment": "Lit applikaasje dy't no rinne ophâlde",
+                "Name": "Programma's ôfbrekke"
+            },
+            "ga": {
+                "Comment": "Scoir ó fheidhmchláir atá ag rith faoi láthair",
+                "Name": "Scoir ó Fheidhmchláir"
+            },
+            "gl": {
+                "Comment": "Detén programas que están a executarse",
+                "Name": "Terminar programas"
+            },
+            "gu": {
+                "Name": "કાર્યક્રમો બંધ કરો"
+            },
+            "he": {
+                "Comment": "עצירת יישומים הפועלים כעת",
+                "Name": "סיום פעולת יישומים"
+            },
+            "hi": {
+                "Name": "अनुप्रयोग खतम करो"
+            },
+            "hr": {
+                "Comment": "Zaustavi aplikacije koje su trenutno pokrenute",
+                "Name": "Prekini aplikacije"
+            },
+            "hu": {
+                "Comment": "Jelenleg futó alkalmazások leállítása",
+                "Name": "Program félbeszakítása"
+            },
+            "ia": {
+                "Comment": "Stoppa applicationes que il es currentemente executante",
+                "Name": "Termina applicationes"
+            },
+            "id": {
+                "Comment": "Stop aplikasi yang saat ini tengah berjalan",
+                "Name": "Hentikan Aplikasi"
+            },
+            "is": {
+                "Comment": "Stöðva forrit sem eru keyrandi",
+                "Name": "Loka forritum"
+            },
+            "it": {
+                "Comment": "Ferma le applicazioni attualmente in esecuzione",
+                "Name": "Termina applicazioni"
+            },
+            "ja": {
+                "Comment": "実行中のアプリケーションを停止します",
+                "Name": "アプリケーションを終了"
+            },
+            "kk": {
+                "Comment": "Орындалып жатқан қолданбаларды тоқтату",
+                "Name": "Қолданбалары аяқтау"
+            },
+            "km": {
+                "Comment": "បញ្ឈប់​កម្មវិធី​ដែលបច្ចុប្បន្ន​កំពុង​តែ​រត់",
+                "Name": "កម្មវិធី​ស្ថានីយ"
+            },
+            "kn": {
+                "Comment": "ಪ್ರಸ್ತುತ ಚಾಲನೆಯಲ್ಲಿರುವ ಅನ್ವಯಗಳನ್ನು ನಿಲ್ಲಿಸು",
+                "Name": "ಅನ್ವಯಗಳನ್ನು ಅಂತ್ಯಗೊಳಿಸು"
+            },
+            "ko": {
+                "Comment": "현재 실행 중인 프로그램을 끝냅니다",
+                "Name": "프로그램 끝내기"
+            },
+            "lt": {
+                "Comment": "Sustabdo programas, kurios šiuo metu veikia",
+                "Name": "Nutraukti programas"
+            },
+            "lv": {
+                "Comment": "Apturēt šobrīd darbojošās programmas",
+                "Name": "Pārtraukt programmas"
+            },
+            "mk": {
+                "Comment": "Ги запира апликациите што моментално се активни",
+                "Name": "Запирање на апликации"
+            },
+            "ml": {
+                "Comment": "ഇപ്പോള്‍ പ്രവര്‍ത്തിയ്ക്കുന്ന പ്രയോഗങ്ങള്‍ നിര്‍ത്തുക",
+                "Name": "പ്രയോഗങ്ങളെ ഇല്ലാതാക്കുക"
+            },
+            "mr": {
+                "Comment": "चालू असणारे अनुप्रयोग बंद करा",
+                "Name": "अनुप्रयोग बंद करा"
+            },
+            "nb": {
+                "Comment": "Stopp programmer som kjører nå",
+                "Name": "Avslutt programmer"
+            },
+            "nds": {
+                "Comment": "Opstunns lopen Programmen utmaken",
+                "Name": "Programmen utmaken"
+            },
+            "nl": {
+                "Comment": "Beëindig toepassingen die momenteel draaien",
+                "Name": "Toepassingen afsluiten"
+            },
+            "nn": {
+                "Comment": "Stop program som køyrer",
+                "Name": "Avslutt program"
+            },
+            "pa": {
+                "Comment": "ਐਪਲੀਕੇਸ਼ਨਾਂ ਰੋਕੋ, ਜੋ ਇਸ ਸਮੇਂ ਚੱਲ ਰਹੀਆਂ ਹਨ",
+                "Name": "ਐਪਲੀਕੇਸ਼ਨ ਖਤਮ ਕਰੋ"
+            },
+            "pl": {
+                "Comment": "Zatrzymanie programów, które są obecnie uruchomione",
+                "Name": "Zakańczanie programów"
+            },
+            "pt": {
+                "Comment": "Parar as aplicações actualmente em execução",
+                "Name": "Terminar as Aplicações"
+            },
+            "pt_BR": {
+                "Comment": "Interrompe aplicativos em execução",
+                "Name": "Terminar aplicativos"
+            },
+            "ro": {
+                "Comment": "Oprește aplicații ce rulează momentan",
+                "Name": "Termină aplicații"
+            },
+            "ru": {
+                "Comment": "Завершение работы запущенных в данный момент приложений",
+                "Name": "Завершение приложений"
+            },
+            "si": {
+                "Comment": "දැනට ක්‍රියාකරන යෙදුම් නැවතීම",
+                "Name": "යෙදුම් මර්‍ධනය"
+            },
+            "sk": {
+                "Comment": "Zastavenie práve bežiacich aplikácií",
+                "Name": "Ukončenie aplikácií"
+            },
+            "sl": {
+                "Comment": "Zaustavite trenutno zagnane programe",
+                "Name": "Uničenje programov"
+            },
+            "sr": {
+                "Comment": "Зауставља програме тренутно у погону",
+                "Name": "обустављање програма"
+            },
+            "sr@ijekavian": {
+                "Comment": "Зауставља програме тренутно у погону",
+                "Name": "обустављање програма"
+            },
+            "sr@ijekavianlatin": {
+                "Comment": "Zaustavlja programe trenutno u pogonu",
+                "Name": "obustavljanje programa"
+            },
+            "sr@latin": {
+                "Comment": "Zaustavlja programe trenutno u pogonu",
+                "Name": "obustavljanje programa"
+            },
+            "sv": {
+                "Comment": "Stoppa program som för närvarande kör",
+                "Name": "Avsluta program"
+            },
+            "tg": {
+                "Comment": "Қатъ кардани барномаҳои ҷорӣ",
+                "Name": "Барномаҳои терминал"
+            },
+            "th": {
+                "Comment": "หยุดการทำงานของโปรแกรมที่กำลังทำงานอยู่ในปัจจุบัน",
+                "Name": "ยุติการทำงานของโปรแกรม"
+            },
+            "tr": {
+                "Comment": "Şu anda çalışan uygulamaları durdur",
+                "Name": "Uygulamaları Bitir"
+            },
+            "ug": {
+                "Comment": "نۆۋەتتە ئىجرا بولۇۋاتقان پروگراممىلارنى توختىتىدۇ",
+                "Name": "پروگراممىلارنى توختات"
+            },
+            "uk": {
+                "Comment": "Завершує роботу запущених програм",
+                "Name": "Переривання програм"
+            },
+            "wa": {
+                "Comment": "Arester des programes k' ovrèt pol moumint",
+                "Name": "Fé fini des programes"
+            },
+            "x-test": {
+                "Comment": "xxStop applications that are currently runningxx",
+                "Name": "xxTerminate Applicationsxx"
+            },
+            "zh_CN": {
+                "Comment": "停止正在运行的应用程序",
+                "Name": "终止程序"
+            },
+            "zh_TW": {
+                "Comment": "停止目前執行中的應用程式",
+                "Name": "終端機應用程式"
+            }
+        },
+        "EnabledByDefault": true,
+        "Icon": "application-exit",
+        "Implements": [
+            "Sprinter/Runner"
+        ],
+        "License": "LGPL",
+        "Version": "0.1"
+    },
+    "Sprinter": {
+        "MatchSources": [
+            "FromLocalService"
+        ],
+        "MatchTypes": [
+            "AppActionType"
+        ]
+    }
+}
