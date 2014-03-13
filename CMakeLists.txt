@@ -17,7 +17,8 @@ find_package(KF5 NO_MODULE
                  OPTIONAL_COMPONENTS
                     Activities
                     CoreAddons
-                    ConfigDBusAddons
+                    Config
+                    DBusAddons
                     KIO
                     Service
                     Solid)
