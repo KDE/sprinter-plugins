@@ -18,6 +18,7 @@
 
 #include "applications.h"
 
+#include <QCoreApplication>
 #include <QDebug>
 #include <QIcon>
 
@@ -327,11 +328,18 @@ void ApplicationsRunner::match(Sprinter::MatchData &matchData)
 bool ApplicationsRunner::exec(const Sprinter::QueryMatch &match)
 {
     KService::Ptr service = KService::serviceByStorageId(match.data().toString());
-    if (service) {
-        return KRun::run(*service, QList<QUrl>(), 0);
+    if (!service || service->exec().isEmpty()) {
+        return false;
     }
 
-    return false;
+    bool success = false;
+    QEventLoop loop;
+    KRun *krun = new KRun(service->exec(), 0, false);
+    connect(krun, &KRun::finished,
+            [&]() { success = !krun->hasError(); loop.exit(); });
+    krun->moveToThread(QCoreApplication::instance()->thread());
+    loop.exec();
+    return success;
 }
 
 void ApplicationsRunner::setupMatch(const KService::Ptr &service, Sprinter::QueryMatch &match, const Sprinter::QueryContext &context)
