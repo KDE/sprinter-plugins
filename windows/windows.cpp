@@ -23,7 +23,7 @@
 #include <QDebug>
 #include <QX11Info>
 
-#include <KI18n/KLocalizedString
+#include <KI18n/KLocalizedString>
 #include <KWindowSystem>
 #include <NETWM>
 
