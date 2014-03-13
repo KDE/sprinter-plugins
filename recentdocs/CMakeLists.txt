@@ -1,7 +1,7 @@
 project(sprinter_org_kde_recentdocts)
 
 add_definitions(-DQT_PLUGIN)
-include_directories(${CMAKE_CURRENT_BINARY_DIR} KF5::KIOCore KF5::CoreAddons KF5::ConfigCore)
+include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 add_library(${PROJECT_NAME} SHARED recentdocs.cpp)
 qt5_use_modules(${PROJECT_NAME} Core Gui)
