@@ -1,0 +1,30 @@
+{
+    "PluginInfo": {
+        "Authors": [
+            "Aaron Seigo <aseigo@kde.org>"
+        ],
+        "Contacts": {
+            "Email": "aseigo@kde.org"
+        },
+        "Description": {
+            "en": {
+                "Comment": "Open files and directories by path",
+                "Name": "Filesystem"
+            }
+        },
+        "Icon": "inode-directory",
+        "Implements": [
+            "Sprinter/Runner"
+        ],
+        "License": "GPL",
+        "Version": "0.1"
+    },
+    "Sprinter": {
+        "MatchSources": [
+            "FromFilesystem"
+        ],
+        "MatchTypes": [
+            "FileType"
+        ]
+    }
+}

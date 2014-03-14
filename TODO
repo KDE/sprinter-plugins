@@ -4,8 +4,6 @@
         * BIIIIG runner, needs a good going over
         * not a good candidate for "first runner I'll port"
         * shouldn't need to copy the firefox db file, e.g.
-    * locations
-        * split out file location matcher (already have a URI plugin)
     * sessions
         * requires sorting out libkworkspace in kde-workspace/lib/kworkspace
           as that has most of the functionality
