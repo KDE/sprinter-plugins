@@ -6,7 +6,6 @@
         * shouldn't need to copy the firefox db file, e.g.
     * locations
         * split out file location matcher (already have a URI plugin)
-    * services
     * sessions
         * requires sorting out libkworkspace in kde-workspace/lib/kworkspace
           as that has most of the functionality
