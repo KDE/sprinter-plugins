@@ -1,7 +1,6 @@
 project(sprinter_org_kde_kill)
 
 add_definitions(-DQT_PLUGIN)
-message("******************** ${KSYSGUARDPROC_INCLUDE_DIRS}")
 include_directories(${CMAKE_CURRENT_BINARY_DIR} ${KSYSGUARDPROC_INCLUDE_DIRS})
 add_library(${PROJECT_NAME} SHARED kill.cpp)
 qt5_use_modules(${PROJECT_NAME} Core Gui)
