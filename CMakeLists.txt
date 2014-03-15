@@ -40,7 +40,7 @@ endif (X11_FOUND)
 set(SPRINTER_PLUGINS_PATH plugins/sprinter)
 set(CMAKE_AUTOMOC ON)
 add_definitions("-Wall -std=c++0x")
-include_directories(${CMAKE_INSTALL_PREFIX}/include/sprinter)
+include_directories(${CMAKE_INSTALL_PREFIX}/include/sprinter ${CMAKE_SOURCE_DIR})
 
 add_subdirectory(tools)
 
@@ -65,6 +65,7 @@ if (KF5Activities_FOUND)
 endif (KF5Activities_FOUND)
 
 if (KF5KIO_FOUND)
+    add_definitions(-DHAVE_KRUN)
     add_subdirectory(uri)
     add_subdirectory(places)
     if (KF5CoreAddons_FOUND AND KF5Config_FOUND)

@@ -28,6 +28,14 @@
 
 #include <KI18n/KLocalizedString>
 
+/*TODO:
+exact vs close match
+paging
+cache non-existent paths and skip checking them again and again
+implement exec
+implemen createFileMatch
+*/
+
 FilesystemRunner::FilesystemRunner(QObject *parent)
         : Sprinter::Runner(parent),
           m_directoryIcon(QIcon::fromTheme("inode-directory"))

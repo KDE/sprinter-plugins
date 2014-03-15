@@ -20,7 +20,6 @@
 
 #include "places.h"
 
-#include <KIOWidgets/KRun>
 #include <KI18n/KLocalizedString>
 
 #include <QCoreApplication>
@@ -28,6 +27,8 @@
 #include <QEventLoop>
 #include <QMutexLocker>
 #include <QThread>
+
+#include "tools/runnerhelpers.h"
 
 PlacesSessionData::PlacesSessionData(Sprinter::Runner *runner)
     : RunnerSessionData(runner),
@@ -95,13 +96,7 @@ void PlacesSessionData::startQuery(const QString &query, const Sprinter::QueryCo
 
 void PlacesSessionData::run(const QUrl &url)
 {
-    QEventLoop loop;
-    KRun *krun = new KRun(url, nullptr);
-    connect(krun, &KRun::finished,
-            [&]() { m_successfulRun = !krun->hasError(); loop.exit(); });
-    connect(krun, SIGNAL(finished()), this, SLOT(test()));
-    krun->moveToThread(QCoreApplication::instance()->thread());
-    loop.exec();
+    m_successfulRun = RunnerHelpers::blockingKRun(url);
 }
 
 void PlacesSessionData::requestSetup(const QString &deviceUdi)

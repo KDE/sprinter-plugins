@@ -18,14 +18,14 @@
 
 #include "applications.h"
 
-#include <QCoreApplication>
 #include <QDebug>
 #include <QIcon>
 
-#include <KRun>
 #include <KService>
 #include <KServiceGroup>
 #include <KServiceTypeTrader>
+
+#include "tools/runnerhelpers.h"
 
 static const QString s_groupSearchKeyword("_groupRelPath:");
 
@@ -332,14 +332,7 @@ bool ApplicationsRunner::exec(const Sprinter::QueryMatch &match)
         return false;
     }
 
-    bool success = false;
-    QEventLoop loop;
-    KRun *krun = new KRun(service->exec(), 0, false);
-    connect(krun, &KRun::finished,
-            [&]() { success = !krun->hasError(); loop.exit(); });
-    krun->moveToThread(QCoreApplication::instance()->thread());
-    loop.exec();
-    return success;
+    return RunnerHelpers::blockingKRun(service->exec());
 }
 
 void ApplicationsRunner::setupMatch(const KService::Ptr &service, Sprinter::QueryMatch &match, const Sprinter::QueryContext &context)

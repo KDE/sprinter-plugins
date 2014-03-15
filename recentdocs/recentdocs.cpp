@@ -25,8 +25,9 @@
 #include <KConfig>
 #include <KDesktopFile>
 #include <KIOCore/KRecentDocument>
-#include <KIOWidgets/KRun>
 #include <KCoreAddons/KDirWatch>
+
+#include "tools/runnerhelpers.h"
 
 RecentDocsSessionData::RecentDocsSessionData(Sprinter::Runner *runner)
     : Sprinter::RunnerSessionData(runner)
@@ -122,14 +123,7 @@ void RecentDocsRunner::match(Sprinter::MatchData &matchData)
 
 bool RecentDocsRunner::exec(const Sprinter::QueryMatch &match)
 {
-    bool success = false;
-    QEventLoop loop;
-    KRun *krun = new KRun(match.data().toString(), 0, false);
-    connect(krun, &KRun::finished,
-            [&]() { success = !krun->hasError(); loop.exit(); });
-    krun->moveToThread(QCoreApplication::instance()->thread());
-    loop.exec();
-    return success;
+    return RunnerHelpers::blockingKRun(match.data().toString());
 }
 
 #include "moc_recentdocs.cpp"

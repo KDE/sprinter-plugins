@@ -17,14 +17,13 @@
 
 #include "uri.h"
 
-#include <QCoreApplication>
 #include <QDebug>
-#include <QEventLoop>
 #include <QIcon>
 
 #include <KIOCore/KProtocolInfo>
-#include <KIOWidgets/KRun>
 #include <KIOWidgets/KUriFilter>
+
+#include "tools/runnerhelpers.h"
 
 UriRunner::UriRunner(QObject *parent)
     : Sprinter::Runner(parent)
@@ -79,14 +78,7 @@ void UriRunner::match(Sprinter::MatchData &matchData)
 
 bool UriRunner::exec(const Sprinter::QueryMatch &match)
 {
-    bool success = false;
-    QEventLoop loop;
-    KRun *krun = new KRun(match.data().toString(), 0);
-    connect(krun, &KRun::finished,
-            [&]() { success = !krun->hasError(); loop.exit(); });
-    krun->moveToThread(QCoreApplication::instance()->thread());
-    loop.exec();
-    return success;
+    return RunnerHelpers::blockingKRun(match.data().toString());
 }
 
 #include "moc_uri.cpp"
