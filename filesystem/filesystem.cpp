@@ -21,18 +21,20 @@
 #include "filesystem.h"
 
 #include <QDebug>
+#include <QDesktopServices>
 #include <QDir>
-#include <QEventLoop>
+#include <QUrl>
 
 // #include <QCoreApplication>
 
 #include <KI18n/KLocalizedString>
 
+#include "tools/runnerhelpers.h"
+
 /*TODO:
 exact vs close match
 paging
 cache non-existent paths and skip checking them again and again
-implement exec
 implemen createFileMatch
 */
 
@@ -81,7 +83,7 @@ void FilesystemRunner::match(Sprinter::MatchData &matchData)
 
 bool FilesystemRunner::exec(const Sprinter::QueryMatch &match)
 {
-    return false;
+    return RunnerHelpers::blockingKRun(match.data().toString());
 }
 
 

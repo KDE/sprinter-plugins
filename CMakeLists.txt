@@ -49,7 +49,6 @@ add_subdirectory(tools)
 ###
 
 add_subdirectory(datetime)
-add_subdirectory(filesystem)
 add_subdirectory(youtube)
 
 if (KF5Auth_FOUND AND KSYSGUARDPROC_FOUND)
@@ -66,6 +65,7 @@ endif (KF5Activities_FOUND)
 
 if (KF5KIO_FOUND)
     add_definitions(-DHAVE_KRUN)
+    add_subdirectory(filesystem)
     add_subdirectory(uri)
     add_subdirectory(places)
     if (KF5CoreAddons_FOUND AND KF5Config_FOUND)
