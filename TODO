@@ -17,6 +17,7 @@
           should be re-written/ported to just use libsolid directly
     * webshortcuts
     * windowedwidgets
+        * need to find out what the plan is for this in plasma next
 
 * kdeplasma-addons
     * audioplayercontrol
