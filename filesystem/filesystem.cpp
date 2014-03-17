@@ -31,9 +31,12 @@
 
 #include "tools/runnerhelpers.h"
 
-/*TODO:
-cache non-existent paths and skip checking them again and again
-*/
+FilesystemSessionData::FilesystemSessionData(Sprinter::Runner *runner)
+    : Sprinter::RunnerSessionData(runner),
+      failedToFind(false)
+{
+
+}
 
 FilesystemRunner::FilesystemRunner(QObject *parent)
         : Sprinter::Runner(parent),
@@ -46,8 +49,18 @@ FilesystemRunner::~FilesystemRunner()
 {
 }
 
+Sprinter::RunnerSessionData *FilesystemRunner::createSessionData()
+{
+    return new FilesystemSessionData(this);
+}
+
 void FilesystemRunner::match(Sprinter::MatchData &matchData)
 {
+    FilesystemSessionData *sessionData = qobject_cast<FilesystemSessionData*>(matchData.sessionData());
+    if (!sessionData) {
+        return;
+    }
+
     QString term = matchData.queryContext().query();
     QFileInfo info(term);
     if (info.exists()) {
@@ -68,11 +81,44 @@ void FilesystemRunner::match(Sprinter::MatchData &matchData)
     QString fragment = term.right(term.length() - lastSlash - 1) + '*';
     term = term.left(lastSlash + 1);
 
-    QDir dir(term);
+    {
+        QReadLocker readLock(&sessionData->lock);
+        if (!matchData.isValid()) {
+            return;
+        }
+
+        if (sessionData->failedToFind && sessionData->path == term) {
+            // we've already checked this one!
+            qDebug() << "Dude .. really?";
+            return;
+        }
+
+        if (sessionData->path != term || sessionData->fragment != fragment) {
+            readLock.unlock();
+            QWriteLocker writeLock(&sessionData->lock);
+            if (!matchData.isValid()) {
+                return;
+            }
+
+            QDir dir(term);
+            sessionData->path = term;
+            sessionData->fragment = fragment;
+            if (sessionData->path != term) {
+                sessionData->failedToFind = !dir.exists();
+                if (sessionData->failedToFind) {
+                    return;
+                }
+            }
+
+            QDir::Filters filters = QDir::NoDotAndDotDot | QDir::AllEntries;
+            sessionData->entries = dir.entryInfoList(QStringList() << fragment);
+        }
+    }
+
     uint matchCount = 0;
     uint skipMatches = matchData.sessionData()->resultsOffset();
     uint pageSize = matchData.sessionData()->resultsPageSize();
-    for (auto entry: dir.entryInfoList(QStringList() << fragment)) {
+    for (auto entry: sessionData->entries) {
         ++matchCount;
         if (matchCount < skipMatches) {
             continue;

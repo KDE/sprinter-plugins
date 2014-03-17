@@ -23,26 +23,23 @@
 #include <QFileInfo>
 #include <QIcon>
 #include <QMimeDatabase>
+#include <QReadWriteLock>
 
 #include <Sprinter/Runner>
 
-/*
-class KillSessionData : public Sprinter::RunnerSessionData
+class FilesystemSessionData : public Sprinter::RunnerSessionData
 {
     Q_OBJECT
 
 public:
-    KillSessionData(Sprinter::Runner *runner);
-    ~KillSessionData();
+    FilesystemSessionData(Sprinter::Runner *runner);
 
-    KSysGuard::Processes *m_processes;
-
-public Q_SLOTS:
-    void updateProcessTable();
-
-private:
-    QTime m_lastUpdate;
-};*/
+    QReadWriteLock lock;
+    bool failedToFind;
+    QString path;
+    QString fragment;
+    QList<QFileInfo> entries;
+};
 
 class FilesystemRunner : public Sprinter::Runner
 {
@@ -54,6 +51,7 @@ public:
     FilesystemRunner(QObject *parent = 0);
     ~FilesystemRunner();
 
+    Sprinter::RunnerSessionData *createSessionData();
     void match(Sprinter::MatchData &matchData);
     bool exec(const Sprinter::QueryMatch &match);
 
