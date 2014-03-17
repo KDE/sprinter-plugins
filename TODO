@@ -8,10 +8,10 @@
         * requires sorting out libkworkspace in kde-workspace/lib/kworkspace
           as that has most of the functionality
     * shell
-        * has options on matches, including:
+        * in 4.x has options on matches, including:
             * run as other user (with username/password fields)
             * run in terminal
-          need some way to preserve this functionality
+          should be included as additional options
     * solid
         * 4.x version uses hotplug and solid Plasma::DataEngines
           should be re-written/ported to just use libsolid directly
