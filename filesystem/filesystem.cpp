@@ -32,7 +32,6 @@
 #include "tools/runnerhelpers.h"
 
 /*TODO:
-paging
 cache non-existent paths and skip checking them again and again
 */
 
@@ -70,7 +69,18 @@ void FilesystemRunner::match(Sprinter::MatchData &matchData)
     term = term.left(lastSlash + 1);
 
     QDir dir(term);
+    uint matchCount = 0;
+    uint skipMatches = matchData.sessionData()->resultsOffset();
+    uint pageSize = matchData.sessionData()->resultsPageSize();
     for (auto entry: dir.entryInfoList(QStringList() << fragment)) {
+        ++matchCount;
+        if (matchCount < skipMatches) {
+            continue;
+        } else if ((matchCount - skipMatches) > pageSize) {
+            matchData.sessionData()->setCanFetchMoreMatches(true, matchData.queryContext());
+            return;
+        }
+
         if (entry.isDir()) {
             createDirectoryMatch(entry, matchData, true);
         } else {
