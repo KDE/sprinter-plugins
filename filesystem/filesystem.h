@@ -22,6 +22,7 @@
 
 #include <QFileInfo>
 #include <QIcon>
+#include <QMimeDatabase>
 
 #include <Sprinter/Runner>
 
@@ -60,6 +61,7 @@ private:
     void createDirectoryMatch(const QFileInfo &info, Sprinter::MatchData &matchData);
     void createFileMatch(const QFileInfo &info, Sprinter::MatchData &matchData);
     QIcon m_directoryIcon;
+    QMimeDatabase m_mimetypes;
 };
 
 #endif

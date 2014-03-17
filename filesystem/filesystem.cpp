@@ -35,7 +35,6 @@
 exact vs close match
 paging
 cache non-existent paths and skip checking them again and again
-implemen createFileMatch
 */
 
 FilesystemRunner::FilesystemRunner(QObject *parent)
@@ -103,7 +102,18 @@ void FilesystemRunner::createDirectoryMatch(const QFileInfo &info, Sprinter::Mat
 
 void FilesystemRunner::createFileMatch(const QFileInfo &info, Sprinter::MatchData &matchData)
 {
+    Sprinter::QueryMatch match;
+    match.setTitle(i18n("Open %1", info.fileName()));
 
+    QMimeType mimetype = m_mimetypes.mimeTypeForFile(info);
+    match.setImage(generateImage(QIcon::fromTheme(mimetype.iconName()), matchData.queryContext()));
+    const QString fullPath = info.canonicalFilePath();
+    match.setUserData(fullPath);
+    match.setData(fullPath);
+    match.setText(fullPath);
+    match.setType(Sprinter::QuerySession::FileType);
+    match.setSource(Sprinter::QuerySession::FromFilesystem);
+    matchData << match;
 }
 
 #include "moc_filesystem.cpp"
