@@ -32,7 +32,6 @@
 #include "tools/runnerhelpers.h"
 
 /*TODO:
-exact vs close match
 paging
 cache non-existent paths and skip checking them again and again
 */
@@ -54,9 +53,9 @@ void FilesystemRunner::match(Sprinter::MatchData &matchData)
     QFileInfo info(term);
     if (info.exists()) {
         if (info.isDir()) {
-            createDirectoryMatch(info, matchData);
+            createDirectoryMatch(info, matchData, false);
         } else {
-            createFileMatch(info, matchData);
+            createFileMatch(info, matchData, false);
         }
 
         return;
@@ -73,9 +72,9 @@ void FilesystemRunner::match(Sprinter::MatchData &matchData)
     QDir dir(term);
     for (auto entry: dir.entryInfoList(QStringList() << fragment)) {
         if (entry.isDir()) {
-            createDirectoryMatch(entry, matchData);
+            createDirectoryMatch(entry, matchData, true);
         } else {
-            createFileMatch(entry, matchData);
+            createFileMatch(entry, matchData, true);
         }
     }
 }
@@ -86,7 +85,7 @@ bool FilesystemRunner::exec(const Sprinter::QueryMatch &match)
 }
 
 
-void FilesystemRunner::createDirectoryMatch(const QFileInfo &info, Sprinter::MatchData &matchData)
+void FilesystemRunner::createDirectoryMatch(const QFileInfo &info, Sprinter::MatchData &matchData, bool completion)
 {
     Sprinter::QueryMatch match;
     match.setTitle(i18n("Open %1", info.fileName()));
@@ -97,10 +96,11 @@ void FilesystemRunner::createDirectoryMatch(const QFileInfo &info, Sprinter::Mat
     match.setText(fullPath);
     match.setType(Sprinter::QuerySession::FileType);
     match.setSource(Sprinter::QuerySession::FromFilesystem);
+    match.setPrecision(completion ? Sprinter::QuerySession::CloseMatch : Sprinter::QuerySession::ExactMatch);
     matchData << match;
 }
 
-void FilesystemRunner::createFileMatch(const QFileInfo &info, Sprinter::MatchData &matchData)
+void FilesystemRunner::createFileMatch(const QFileInfo &info, Sprinter::MatchData &matchData, bool completion)
 {
     Sprinter::QueryMatch match;
     match.setTitle(i18n("Open %1", info.fileName()));
@@ -113,6 +113,7 @@ void FilesystemRunner::createFileMatch(const QFileInfo &info, Sprinter::MatchDat
     match.setText(fullPath);
     match.setType(Sprinter::QuerySession::FileType);
     match.setSource(Sprinter::QuerySession::FromFilesystem);
+    match.setPrecision(completion ? Sprinter::QuerySession::CloseMatch : Sprinter::QuerySession::ExactMatch);
     matchData << match;
 }
 

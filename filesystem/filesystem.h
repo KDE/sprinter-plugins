@@ -58,8 +58,8 @@ public:
     bool exec(const Sprinter::QueryMatch &match);
 
 private:
-    void createDirectoryMatch(const QFileInfo &info, Sprinter::MatchData &matchData);
-    void createFileMatch(const QFileInfo &info, Sprinter::MatchData &matchData);
+    void createDirectoryMatch(const QFileInfo &info, Sprinter::MatchData &matchData, bool completion);
+    void createFileMatch(const QFileInfo &info, Sprinter::MatchData &matchData, bool completion);
     QIcon m_directoryIcon;
     QMimeDatabase m_mimetypes;
 };
