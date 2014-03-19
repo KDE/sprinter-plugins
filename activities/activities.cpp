@@ -215,7 +215,7 @@ void ActivityRunner::addMatch(const KActivities::Info &activity,
     match.setType(Sprinter::QuerySession::ActivityType);
     match.setSource(Sprinter::QuerySession::FromLocalService);
     match.setImage(image(activity, matchData.queryContext()));
-    match.setTitle(i18n("Switch to activity \"%1\"").arg(activity.name()));
+    match.setTitle(i18n("Switch to activity \"%1\"", activity.name()));
     match.setPrecision(precision);
     matchData << match;
 }
