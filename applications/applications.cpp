@@ -74,9 +74,8 @@ void ApplicationsRunner::generateTopLevelGroups(Sprinter::MatchData &matchData,
         match.setText(group->comment());
         match.setData(s_groupSearchKeyword + group->relPath());
         match.setType(Sprinter::QuerySession::ApplicationGroupType);
-        match.setPrecision(Sprinter::QuerySession::ExactMatch);
+        match.setPrecision(Sprinter::QuerySession::AskMeAgainMatch);
         match.setSource(Sprinter::QuerySession::FromFilesystem);
-        match.setIsSearchTerm(true);
 
         if (!group->icon().isEmpty()) {
             match.setImage(generateImage(QIcon::fromTheme(group->icon()), context));
@@ -122,9 +121,8 @@ void ApplicationsRunner::showEntriesInGroup(const QString &relPath,
         match.setText(group->comment());
         match.setData(s_groupSearchKeyword + group->relPath());
         match.setType(Sprinter::QuerySession::ApplicationGroupType);
-        match.setPrecision(Sprinter::QuerySession::ExactMatch);
+        match.setPrecision(Sprinter::QuerySession::AskMeAgainMatch);
         match.setSource(Sprinter::QuerySession::FromFilesystem);
-        match.setIsSearchTerm(true);
 
         if (!group->icon().isEmpty()) {
             match.setImage(generateImage(QIcon::fromTheme(group->icon()), context));
