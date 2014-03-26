@@ -32,9 +32,17 @@ DateTimeSessionData::DateTimeSessionData(Sprinter::Runner *runner)
       m_updateTimer(new QTimer(this))
 {
     m_updateTimer->setInterval(1000);
-    connect(runner, SIGNAL(startUpdating()), m_updateTimer, SLOT(start()));
-    connect(runner, SIGNAL(stopUpdating()), m_updateTimer, SLOT(stop()));
     connect(m_updateTimer, SIGNAL(timeout()), this, SLOT(performUpdate()));
+}
+
+void DateTimeSessionData::startUpdating()
+{
+    QMetaObject::invokeMethod(m_updateTimer, "start");
+}
+
+void DateTimeSessionData::stopUpdating()
+{
+    QMetaObject::invokeMethod(m_updateTimer, "stop");
 }
 
 bool DateTimeSessionData::shouldStartMatch(const Sprinter::QueryContext &context) const
@@ -160,22 +168,32 @@ QDateTime DateTimeRunner::datetime(const QString &term, bool date, QString &tzNa
 
 void DateTimeRunner::match(Sprinter::MatchData &matchData)
 {
+    DateTimeSessionData *sessionData = qobject_cast<DateTimeSessionData *>(matchData.sessionData());
+    if (!sessionData) {
+        return;
+    }
+
+    bool isTime = false;
     Sprinter::QueryMatch match =
         performMatch(matchData.queryContext().isDefaultMatchesRequest() ?
-                     timeWord : matchData.queryContext().query());
+                     timeWord : matchData.queryContext().query(), &isTime);
 
 //     qDebug() << "got" << match.text() << (!match.data().isNull());
     if (!match.data().isNull()) {
         m_imageSize = matchData.queryContext().imageSize();
         match.setImage(image());
         matchData << match;
-        emit startUpdating();
+        if (isTime) {
+            sessionData->startUpdating();
+        } else {
+            sessionData->stopUpdating();
+        }
     } else {
-        emit stopUpdating();
+        sessionData->stopUpdating();
     }
 }
 
-Sprinter::QueryMatch DateTimeRunner::performMatch(const QString &term)
+Sprinter::QueryMatch DateTimeRunner::performMatch(const QString &term, bool *isTime)
 {
     //qDebug() << "checking" << term;
     if (term.compare(dateWord, Qt::CaseInsensitive) == 0) {
@@ -190,6 +208,9 @@ Sprinter::QueryMatch DateTimeRunner::performMatch(const QString &term)
             return createMatch(QString("%2 (%1)").arg(tzName, date), date, matchData);
         }
     } else if (term.compare(timeWord, Qt::CaseInsensitive) == 0) {
+        if (isTime) {
+            *isTime = true;
+        }
         const QString time = QTime::currentTime().toString(Qt::SystemLocaleLongDate);
         return createMatch(time, time, timeWord);
     } else if (term.startsWith(timeWord + QLatin1Char( ' ' ), Qt::CaseInsensitive)) {
@@ -197,6 +218,9 @@ Sprinter::QueryMatch DateTimeRunner::performMatch(const QString &term)
         QString matchData;
         QDateTime dt = datetime(term, false, tzName, matchData);
         if (dt.isValid()) {
+            if (isTime) {
+                *isTime = true;
+            }
             const QString time = dt.time().toString(Qt::SystemLocaleLongDate);
             return createMatch(QString("%2 (%1)").arg(tzName, time), time, matchData);
         }

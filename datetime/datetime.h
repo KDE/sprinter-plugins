@@ -30,6 +30,8 @@ class DateTimeSessionData : public Sprinter::RunnerSessionData
 
 public:
     DateTimeSessionData(Sprinter::Runner *runner);
+    void startUpdating();
+    void stopUpdating();
     bool shouldStartMatch(const Sprinter::QueryContext &context) const;
 
 private Q_SLOTS:
@@ -49,13 +51,9 @@ public:
     DateTimeRunner(QObject *parent = 0);
     Sprinter::RunnerSessionData *createSessionData();
     void match(Sprinter::MatchData &matchData);
-    Sprinter::QueryMatch performMatch(const QString &term);
+    Sprinter::QueryMatch performMatch(const QString &term, bool *isTime = 0);
 
     QImage image();
-
-Q_SIGNALS:
-    void startUpdating();
-    void stopUpdating();
 
 private:
     QDateTime datetime(const QString &term, bool date, QString &tzName, QString &matchData);
