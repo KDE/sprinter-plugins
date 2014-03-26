@@ -157,6 +157,8 @@ void YoutubeSessionData::queryFinished()
                 matches << match;
 
                 if (!thumbnailUrl.isEmpty()) {
+                    //TODO: requesting the thumbnail EVERY SINGLE TIME is not very cool
+                    //      find a way to re-use existing thumbnails
                     QNetworkRequest thumbRequest(thumbnailUrl);
                     QNetworkReply *thumbReply = m_network->get(thumbRequest);
                     connect(thumbReply, SIGNAL(finished()), this, SLOT(thumbRecv()));
