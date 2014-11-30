@@ -23,7 +23,8 @@ find_package(KF5 NO_MODULE
                     DBusAddons
                     KIO
                     Service
-                    Solid)
+                    Solid
+                    KDE4Support)
 find_package(Qalculate)
 
 if (NOT APPLE)

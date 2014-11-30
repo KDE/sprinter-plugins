@@ -5,5 +5,5 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 add_library(${PROJECT_NAME} SHARED powerdevil.cpp)
 qt5_use_modules(${PROJECT_NAME} Core Gui)
-target_link_libraries(${PROJECT_NAME} KF5::Solid KF5::I18n)
+target_link_libraries(${PROJECT_NAME} KF5::Solid KF5::I18n KF5::KDELibs4Support Qt5::DBus)
 install(TARGETS ${PROJECT_NAME} LIBRARY DESTINATION ${SPRINTER_PLUGINS_PATH})
