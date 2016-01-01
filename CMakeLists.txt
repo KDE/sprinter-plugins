@@ -9,11 +9,14 @@ set(CMAKE_MODULE_PATH
    ${CMAKE_MODULE_PATH})
 
 include(FeatureSummary)
+include(KDEInstallDirs)
+include(KDECMakeSettings)
+include(KDECompilerSettings)
 
 find_package(Sprinter REQUIRED)
 find_package(KSysguardProc)
 #TODO: make i18n optional for runners that don't need it?
-find_package(KF5 NO_MODULE
+find_package(KF5 REQUIRED
                  COMPONENTS I18n
                  OPTIONAL_COMPONENTS
                     Activities

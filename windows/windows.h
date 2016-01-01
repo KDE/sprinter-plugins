@@ -40,9 +40,9 @@ public:
     virtual bool exec(const Sprinter::QueryMatch &match);
 
 private Q_SLOTS:
-    void prepareForMatchSession();
-    void matchSessionComplete();
-    void gatherInfo();
+//    void prepareForMatchSession();
+//    void matchSessionComplete();
+//    void gatherInfo();
 
 private:
     enum WindowAction {

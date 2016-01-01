@@ -12,5 +12,5 @@ add_library(${PROJECT_NAME} SHARED
                 calculator.cpp
                 qalculate_engine.cpp)
 qt5_use_modules(${PROJECT_NAME} Core Gui Network)
-target_link_libraries(${PROJECT_NAME} ${QALCULATE_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} ${QALCULATE_LIBRARIES} Sprinter)
 install(TARGETS ${PROJECT_NAME} LIBRARY DESTINATION ${SPRINTER_PLUGINS_PATH})
