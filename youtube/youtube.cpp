@@ -33,8 +33,8 @@
 
 static const QString shortTrigger = QObject::tr("yt ");
 static const QString longTrigger = QObject::tr("video ");
-// three vars are page size, offset and query (1, 2, 3, 4 resp)
-static const QString url = "http://gdata.youtube.com/feeds/api/videos?max-results=%1&start-index=%2&alt=json&q=%4";
+static const QString url = "https://www.googleapis.com/youtube/v3/search?part=snippet&key=AIzaSyB_g6odwktie-uqTPQui9Bt9RnbcvkAeGE&maxResults=%1&q=%2";
+static const QString s_baseUrl = "https://www.youtube.com/watch?v=";
 
 YoutubeSessionData::YoutubeSessionData(Sprinter::Runner *runner)
     : Sprinter::RunnerSessionData(runner),
@@ -71,8 +71,9 @@ void YoutubeSessionData::startQuery(const QString &query, const Sprinter::QueryC
     }
 
     QNetworkRequest request(url.arg(QString::number(resultsPageSize()),
-                                    QString::number(resultsOffset() + 1),
+//                                    QString::number(resultsOffset() + 1),
                                     query));
+    qDebug() << "request!" << request.url();
     QNetworkAccessManager *network = new QNetworkAccessManager(this);
     QNetworkReply *reply = network->get(request);
     connect(reply, SIGNAL(finished()), this, SLOT(queryFinished()));
@@ -108,45 +109,24 @@ void YoutubeSessionData::queryFinished()
             QJsonObject obj = doc.object();
 
             QVector<Sprinter::QueryMatch> matches;
-            const QJsonArray entries = obj["feed"].toObject()["entry"].toArray();
-            for (QJsonArray::const_iterator it = entries.begin();
-                 it != entries.end();
-                 ++it) {
+            const QJsonArray entries = obj["items"].toArray();
+            for (QJsonArray::const_iterator it = entries.begin(); it != entries.end(); ++it) {
                 const QJsonObject entry = (*it).toObject();
                 if (entry.isEmpty()) {
                     continue;
                 }
 
-                const QJsonObject media = entry["media$group"].toObject();
-                const QString title = media["media$title"].toObject()["$t"].toString();
-                const QString desc = entry["content"].toObject()["$t"].toString();
-                int seconds = media["yt$duration"].toObject()["seconds"].toString().toInt();
-                const QString author = entry["author"].toArray().first().toObject()["name"].toObject()["$t"].toString();
-                const QString url = entry["link"].toArray().first().toObject()["href"].toString();
-                const QString thumbnailUrl = media["media$thumbnail"].toArray().first().toObject()["url"].toString();
-
-                QString time;
-                if (seconds < 60) {
-                    time = "00:" + QString(seconds > 9 ? "" : "0") + QString::number(seconds);
-                } else if (seconds < 60*60) {
-                    int minutes = seconds / 60;
-                    seconds = seconds % 60;
-                    time = QString::number(minutes) + ":" +
-                           (seconds > 9 ? "" : "0") + QString::number(seconds);
-                } else {
-                    int minutes = seconds / 60;
-                    int hours = minutes / 60;
-                    minutes = minutes % 60;
-                    seconds = seconds % 60;
-                    time = QString::number(hours) + ":" +
-                           (minutes > 9 ? "" : "0") + QString::number(minutes) + ":" +
-                           (seconds > 9 ? "" : "0") + QString::number(seconds);
-                }
+                const QJsonObject media = entry["snippet"].toObject();
+                const QString title = media["title"].toString();
+                const QString desc = media["description"].toString();
+                const QString author = media["channelTitle"].toString();
+                const QString url = s_baseUrl + entry["id"].toObject()["videoId"].toString();
+                const QString thumbnailUrl = media["thumbnails"].toObject()["high"].toObject()["url"].toString();
 
 //                 qDebug() << "================================";
 //                 qDebug() << title << seconds << time << desc << thumbnailUrl;
                 Sprinter::QueryMatch match;
-                match.setTitle(tr("%1 (%2, %3)").arg(title, author, time));
+                match.setTitle(tr("%1 (%2)").arg(title, author));
                 match.setText(desc);
                 match.setType(Sprinter::QuerySession::VideoType);
                 match.setSource(Sprinter::QuerySession::FromNetworkService);
